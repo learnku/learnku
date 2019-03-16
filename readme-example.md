@@ -1,0 +1,1 @@
+[readme-example.md](https://learnku.com/docs/laravel-specification/5.5/readme-examplemd/523#876129)
