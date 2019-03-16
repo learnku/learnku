@@ -125,6 +125,7 @@ npm run watch-poll
 | [mewebstudio/Purifier](https://github.com/mewebstudio/Purifier)	|	用户提交的 Html 白名单过滤 | 	文章内容的 Html 安全过滤，防止 XSS 攻击 |
 | [viacreative/sudo-su](https://github.com/viacreative/sudo-su)	|	用户切换	 | 开发环境中快速切换登录账号 |
 | [predis/predis](https://github.com/nrk/predis.git)	| Redis 官方首推的 PHP 客户端开发包 | 	缓存驱动 Redis 基础扩展包 |
+| [erusev/parsedown](https://github.com/erusev/parsedown)	| Markdown 转 Html | 文本编辑显示 |
 
 ## 自定义 Artisan 命令
 | 命令行名字        | 说明    |  Cron  | 代码调用 |
