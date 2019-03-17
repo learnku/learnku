@@ -33,17 +33,17 @@
   <div class="pusher">
     <div class="main container" style="min-height: 80vh;">
       {{-- 网页头 --}}
-      @include('blog.layouts._header')
+      @include('layouts._header')
 
       {{-- 消息提示信息 --}}
-      @include('blog.shared._messages')
+      @include('shared._messages')
 
       {{-- 网页主体 --}}
       @yield('content')
     </div>
 
     {{-- 网页底部 --}}
-    @include('blog.layouts._footer')
+    @include('layouts._footer')
   </div>
 
   <!-- Scripts -->

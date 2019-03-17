@@ -23,8 +23,8 @@
     <div class=" right menu stackable secondary">
       @guest
         <div class="item rm-link-color">
-          <a class="mr-4 no-pjax login_required" href=""><i class="icon sign in "></i> 登录 </a>
-          <a class="no-pjax" href="" style="margin-left: 10px;"><i class="icon user add "></i> 注册 </a>
+          <a class="mr-4 no-pjax login_required" href="{{ route('login') }}"><i class="icon sign in "></i> 登录 </a>
+          <a class="no-pjax" href="{{ route('register') }}" style="margin-left: 10px;"><i class="icon user add "></i> 注册 </a>
         </div>
       @else
         {{-- 添加博文 --}}

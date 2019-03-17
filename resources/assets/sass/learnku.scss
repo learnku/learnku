@@ -9,3 +9,11 @@
 
 // 自定义样式
 
+.column-max-width-500{
+  .image {
+    margin-top: -100px;
+  }
+  .column {
+    max-width: 500px;
+  }
+}
