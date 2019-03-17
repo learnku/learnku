@@ -11,6 +11,8 @@ try {
     window.$ = window.jQuery = require('jquery');
 
     require('./SemanticUI/semantic');
+
+    require('../ext/layer/layer');
 } catch (e) {}
 
 /**

@@ -12,7 +12,7 @@
 */
 
 // 网站主页
-Route::get('/', function () {return view('home');});
+Route::get('/', 'HomeController@index')->name('index');
 
 /**
  * 博客
@@ -24,4 +24,3 @@ Route::namespace('Blog')->group(function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');

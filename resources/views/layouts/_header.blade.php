@@ -40,14 +40,9 @@
 
         {{-- 个人中心 --}}
         <div class="ui simple item dropdown article stackable nav-user-item" tabindex="0">
-          <img class="ui avatar image" src=""> &nbsp;
-            <i class="dropdown icon"></i>
+          <img class="ui avatar image" src=""> &nbsp;{{ Auth::user()->name }}
+          <i class="dropdown icon"></i>
           <div class="ui menu stackable" tabindex="-1">
-
-            <a href="" class="item">
-              <i class="icon newspaper"></i> 我的博客
-            </a>
-
             <a href="/" class="item">
               <i class="icon heart"></i> 我的收藏
             </a>
@@ -63,7 +58,7 @@
             </a>
 
             <a class="item no-pjax" href="javascript:void(0)"
-               data-url=""
+               data-url="{{ route('logout') }}"
                data-method="POST"
                data-prompt="您确定要退出登录吗？"
                title="退出登录" style="cursor: pointer;">
@@ -72,6 +67,13 @@
               <form action="" method="POST" style="display:none">
                 <input type="hidden" name="_method" value="POST">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
+              </form>
+            </a>
+
+            <a class="dropdown-item" id="logout" href="#">
+              <form action="{{ route('logout') }}" method="POST">
+                {{ csrf_field() }}
+                <button class="btn btn-block btn-danger" type="submit" name="button">退出</button>
               </form>
             </a>
           </div>
