@@ -11,6 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// 网站主页
+Route::get('/', function () {return view('welcome');});
+
+/**
+ * 博客
+ */
+Route::namespace('Blog')->group(function () {
+    Route::get('blog', 'PagesController@root')->name('root');
+
 });
