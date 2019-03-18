@@ -13,8 +13,7 @@ class AddReferences extends Migration
     {
         Schema::table('user_infos', function (Blueprint $table) {
             // 联动删除
-            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            // $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -26,7 +25,7 @@ class AddReferences extends Migration
     public function down()
     {
         Schema::table('user_infos', function (Blueprint $table) {
-            // $table->dropForeign(['user_id']);
+            $table->dropForeign(['user_id']);
         });
     }
 }

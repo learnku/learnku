@@ -27,7 +27,7 @@ class CreateUserInfosTable extends Migration
             $table->string('avatar')->nullable()->comment('头像');
             $table->string('introduction')->nullable()->comment('个人简介');
             $table->string('signature')->nullable()->comment('署名');
-            $table->integer('user_id')->index()->comment('用户id');
+            $table->integer('user_id')->unsigned()->index()->comment('用户id');
 
             $table->timestamps();
         });
