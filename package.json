@@ -24,6 +24,7 @@
         "sass-loader": "^7.1.0",
         "sweetalert2": "^8.2.6",
         "vue": "^2.5.17",
-        "vue-template-compiler": "^2.6.7"
+        "vue-template-compiler": "^2.6.7",
+        "sweetalert": "^2.1.2"
     }
 }
