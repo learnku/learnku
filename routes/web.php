@@ -14,13 +14,12 @@
 // 网站主页
 Route::get('/', 'HomeController@index')->name('index');
 
+Auth::routes();
+
 /**
  * 博客
  */
-Route::namespace('Blog')->group(function () {
-    Route::get('blog', 'PagesController@root')->name('root');
-
+Route::group(['namespace'=> 'Blog', 'prefix'=> 'blog'], function (){
+    Route::get('/', 'PagesController@root')->name('root');
 });
-
-Auth::routes();
 
