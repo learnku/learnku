@@ -8,19 +8,11 @@
             <i class="nofloat icon list alt"></i>
             &nbsp;修改资料
         </a>
-        <a href="https://learnku.com/users/24725/edit_avatar" class="item ">
+        <a href="{{ route('users.edit_avatar', $user->id) }}" class="item {{ $_left['active']=='edit_avatar' ? 'active' : '' }}">
             <i class="nofloat icon picture outline"></i>
             &nbsp;修改头像
         </a>
-        <a href="https://learnku.com/users/24725/edit_email_notify" class="item ">
-            <i class="nofloat icon bell"></i>
-            &nbsp;消息通知
-        </a>
-        <a href="https://learnku.com/users/24725/edit_social_binding" class="item ">
-            <i class="nofloat icon flask"></i>
-            &nbsp;账号绑定
-        </a>
-        <a href="https://learnku.com/users/24725/edit_password" class="item ">
+        <a href="{{ route('users.edit_password', $user->id) }}" class="item {{ $_left['active']=='edit_password' ? 'active' : '' }}">
             <i class="nofloat icon lock " style="
     color: inherit;"></i>
             &nbsp;修改密码

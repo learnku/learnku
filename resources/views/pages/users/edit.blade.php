@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', '个人信息')
+@section('title', '修改资料')
 
 @section('content')
     <div class="ui centered grid container stackable">
@@ -46,8 +46,7 @@
                         <div class="two fields">
                             <div class="ten wide field ">
                                 <label for="">GitHub Name</label>
-                                {{--<input name="github_name" type="text" value="{{ old('github_name', $user->info->github_name) }}">--}}
-                                <input name="github_name" type="text" value="{{ $user->info->github_name }}">
+                                <input name="github_name" type="text" value="{{ old('github_name', $user->info->github_name) }}">
                             </div>
                             <div class="six wide field pt-3 mt-4">
                                 请跟 GitHub 上保持一致
@@ -118,8 +117,10 @@
                             <div class="ten wide field ">
                                 <label for="wechat_qrcode">微信账号二维码</label>
                                 <input type="file" name="wechat_qrcode" class="image-upload-input" value="{{ old('wechat_qrcode', $user->info->wechat_qrcode) }}">
+                                @if($user->info->wechat_qrcode)
                                 <img class="payment-qrcode" src="" alt="">
                                 <span class="close clear-image">x</span>
+                                @endif
                             </div>
                             <div class="six wide field pt-3 mt-4">
                                 你的微信个人账号，或者订阅号
@@ -130,9 +131,10 @@
                             <div class="ten wide field ">
                                 <label for="">支付二维码</label>
                                 <input type="file" name="payment_qrcode" class="image-upload-input" value="{{ old('payment_qrcode', $user->info->payment_qrcode) }}">
-
+                                @if($user->info->payment_qrcode)
                                 <img class="payment-qrcode" src="" alt="">
                                 <span class="close clear-image">x</span>
+                                @endif
                             </div>
                             <div class="six wide field pt-3 mt-4">
                                 文章打赏时使用，微信支付二维码

@@ -28,9 +28,14 @@ Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail'
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
 // Email 认证相关路由
+// ...
 
 // 个人中心
 Route::resource('users', 'UsersController', ['only' => ['show', 'update', 'edit']]);
+Route::get('users/{user}/edit_avatar', 'UsersController@edit_avatar')->name('users.edit_avatar');         // 修改头像
+Route::patch('users/{user}/update_avatar', 'UsersController@update_avatar')->name('users.update_avatar'); // 修改头像
+Route::get('users/{user}/edit_password', 'UsersController@edit_password')->name('users.edit_password');          // 修改密码
+Route::patch('users/{user}/update_password', 'UsersController@update_password')->name('users.update_password');  // 修改密码
 
 /**
  * 博客
