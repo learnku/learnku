@@ -10,8 +10,8 @@ window._ = require('lodash');
 try {
     window.$ = window.jQuery = require('jquery');
 
-    // https://sweetalert.js.org/guides/
-    window.Swal = window.swal = require('sweetalert');
+    // https://sweetalert2.github.io/
+    window.Swal = window.swal = require('sweetalert2');
 
     // https://semantic-ui.com/
     require('./SemanticUI/semantic');
