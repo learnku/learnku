@@ -58,7 +58,7 @@
                      name="password_confirmation" required>
             </div>
           </div>
-          {{--<div class="field" style="display: flex;flex-wrap: wrap;">
+          <div class="field" style="display: flex;flex-wrap: wrap;">
             <div class="ui left icon input">
               <i class="user secret icon"></i>
               <input id="captcha" placeholder="验证码" name="captcha" required>
@@ -68,7 +68,7 @@
                  data-position="right center"
                  title="点击图片重新获取图片验证码"
                  src="{{ captcha_src('flat') }}"
-                 onclick="this.src='/captcha/flat?'+Math.random()" title="点击图片重新获取验证码">--}}
+                 onclick="this.src='/captcha/flat?'+Math.random()" title="点击图片重新获取验证码">
             @if ($errors->has('captcha'))
               <div class="ui error message">
                 <p>{{ $errors->first('captcha') }}</p>

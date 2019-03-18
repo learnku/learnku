@@ -64,17 +64,6 @@
                title="退出登录" style="cursor: pointer;">
               <i class="icon sign out"></i>
               退出
-              <form action="" method="POST" style="display:none">
-                <input type="hidden" name="_method" value="POST">
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-              </form>
-            </a>
-
-            <a class="dropdown-item" id="logout" href="#">
-              <form action="{{ route('logout') }}" method="POST">
-                {{ csrf_field() }}
-                <button class="btn btn-block btn-danger" type="submit" name="button">退出</button>
-              </form>
             </a>
           </div>
         </div>
