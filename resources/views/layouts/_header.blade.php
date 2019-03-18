@@ -47,12 +47,12 @@
               <i class="icon heart"></i> 我的收藏
             </a>
 
-            <a href="" class="item">
+            <a href="{{ route('users.show', Auth::id()) }}" class="item">
               <i class="icon user"></i>
               个人中心
             </a>
 
-            <a href="" class="item">
+            <a href="{{ route('users.edit', Auth::id()) }}" class="item">
               <i class="icon settings"></i>
               编辑资料
             </a>

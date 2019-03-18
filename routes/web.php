@@ -29,6 +29,9 @@ Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm
 Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
 // Email 认证相关路由
 
+// 个人中心
+Route::resource('users', 'UsersController', ['only' => ['show', 'update', 'edit']]);
+
 /**
  * 博客
  */
