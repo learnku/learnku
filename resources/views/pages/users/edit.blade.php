@@ -6,6 +6,8 @@
         @include('pages.users._left', ['_left'=> ['active'=> 'edit']])
 
         <div class="twelve wide column">
+            @include('shared._error')
+
             <div class="ui stacked segment">
                 <div class="content px-3 py-3">
                     <h1>
@@ -34,8 +36,8 @@
                             <div class="ten wide field ">
                                 <label for="">性别</label>
                                 <select name="gender" class="ui dropdown">
-                                    <option value="male">男</option>
-                                    <option value="female">女</option>
+                                    <option value="male" {{ $user->info->gender == '1' ? 'selected' : '' }}>男</option>
+                                    <option value="female" {{ $user->info->gender == '0' ? 'selected' : '' }}>女</option>
                                 </select>
                             </div>
                             <div class="six wide field pt-3 mt-4">
@@ -159,7 +161,7 @@
                         <div class="two fields">
                             <div class="ten wide field ">
                                 <label for="">个人简介</label>
-                                <textarea rows="3" name="introduction" cols="50" style="overflow: hidden; overflow-wrap: break-word; resize: none; height: 94.9886px;">{{ old('introduction', $user->introduction) }}</textarea>
+                                <textarea rows="3" name="introduction" cols="50" style="overflow: hidden; overflow-wrap: break-word; resize: none; height: 94.9886px;">{{ old('introduction', $user->info->introduction) }}</textarea>
                             </div>
                             <div class="six wide field pt-3 mt-4">
                                 请一句话介绍你自己，大部分情况下会在你的头像和名字旁边显示

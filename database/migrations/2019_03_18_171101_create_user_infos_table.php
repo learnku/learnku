@@ -15,7 +15,7 @@ class CreateUserInfosTable extends Migration
     {
         Schema::create('user_infos', function (Blueprint $table) {
             $table->increments('id');
-            $table->tinyInteger('gender')->nullable()->comment('性别');
+            $table->tinyInteger('gender')->nullable()->comment('性别: 0-女|1-男');
             $table->string('github_name')->nullable()->comment('GitHub Name');
             $table->string('real_name')->nullable()->comment('真实姓名');
             $table->string('city')->nullable()->comment('城市');
