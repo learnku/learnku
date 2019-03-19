@@ -126,7 +126,8 @@ npm run watch-poll
 | [viacreative/sudo-su](https://github.com/viacreative/sudo-su)	|	用户切换	 | 开发环境中快速切换登录账号 |
 | [predis/predis](https://github.com/nrk/predis.git)	| Redis 官方首推的 PHP 客户端开发包 | 	缓存驱动 Redis 基础扩展包 |
 | [erusev/parsedown](https://github.com/erusev/parsedown)	| Markdown 转 Html | 文本编辑显示 |
-| [laravel-lang](https://github.com/overtrue/laravel-lang)	| 中文语言包 | 翻译 Laravel 自带模板 |
+| [laravel-lang](https://github.com/overtrue/laravel-lang)	| 中文语言包 |  翻译 Laravel 自带模板 |
+| [qiniu/php-sdk](https://github.com/qiniu/php-sdk)	| 七牛云储存 |  用于存储上传图片 + 静态文件缓存加速 |
 
 ## 自定义 Artisan 命令
 | 命令行名字        | 说明    |  Cron  | 代码调用 |
