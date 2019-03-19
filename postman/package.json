@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "336dd0ef-2546-4fe2-aec9-52328ee20114",
+		"_postman_id": "795f5a89-ba01-44e5-9a24-f07d20e0ee3b",
 		"name": "Learnku.net",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -123,6 +123,54 @@
 								"api",
 								"authorizations",
 								"current"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "图片管理",
+			"item": [
+				{
+					"name": "图片上传",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-user1}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file"
+								},
+								{
+									"key": "type",
+									"value": "avatar",
+									"description": "[avatar => '头像',  article=> '文章']",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{domain}}/api/images",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"images"
 							]
 						}
 					},
