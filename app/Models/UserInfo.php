@@ -20,4 +20,9 @@ class UserInfo extends Model
         'introduction',
         'signature',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

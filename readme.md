@@ -131,6 +131,7 @@ npm run watch-poll
 | [laravel-lang](https://github.com/overtrue/laravel-lang)	| 中文语言包 |  翻译 Laravel 自带模板 |
 | [qiniu/php-sdk](https://github.com/qiniu/php-sdk)	| 七牛云储存 |  用于存储上传图片 + 静态文件缓存加速 |
 | [jwt-auth](https://github.com/tymondesigns/jwt-auth)	| JWT 令牌 |  Api 认证 |
+| [intervention/image](https://github.com/Intervention/image)	| 裁剪图片 |  图片上传 |
 
 ## 自定义 Artisan 命令
 | 命令行名字        | 说明    |  Cron  | 代码调用 |

@@ -15,11 +15,11 @@ trait ApiHelper
      * 响应创建的响应并关联位置（如果提供）。
      * Respond with a created response and associate a location if provided.
      *
-     * @param null|string $location
-     * @param null        $content
+     * @param null        $content  响应数据
+     * @param null|string $location 重定向
      * @return Response
      */
-    public function created($location = null, $content = null)
+    public function created($content = null, $location = null)
     {
         $response = new Response($content);
         // 201
