@@ -4,6 +4,8 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -48,6 +50,13 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        // 处理 api 异常
+        if ($request->ajax() && $exception instanceof HttpException) {
+            $message = $exception->getMessage();
+            $status_code = $exception->getStatusCode();
+            return new Response(compact('message','status_code'),$status_code);
+        }
+
         return parent::render($request, $exception);
     }
 }
