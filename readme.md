@@ -73,6 +73,8 @@ $ php artisan migrate --seed
 6. 生成秘钥
 ```
 php artisan key:generate
+
+php artisan jwt:secret
 ```
 
 7. 配置 hosts 文件
@@ -128,6 +130,7 @@ npm run watch-poll
 | [erusev/parsedown](https://github.com/erusev/parsedown)	| Markdown 转 Html | 文本编辑显示 |
 | [laravel-lang](https://github.com/overtrue/laravel-lang)	| 中文语言包 |  翻译 Laravel 自带模板 |
 | [qiniu/php-sdk](https://github.com/qiniu/php-sdk)	| 七牛云储存 |  用于存储上传图片 + 静态文件缓存加速 |
+| [jwt-auth](https://github.com/tymondesigns/jwt-auth)	| JWT 令牌 |  Api 认证 |
 
 ## 自定义 Artisan 命令
 | 命令行名字        | 说明    |  Cron  | 代码调用 |
