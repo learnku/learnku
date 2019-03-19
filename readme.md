@@ -135,6 +135,7 @@ npm run watch-poll
 ## 自定义 Artisan 命令
 | 命令行名字        | 说明    |  Cron  | 代码调用 |
 | --------   | -----:   | :----: | :----: |
+| learnku:generate-token   | 快速为用户生成 jwt token   | 开发调试使用 | postman api 测试 |
 
 ## 队列清单
 | 名称        | 说明    |  调用时机  |
