@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\UserInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class UsersController extends Controller
 {
@@ -54,8 +55,11 @@ class UsersController extends Controller
     }
 
     // 更新头像
-    public function update_avatar()
+    public function update_avatar(Request $request)
     {
+        Storage::disk('qiniu')->write('logo.png', public_path('/images/flags.png'));
+        // Storage::disk('qiniu')->writeStream('aa.png', $request->avatar);
+        dd($request->toArray());
     }
 
     // 修改密码

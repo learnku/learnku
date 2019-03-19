@@ -12,7 +12,8 @@
         "laravel/tinker": "~1.0",
         "mews/captcha": "~2.0",
         "mews/purifier": "~2.0",
-        "overtrue/laravel-lang": "~3.0"
+        "overtrue/laravel-lang": "~3.0",
+        "qiniu/php-sdk": "^7.2"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "~3.2",
