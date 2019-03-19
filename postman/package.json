@@ -1,0 +1,134 @@
+{
+	"info": {
+		"_postman_id": "336dd0ef-2546-4fe2-aec9-52328ee20114",
+		"name": "Learnku.net",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "用户",
+			"item": [
+				{
+					"name": "登录",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							},
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "guccilee",
+									"description": "用户名",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "guccilee@163.com",
+									"description": "邮箱",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "000000",
+									"description": "密码",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{domain}}/api/authorizations",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"authorizations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "刷新token",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{domain}}/api/authorizations/current",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"authorizations",
+								"current"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除token",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sZWFybmt1LnRlc3RcL1wvYXBpXC9hdXRob3JpemF0aW9ucyIsImlhdCI6MTU1Mjk4NzU2MywiZXhwIjoxNTUyOTkxMTYzLCJuYmYiOjE1NTI5ODc1NjMsImp0aSI6Ik1Md21HSk1udVZia1c2SFAiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.uNJ_z7sfdegFJuyy745JaISXUOhBY6BaZlYHno15ETs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{domain}}/api/authorizations/current",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"authorizations",
+								"current"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
