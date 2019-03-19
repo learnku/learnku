@@ -25,7 +25,8 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|between:3,25|regex:/^[A-Za-z0-9\-\_]+$/|unique:users,name,' . Auth::id(),
+            /*'name' => 'required|between:3,25|regex:/^[A-Za-z0-9\-\_]+$/|unique:users,name,' . Auth::id(),*/
+            'name' => 'required|between:2,25|unique:users,name,' . Auth::id(),
             'email' => 'required|email|unique:users,email,' . Auth::id(),
             'introduction' => 'max:80',
             'github_name' => 'max:80',
@@ -45,14 +46,17 @@ class UserRequest extends FormRequest
     public function messages()
     {
         return [
+            'name.unique' => '用户名已被占用，请重新填写',
+            /*'name.regex' => '用户名只支持英文、数字、横杠和下划线。',*/
+            'name.between' => '用户名必须介于 2 - 25 个字符之间。',
+            'name.required' => '用户名不能为空。',
+            'email.required' => '邮箱不能为空',
+            'email.email' => '请填写正确的邮箱',
+            'email.unique' => '邮箱已被注册，请重新填写',
             'avatar.mimes' =>'头像必须是 jpeg, bmp, png, gif 格式的图片',
             'wechat_qrcode.mimes' =>'微信账号二维码必须是 jpeg, bmp, png, gif 格式的图片',
             'payment_qrcode.mimes' =>'支付二维码必须是 jpeg, bmp, png, gif 格式的图片',
             'avatar.dimensions' => '图片的清晰度不够，宽和高需要 208px 以上',
-            'name.unique' => '用户名已被占用，请重新填写',
-            'name.regex' => '用户名只支持英文、数字、横杠和下划线。',
-            'name.between' => '用户名必须介于 3 - 25 个字符之间。',
-            'name.required' => '用户名不能为空。',
             'introduction.max' => '个人简介最多 80 个字符。',
             'real_name.max' => '真实姓名最多 20 个字符。',
             'city.max' => '城市最多 40 个字符。',

@@ -145,21 +145,6 @@
 
                         <div class="two fields">
                             <div class="ten wide field ">
-                                <label for="">用户头像</label>
-                                <input type="file" name="avatar" class="image-upload-input"
-                                       value="{{ old('avatar', $user->avatar) }}">
-                                @if(!empty($user->avatar))
-                                <img class="payment-qrcode" src="{{ $user->avatar }}" alt="">
-                                <span class="close clear-image">x</span>
-                                @endif
-                            </div>
-                            <div class="six wide field pt-3 mt-4">
-                                个人头像
-                            </div>
-                        </div>
-
-                        <div class="two fields">
-                            <div class="ten wide field ">
                                 <label for="">个人简介</label>
                                 <textarea rows="3" name="introduction" cols="50" style="overflow: hidden; overflow-wrap: break-word; resize: none; height: 94.9886px;">{{ old('introduction', $user->info->introduction) }}</textarea>
                             </div>

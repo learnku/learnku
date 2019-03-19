@@ -23,7 +23,7 @@ class UsersController extends Controller
     }
 
     // 更新资料
-    public function update(UserRequest $reques, User $user, UserInfo $info)
+    public function update(UserRequest $reques, User $user)
     {
         $user_id = Auth::id();
         $_user = [
