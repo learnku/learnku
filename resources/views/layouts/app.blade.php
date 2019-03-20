@@ -30,21 +30,24 @@
   </script>
 </head>
 <body class="pushable {{ route_class() }}-page">
-  <div class="pusher">
-    <div class="main container" style="min-height: 80vh;">
-      {{-- 网页头 --}}
-      @include('layouts._header')
+    {{-- 登录弹窗 --}}
+    @include('layouts._login')
 
-      {{-- 消息提示信息 --}}
-      @include('shared._messages')
+    <div class="pusher">
+        <div class="main container" style="min-height: 80vh;">
+            {{-- 网页头 --}}
+            @include('layouts._header')
 
-      {{-- 网页主体 --}}
-      @yield('content')
+            {{-- 消息提示信息 --}}
+            @include('shared._messages')
+
+            {{-- 网页主体 --}}
+            @yield('content')
+        </div>
+
+        {{-- 网页底部 --}}
+        @include('layouts._footer')
     </div>
-
-    {{-- 网页底部 --}}
-    @include('layouts._footer')
-  </div>
 
   <!-- Scripts -->
   <script type="text/javascript" src="{{ mix('js/learnku.js') }}"></script>
