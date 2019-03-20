@@ -7,8 +7,7 @@
     </div>
     <div class="content">
         <form class="ui form login" role="form" method="POST"
-              onsubmit="return false"
-              action="{{ route('api.authorizations.store') }}"
+              action="{{ route('login') }}"
               accept-charset="UTF-8">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <input type="hidden" name="remember" value="yes">

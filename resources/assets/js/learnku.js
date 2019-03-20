@@ -17,11 +17,29 @@ window.scrollToAnchor = function(id) {
 
 class Learnku {
     init() {
+        this.initSubmitBtn();
         this.closeMessage();
         this.initSematicUI();
         this.initDeleteForm();
-        this.initLoginRequired();
-        this.initSubmitBtn();
+    }
+
+    /** 表单提交 */
+    initSubmitBtn(){
+        $('button.ui.button[type="submit"]:not(.no-loading)').click(function() {
+            $(this).addClass("disabled");
+            if($(".clear-submit").length > 0) {
+                var self = $(this);
+                setTimeout(function() {
+                    self.after('<a class="clear-submit ml-3 ts-small" href="javascript:;">清除加载状态</a>')
+                }, 3000)
+            }
+        });
+
+        $("body").on("click", "a.clear-submit", function() {
+            $(this).siblings('button.ui.button[type="submit"]').removeClass("loading"),
+                $(this).siblings('button.ui.button[type="submit"]').removeClass("disabled"),
+                $(this).remove()
+        })
     }
 
     /** 关闭 message 提示消息 */
@@ -143,54 +161,6 @@ class Learnku {
                 })
             }
         });
-    }
-
-    /** 登录弹出层 */
-    initLoginRequired(){
-        $('.login_required').on('click', function (e) {
-            e.preventDefault();
-            $('.ui.login.modal').modal({
-                blurring: true
-            }).modal("show");
-            $(".ui.form.login").find("input[name=return_back]").val("yes");
-        });
-
-
-        $('.ui.login.modal form').submit(function () {
-            axios({
-                url: $(this).attr('action'),
-                method: $(this).attr('method'),
-                data: $(this).serialize()
-            }).then((res)=> {
-                console.log(res);
-                if(res.status == 201){
-                    sessionStorage.setItem('jwt_access_token', res.data.access_token);
-                    sessionStorage.setItem('jwt_expires_in', res.data.expires_in);
-                    sessionStorage.setItem('jwt_token_type', res.data.token_type);
-                }
-            }).catch(e => {
-                console.log(e);
-            })
-        });
-    }
-
-    /** 表单提交 */
-    initSubmitBtn(){
-        $('button.ui.button[type="submit"]:not(.no-loading)').click(function() {
-            $(this).addClass("disabled");
-            if($(".clear-submit").length > 0) {
-                var self = $(this);
-                setTimeout(function() {
-                    self.after('<a class="clear-submit ml-3 ts-small" href="javascript:;">清除加载状态</a>')
-                }, 3000)
-            }
-        });
-
-        $("body").on("click", "a.clear-submit", function() {
-            $(this).siblings('button.ui.button[type="submit"]').removeClass("loading"),
-                $(this).siblings('button.ui.button[type="submit"]').removeClass("disabled"),
-                $(this).remove()
-        })
     }
 }
 

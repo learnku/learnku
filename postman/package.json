@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "795f5a89-ba01-44e5-9a24-f07d20e0ee3b",
+		"_postman_id": "06f9713a-3a15-4ad5-a3d7-2b972cfe1659",
 		"name": "Learnku.net",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -153,7 +153,8 @@
 							"formdata": [
 								{
 									"key": "image",
-									"type": "file"
+									"type": "file",
+									"src": ""
 								},
 								{
 									"key": "type",

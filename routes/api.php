@@ -16,26 +16,29 @@ use Illuminate\Http\Request;
 // 游客可以访问的接口
 Route::group([
     'namespace'=> 'Api',
-], function (){
+], function ($router){
     // 登录
-    Route::post('authorizations', 'AuthorizationsController@store')
-        ->name('api.authorizations.store');
-    // 刷新token
-    Route::put('authorizations/current', 'AuthorizationsController@update')
-        ->name('api.authorizations.update');
-    // 删除token
-    Route::delete('authorizations/current', 'AuthorizationsController@destroy')
-        ->name('api.authorizations.destroy');
+    $router->post('authorizations', 'AuthorizationsController@login')
+        ->name('api.authorizations.login');
 });
+
 
 // 需要 token 验证的接口
 Route::group([
     'namespace'=> 'Api',
     'middleware'=> 'auth:api',
-], function (){
+], function ($router){
+    // 刷新token
+    $router->put('authorizations/refresh', 'AuthorizationsController@refresh')
+        ->name('api.authorizations.refresh');
+    // 删除token
+    $router->delete('authorizations/logout', 'AuthorizationsController@logout')
+        ->name('api.authorizations.logout');
+    // 获取当前登录用户信息
+    $router->get('me', 'AuthorizationsController@me')->name('api.me.show');
+
     // 图片资源
-    // Route::post('images', 'ImagesController@store')->name('api.images.store');
-    Route::post('images', 'ImagesController@store')->name('api.images.store');
+    $router->post('images', 'ImagesController@store')->name('api.images.store');
 });
 
 
