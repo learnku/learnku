@@ -15,6 +15,9 @@ try {
 
     // https://semantic-ui.com/
     require('./SemanticUI/semantic');
+
+    // 图片上传
+    window.WebUploader = require('../ext/webuploader-0.1.5/webuploader.html5only');
 } catch (e) {}
 
 /**
