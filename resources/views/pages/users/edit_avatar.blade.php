@@ -3,6 +3,14 @@
 @section('title', '修改头像')
 
 @section('content')
+    <style type="text/css">
+        .web-upload-base{
+            position: relative;
+            background-color: #fafafa;
+            box-shadow: inset 0 3px 6px rgba(0, 0, 0, .05);
+            border: 1px solid rgba(34, 36, 38, 0.15);
+        }
+    </style>
     <div class="ui centered grid container stackable">
         @include('pages.users._left', ['_left'=> ['active'=> 'edit_avatar']])
 
@@ -38,9 +46,30 @@
                             <input type="file" name="avatar" id="file" required="">
                         </div>
 
-                        <div class="filed mt-3">
-                            <button class="ui button primary" id="upload-button" type="submit">上传头像</button>
+                        <!-- 上传图片盒子 -->
+                        <div id="uploader-avatar" class="web-upload-base">
+                            <!-- 上传文件相关 -->
+                            <div class="queueList">
+                                <div class="placeholder">
+                                    <!-- 上传图片按钮 -->
+                                    <div id="filePicker"></div>
+                                </div>
+                            </div>
+                            <!-- 状态栏 -->
+                            <div class="statusBar" style="display:none;">
+                                <div class="progress">
+                                    <span class="text">0%</span>
+                                    <span class="percentage"></span>
+                                </div><div class="info"></div>
+                                <div class="btns">
+                                    <div class="uploadBtn">开始上传</div>
+                                </div>
+                            </div>
                         </div>
+
+                        <!-- <div class="filed mt-3">
+                            <button class="ui button primary" id="upload-button" type="submit">上传头像</button>
+                        </div> -->
 
 
                         <div class="ui message warning" id="loading" style="display: none;" role="alert">
@@ -52,10 +81,19 @@
                         </div>
                         <div id="message"></div>
                     </form>
-
-
+            
                 </div>
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+<script type="text/javascript">
+    var avatar = new MyWebUpload({
+        wrapDom: '#uploader-avatar',
+        fileNumLimit: 2,
+    });
+    avatar.init();
+</script>
 @endsection

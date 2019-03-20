@@ -18,6 +18,7 @@ try {
 
     // 图片上传
     window.WebUploader = require('../ext/webuploader-0.1.5/webuploader.html5only');
+    require('../ext/webuploader-0.1.5/init');
 } catch (e) {}
 
 /**
