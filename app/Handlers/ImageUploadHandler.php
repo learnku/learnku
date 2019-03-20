@@ -2,6 +2,7 @@
 namespace App\Handlers;
 
 use Image;
+use Illuminate\Support\Facades\Storage;
 
 class ImageUploadHandler
 {
@@ -19,7 +20,7 @@ class ImageUploadHandler
     {
         // 构建存储的文件夹规则，值如：uploads/images/avatars/201709/21/
         // 文件夹切割能让查找效率更高。
-        $folder_name = "uploads/images/$folder/" . date("Ym", time()) . '/'.date("d", time()).'/';
+        $folder_name = $folder_qiniu = "uploads/images/$folder/" . date("Ym", time()) . '/'.date("d", time()).'/';
         // 文件具体存储的物理路径，`public_path()` 获取的是 `public` 文件夹的物理路径。
         // 值如：/home/vagrant/Code/larabbs/public/uploads/images/avatars/201709/21/
         $upload_path = public_path() . '/' . $folder_name;
@@ -32,15 +33,25 @@ class ImageUploadHandler
         if ( ! in_array($extension, $this->allowed_ext)) {
             return false;
         }
+
         // 将图片移动到我们的目标存储路径中
         $file->move($upload_path, $filename);
+
         // 如果限制了图片宽度，就进行裁剪
         if ($max_width && $extension != 'gif') {
             // 此类中封装的函数，用于裁剪图片
             $this->reduseSize($upload_path . $filename, $max_width);
+        } else {
+            // 将图片上传至七牛云空间
+            $qiniu = Storage::disk('qiniu');
+            $qiniu->write($folder_qiniu . $filename, $upload_path . $filename);
         }
+
+        // 删除本地文件
+        unlink($folder_qiniu . $filename);
+
         return [
-            'path' => config('app.url') . "/$folder_name$filename"
+            'path' => "/$folder_name$filename"
         ];
     }
 
@@ -51,6 +62,7 @@ class ImageUploadHandler
      */
     public function reduseSize($file_path, $max_width)
     {
+        $folder_qiniu = str_replace(public_path(), '', $file_path);
         // 先实例化，传参是文件的磁盘物理路径
         $image = Image::make($file_path);
         // 进行大小调整的操作
@@ -62,5 +74,9 @@ class ImageUploadHandler
         });
         // 对图片修改后进行保存
         $image->save();
+
+        // 将图片上传至七牛云空间
+        $qiniu = Storage::disk('qiniu');
+        $qiniu->write($folder_qiniu, $file_path);
     }
 }

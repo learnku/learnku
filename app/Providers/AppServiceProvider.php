@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
          * Storage::disk('qiniu_cdns')->write('test/logo.png', storage_path('app/public/images/logo.png'));
          */
         Storage::extend('qiniu', function ($app, $config) {
-            return new Filesystem(new QiniuAdapter('qiniu', 'uploads'));
+            return new Filesystem(new QiniuAdapter('qiniu', ''));
         });
         Storage::extend('qiniu_cdns', function ($app, $config) {
             return new Filesystem(new QiniuAdapter('qiniu_cdns', ''));
