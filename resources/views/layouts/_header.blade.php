@@ -40,7 +40,7 @@
 
         {{-- 个人中心 --}}
         <div class="ui simple item dropdown article stackable nav-user-item" tabindex="0">
-          <img class="ui avatar image" src=""> &nbsp;{{ Auth::user()->name }}
+          <img class="ui avatar image" src="{{ assert_images(Auth::user()->info->image->path) }}"> &nbsp;{{ Auth::user()->name }}
           <i class="dropdown icon"></i>
           <div class="ui menu stackable" tabindex="-1">
             <a href="/" class="item">

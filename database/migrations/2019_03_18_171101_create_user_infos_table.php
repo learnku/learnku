@@ -24,9 +24,10 @@ class CreateUserInfosTable extends Migration
             $table->string('personal_website')->nullable()->comment('个人网站');
             $table->string('wechat_qrcode')->nullable()->comment('微信账号二维码');
             $table->string('payment_qrcode')->nullable()->comment('支付二维码');
-            $table->string('avatar')->nullable()->comment('头像');
             $table->string('introduction')->nullable()->comment('个人简介');
             $table->string('signature')->nullable()->comment('署名');
+            $table->string('avatar')->nullable()->comment('头像: 暂不启用');
+            $table->integer('image_id')->nullable()->unsigned()->index()->comment('头像对应的图片表 id ');
             $table->integer('user_id')->unsigned()->index()->comment('用户id');
 
             $table->timestamps();

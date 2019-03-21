@@ -16,13 +16,21 @@ class UserInfo extends Model
         'personal_website',
         'wechat_qrcode',
         'payment_qrcode',
-        'avatar',
         'introduction',
         'signature',
+        'avatar',
+        'image_id'
     ];
 
+    // 用户
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    // 头像
+    public function image()
+    {
+        return $this->belongsTo(Image::class);
     }
 }

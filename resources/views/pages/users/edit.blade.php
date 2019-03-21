@@ -115,7 +115,7 @@
                             </div>
                         </div>
 
-                        <div class="two fields">
+                        {{--<div class="two fields">
                             <div class="ten wide field ">
                                 <label for="wechat_qrcode">微信账号二维码</label>
                                 <input type="file" name="wechat_qrcode" class="image-upload-input" value="{{ old('wechat_qrcode', $user->info->wechat_qrcode) }}">
@@ -141,7 +141,7 @@
                             <div class="six wide field pt-3 mt-4">
                                 文章打赏时使用，微信支付二维码
                             </div>
-                        </div>
+                        </div>--}}
 
                         <div class="two fields">
                             <div class="ten wide field ">

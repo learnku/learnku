@@ -22,14 +22,14 @@
                           accept-charset="UTF-8">
                         <input name="_method" type="hidden" value="PATCH">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <input type="hidden" name="avatar_image_id" value="">
+                        <input type="hidden" name="image_id" value="{{ old('image_id', $user->info->image_id) }}">
 
                         <div>
                             <img id="upload-img"
                                  class="upload-img image-border ui popover"
                                  data-variation="inverted"
                                  data-content="【点击我】上传图片吧"
-                                 src="{{ default_img() }}" width="320">
+                                 src="{{ default_img($user->info->image->path) }}" width="320">
                         </div>
 
                         <div class="filed mt-3">
@@ -52,6 +52,7 @@
             success: function (res) {
                 let path = assert_images(res.data.path);
                 $(self).attr('src', path);
+                $(self).closest('form').find("input[name='image_id']").val(res.data.id);
             }
         });
     });

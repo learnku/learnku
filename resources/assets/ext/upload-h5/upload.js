@@ -158,7 +158,14 @@ class MyUploadOne {
                     showConfirmButton: false,
                     showCancelButton: true
                 });
-            } else {
+            } else if(response.data && response.data.message){
+                Swal.fire({
+                    type: 'error',
+                    text: response.data.message,
+                    showConfirmButton: false,
+                    showCancelButton: true
+                });
+            }else {
                 // 回调
                 self.setting.error(error);
             }

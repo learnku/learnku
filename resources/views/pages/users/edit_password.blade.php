@@ -7,6 +7,8 @@
         @include('pages.users._left', ['_left'=> ['active'=> 'edit_password']])
 
         <div class="twelve wide column">
+            @include('shared._error')
+
             <div class="ui stacked segment">
                 <div class="content px-3 py-3">
                     <h1>

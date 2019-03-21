@@ -42,8 +42,8 @@ class UsersController extends Controller
             "introduction" => $reques->introduction,
             "signature" => $reques->signature,
         ];
-        $user->update($_user);
-        $user->info->update($_info);
+        Auth::user()->update($_user);
+        Auth::user()->info->update($_info);
 
         return redirect()->route('users.edit', $user->id)->with('success', '个人资料更新成功！');
     }
@@ -55,11 +55,13 @@ class UsersController extends Controller
     }
 
     // 更新头像
-    public function update_avatar(Request $request)
+    public function update_avatar(Request $request, User $user)
     {
-        Storage::disk('qiniu')->write('logo.png', public_path('/images/flags.png'));
-        // Storage::disk('qiniu')->writeStream('aa.png', $request->avatar);
-        dd($request->toArray());
+        $_info = [
+            'image_id'=> $request->image_id
+        ];
+        Auth::user()->info->update($_info);
+        return redirect()->route('users.edit_avatar', $user->id)->with('success', '个人头像更新成功 ！');
     }
 
     // 修改密码
@@ -69,7 +71,20 @@ class UsersController extends Controller
     }
 
     // 更新密码
-    public function update_password()
+    public function update_password(Request $request, User $user)
     {
+        $this->validate($request,[
+            // 不为空,两次密码是否相同
+            'password'=>['required', 'min:6', 'confirmed'
+            ],
+        ],[
+            'password.required'=>"密码不能为空",
+            'password.confirmed'=>"密码与确认密码不匹配",
+        ]);
+
+        Auth::user()->update([
+            'password' => bcrypt($request->password),
+        ]);
+        return redirect()->route('users.edit_password', $user->id)->with('success', '个人密码更新成功 !');
     }
 }
