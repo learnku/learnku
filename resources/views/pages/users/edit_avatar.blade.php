@@ -3,14 +3,6 @@
 @section('title', '修改头像')
 
 @section('content')
-    <style type="text/css">
-        .web-upload-base{
-            position: relative;
-            background-color: #fafafa;
-            box-shadow: inset 0 3px 6px rgba(0, 0, 0, .05);
-            border: 1px solid rgba(34, 36, 38, 0.15);
-        }
-    </style>
     <div class="ui centered grid container stackable">
         @include('pages.users._left', ['_left'=> ['active'=> 'edit_avatar']])
 
