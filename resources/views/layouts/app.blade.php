@@ -27,7 +27,7 @@
             'following_users': ['GucciLee'],
             'routes': {
                 'api_search': '',
-                'upload_image': '{{ config('app.url') }}' + '/uploads',
+                'upload_image': "{{ route('api.images.store') }}",
                 'cdn_store': ''
             }
         };

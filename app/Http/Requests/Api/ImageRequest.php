@@ -24,7 +24,7 @@ class ImageRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'type' => 'required|string|in:avatar,article',
+            'image_type' => 'required|string|in:avatar,article',
             'image' => 'required|mimes:jpeg,bmp,png,gif',
         ];
 

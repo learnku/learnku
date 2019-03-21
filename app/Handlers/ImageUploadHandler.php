@@ -37,18 +37,21 @@ class ImageUploadHandler
         // 将图片移动到我们的目标存储路径中
         $file->move($upload_path, $filename);
 
-        // 如果限制了图片宽度，就进行裁剪
-        if ($max_width && $extension != 'gif') {
-            // 此类中封装的函数，用于裁剪图片
-            $this->reduseSize($upload_path . $filename, $max_width);
+        // 如果是本地就存储到磁盘, 否则存储到 七牛云
+        if (app()->isLocal()){
+            // 如果限制了图片宽度，就进行裁剪
+            if ($max_width && $extension != 'gif') {
+                // 此类中封装的函数，用于裁剪图片
+                $this->reduseSize($upload_path . $filename, $max_width);
+            }
         } else {
             // 将图片上传至七牛云空间
             $qiniu = Storage::disk('qiniu');
             $qiniu->write($folder_qiniu . $filename, $upload_path . $filename);
-        }
 
-        // 删除本地文件
-        unlink($folder_qiniu . $filename);
+            // 删除本地文件
+            unlink($folder_qiniu . $filename);
+        }
 
         return [
             'path' => "/$folder_name$filename"
@@ -62,7 +65,6 @@ class ImageUploadHandler
      */
     public function reduseSize($file_path, $max_width)
     {
-        $folder_qiniu = str_replace(public_path(), '', $file_path);
         // 先实例化，传参是文件的磁盘物理路径
         $image = Image::make($file_path);
         // 进行大小调整的操作
@@ -74,9 +76,5 @@ class ImageUploadHandler
         });
         // 对图片修改后进行保存
         $image->save();
-
-        // 将图片上传至七牛云空间
-        $qiniu = Storage::disk('qiniu');
-        $qiniu->write($folder_qiniu, $file_path);
     }
 }

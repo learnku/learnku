@@ -28,7 +28,10 @@
 @section('script')
 <script type="text/javascript">
     var avatar = new MyWebUpload({
-        wrapDom: '#uploader-avatar'
+        wrapDom: '#uploader-avatar',
+        formData: {
+            'image_type': 'avatar'
+        }
     });
     let uploader = avatar.init();
 
@@ -37,9 +40,26 @@
         id: '#filePicker2',
         label: '继续添加'
     });
+
+    // 上传成功
+    uploader.onUploadSuccess = function (file, response) {};
+    // 上传失败
+    uploader.onUploadError = function (file, code) {};
 </script>
 @endsection
 ``````````````````````````````````````````````````````````````````````````` */
+
+// X-CSRF-TOKEN
+let token = document.head.querySelector('meta[name="csrf-token"]');
+if (token) {
+    token = token.content;
+}
+// Authorization
+let jwt_token = document.head.querySelector('meta[name="jwt-token"]');
+if(jwt_token) {
+    jwt_token = jwt_token.content;
+}
+
 
 class MyWebUpload{
     constructor(setting){
@@ -52,8 +72,15 @@ class MyWebUpload{
         this.setting = {
             wrapDom: '#uploader',
             server: Config.routes.upload_image || '/api/images',
+            method: 'POST',
             // 提交的额外数据
-            formData: {},
+            formData: {
+                'image_type': ''
+            },
+            // 设置文件上传域的name
+            fileVal: 'image',
+            // 设置为 true 后，不需要手动调用上传，有文件选择即开始上传
+            auto: false,
             // 指定选择文件的按钮容器，不指定则不创建按钮
             pick: {
                 id: '#filePicker',
@@ -78,11 +105,17 @@ class MyWebUpload{
             // 总大小限制
             fileSizeLimit: 2 * 1024 * 1024,         
             // 单图片大小限制
-            fileSingleSizeLimit: 2 * 1024 * 1024    
-        }
+            fileSingleSizeLimit: 2 * 1024 * 1024,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRF-TOKEN': token ? token : '',
+                'Authorization': jwt_token ? jwt_token : ''
+            }
+        };
 
         // 配置文件
-        this.setting = Object.assign({}, this.setting, setting)
+        this.setting = Object.assign({}, this.setting, setting);
+
         // 实例对象
         this.uploader = null;
 
@@ -123,7 +156,7 @@ class MyWebUpload{
         // 实例化
         this.uploader = WebUploader.create(self.setting);
 
-        // 文件准备完成
+        // 当文件被加入队列以后触发。
         this.uploader.onFileQueued = function( file ) {
             self.fileCount++;
             self.fileSize += file.size;
@@ -137,6 +170,7 @@ class MyWebUpload{
             self.setState( 'ready' );
             self.updateTotalProgress();
         };
+        // 当文件被移除队列后触发
         this.uploader.onFileDequeued = function( file ) {
             self.fileCount--;
             self.fileSize -= file.size;
@@ -149,8 +183,18 @@ class MyWebUpload{
             self.updateTotalProgress();
         };
 
-        this.uploader.onError = function( code ) {
-            alert( 'Eroor: ' + code );
+        this.uploader.onError = function( code, value ) {
+            if (code == "Q_TYPE_DENIED") {
+                alert('请上传JPG、PNG、GIF、BMP格式文件！');
+            } else if(code == "Q_EXCEED_NUM_LIMIT"){
+                alert('一次最多上传'+ value +'张图片！');
+            }else if(code == "F_EXCEED_SIZE"){
+                alert('图片大小不能超过'+ (value / 1024 / 1024 *1000) +'KB');
+            }else if(code == 'F_DUPLICATE'){
+                alert('请不要上传重复的图片！');
+            }else {
+                alert("上传出错！请检查后重新上传！错误代码:" + code);
+            }
         };
 
         this.uploader.on( 'all', function( type ) {
@@ -171,12 +215,37 @@ class MyWebUpload{
             }
         });
 
+        this.$upload.on('click', function() {
+            if ( $(this).hasClass( 'disabled' ) ) {
+                return false;
+            }
+
+            if ( self.state === 'ready' ) {
+                self.uploader.upload();
+            } else if ( self.state === 'paused' ) {
+                self.uploader.upload();
+            } else if ( self.state === 'uploading' ) {
+                self.uploader.stop();
+            }
+        });
+
+        this.$info.on( 'click', '.retry', function() {
+            this.uploader.retry();
+        } );
+
+        this.$info.on( 'click', '.ignore', function() {
+            alert( 'todo' );
+        } );
+
+        this.$upload.addClass( 'state-' + this.state );
+
         // 返回实例对象
         return this.uploader;
     }
 
     addFile(file){
         let self = this;
+        let text = '';
         var $li = $( '<li id="' + file.id + '">' +
             '<p class="title">' + file.name + '</p>' +
             '<p class="imgWrap"></p>'+
@@ -210,7 +279,6 @@ class MyWebUpload{
         if ( file.getStatus() === 'invalid' ) {
             showError( file.statusText );
         } else {
-            // @todo lazyload
             $wrap.text( '预览中' );
             self.uploader.makeThumb( file, function( error, src ) {
                 var img;
@@ -253,7 +321,6 @@ class MyWebUpload{
 
             // 成功
             if ( cur === 'error' || cur === 'invalid' ) {
-                console.log( file.statusText );
                 showError( file.statusText );
                 self.percentages[ file.id ][ 1 ] = 1;
             } else if ( cur === 'interrupt' ) {
@@ -363,7 +430,7 @@ class MyWebUpload{
 
             case 'ready':
                 self.$placeHolder.addClass( 'element-invisible' );
-                $( '#filePicker2' ).removeClass( 'element-invisible');
+                $('#filePicker2' ).removeClass( 'element-invisible');
                 self.$queue.parent().addClass('filled');
                 self.$queue.show();
                 self.$statusBar.removeClass('element-invisible');
@@ -371,7 +438,7 @@ class MyWebUpload{
                 break;
 
             case 'uploading':
-                $( '#filePicker2' ).addClass( 'element-invisible' );
+                $('#filePicker2' ).addClass( 'element-invisible' );
                 self.$progress.show();
                 self.$progress.show();
                 self.$upload.text( '暂停上传' );
@@ -384,7 +451,7 @@ class MyWebUpload{
 
             case 'confirm':
                 self.$progress.hide();
-                $( '#filePicker2' ).removeClass( 'element-invisible' );
+                $('#filePicker2' ).removeClass( 'element-invisible' );
                 self.$upload.text( '开始上传' );
 
                 stats = self.uploader.getStats();
@@ -396,7 +463,7 @@ class MyWebUpload{
             case 'finish':
                 stats = self.uploader.getStats();
                 if ( stats.successNum ) {
-                    alert( '上传成功' );
+                    // alert( '上传成功' );
                 } else {
                     // 没有成功的图片，重设
                     self.state = 'done';
@@ -417,8 +484,8 @@ class MyWebUpload{
         } else if ( this.state === 'confirm' ) {
             stats = this.uploader.getStats();
             if ( stats.uploadFailNum ) {
-                text = '已成功上传' + stats.successNum+ '张照片至XX相册，'+
-                    stats.uploadFailNum + '张照片上传失败，<a class="retry" href="#">重新上传</a>失败图片或<a class="ignore" href="#">忽略</a>'
+                text = '已成功上传' + stats.successNum+ '张照片，'+
+                    stats.uploadFailNum + '张照片上传失败';
             }
 
         } else {

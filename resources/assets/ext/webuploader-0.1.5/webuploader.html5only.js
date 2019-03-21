@@ -5965,9 +5965,9 @@
                         me._response = xhr.responseText;
                         return me.trigger( 'error', 'server' );
                     }
-    
-    
-                    return me.trigger( 'error', me._status ? 'http' : 'abort' );
+
+                    // return me.trigger( 'error', me._status ? 'http' : 'abort' );
+                    return me.trigger( 'error', me._status ? xhr.responseText : 'abort' );
                 };
     
                 me._xhr = xhr;

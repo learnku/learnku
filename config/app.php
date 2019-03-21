@@ -54,6 +54,12 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
+    // 七牛 images 镜像空间
+    'images_url' => env('APP_IMAGES_URL',  'http://localhost'),
+    # 七牛 cdns 镜像空间
+    'cdns_url' => env('APP_CDNS_URL',  'http://localhost'),
+
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone

@@ -14,16 +14,22 @@ use Illuminate\Support\Facades\Auth;
 
 class ImagesController extends Controller
 {
+    /**
+     * 图片上传功能
+     * @param ImageRequest $request
+     * @param ImageUploadHandler $uploader
+     * @param Image $image
+     * @return \Illuminate\Http\Response
+     */
     public function store(ImageRequest $request, ImageUploadHandler $uploader, Image $image)
     {
         $user = $this->user();
 
-        // Storage::disk('qiniu')->write('test/logo.png', storage_path('app/public/images/logo.png'));
         $size = $request->type == 'avatar' ? 362 : 1024;
-        $result = $uploader->save($request->image, str_plural($request->type), $user->id, $size);
+        $result = $uploader->save($request->image, str_plural($request->image_type), $user->id, $size);
 
         $image->path = $result['path'];
-        $image->type = $request->type;
+        $image->image_type = $request->image_type;
         $image->user_id = $user->id;
         $image->save();
 
