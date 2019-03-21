@@ -7,3 +7,14 @@
 
 ## Api
 1. [基于 Laravel 5.5 构建 & 测试 RESTful API](https://laravelacademy.org/post/9153.html)
+
+
+## artisan 
+```
+// 重置数据库
+php artisan migrate:refresh --seed
+
+// 博客分类
+php artisan make:scaffold BlogCategories --schema="name:string:index,description:text:nullable,post_count:integer:default(0)"
+
+```
