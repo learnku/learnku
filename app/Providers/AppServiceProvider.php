@@ -18,6 +18,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // 中文友好时间戳
+        \Carbon\Carbon::setLocale('zh');
+
         /**
          * 注册新的云存储驱动 七牛
          * Storage::disk('qiniu')->write('test/logo.png', storage_path('app/public/images/logo.png'));
