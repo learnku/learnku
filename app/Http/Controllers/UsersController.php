@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Storage;
 
 class UsersController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['except'=> ['show']]);
+    }
+
     public function show(User $user)
     {
         return view('pages.users.show', compact('user'));
@@ -19,14 +24,14 @@ class UsersController extends Controller
     // 修改资料
     public function edit(User $user)
     {
-        // dd($user->info()->toSql());
+        $this->authorize('update', $user);
         return view('pages.users.edit', compact('user'));
     }
 
     // 更新资料
     public function update(UserRequest $reques, User $user)
     {
-        $user_id = Auth::id();
+        $this->authorize('update', $user);
         $_user = [
             'name' => $reques->name,
             'email' => $reques->email,
@@ -42,8 +47,8 @@ class UsersController extends Controller
             "introduction" => $reques->introduction,
             "signature" => $reques->signature,
         ];
-        Auth::user()->update($_user);
-        Auth::user()->info->update($_info);
+        $user->update($_user);
+        $user->info->update($_info);
 
         return redirect()->route('users.edit', $user->id)->with('success', '个人资料更新成功！');
     }
@@ -51,28 +56,32 @@ class UsersController extends Controller
     // 修改头像
     public function edit_avatar(User $user)
     {
+        $this->authorize('update', $user);
         return view('pages.users.edit_avatar', compact('user'));
     }
 
     // 更新头像
     public function update_avatar(Request $request, User $user)
     {
+        $this->authorize('update', $user);
         $_info = [
             'image_id'=> $request->image_id
         ];
-        Auth::user()->info->update($_info);
+        $user->info->update($_info);
         return redirect()->route('users.edit_avatar', $user->id)->with('success', '个人头像更新成功 ！');
     }
 
     // 修改密码
     public function edit_password(User $user)
     {
+        $this->authorize('update', $user);
         return view('pages.users.edit_password', compact('user'));
     }
 
     // 更新密码
     public function update_password(Request $request, User $user)
     {
+        $this->authorize('update', $user);
         $this->validate($request,[
             // 不为空,两次密码是否相同
             'password'=>['required', 'min:6', 'confirmed'
@@ -82,7 +91,7 @@ class UsersController extends Controller
             'password.confirmed'=>"密码与确认密码不匹配",
         ]);
 
-        Auth::user()->update([
+        $user->update([
             'password' => bcrypt($request->password),
         ]);
         return redirect()->route('users.edit_password', $user->id)->with('success', '个人密码更新成功 !');

@@ -29,7 +29,7 @@
                                  class="upload-img image-border ui popover"
                                  data-variation="inverted"
                                  data-content="【点击我】上传图片吧"
-                                 src="{{ default_img($user->info->image->path) }}" width="320">
+                                 src="{{ default_img(isset($user->info->image->path) ? $user->info->image->path : '') }}" width="320">
                         </div>
 
                         <div class="filed mt-3">
