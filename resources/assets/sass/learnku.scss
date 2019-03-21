@@ -1,9 +1,6 @@
 // SemanticUI
 @import 'SemanticUI/semantic';
 
-// 图片上传
-@import "../ext/webuploader-0.1.5/webuploader";
-
 // Variables 全局变量 (必须放在 bootstrap 之后)
 @import "variables";
 
@@ -22,6 +19,6 @@
 }
 
 // 弹出层
-.ui.small.modal{
-    // margin: auto !important;
+.upload-img{
+    cursor: pointer;
 }

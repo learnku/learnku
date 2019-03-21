@@ -26,8 +26,10 @@
             'url': "{{ config('app.url') }}",
             'following_users': ['GucciLee'],
             'routes': {
-                'api_search': '',
+                'images_domain': "{{ config('app.images_url') }}",
+                'cdns_domain': "{{ config('app.cdns_url') }}",
                 'upload_image': "{{ route('api.images.store') }}",
+                'api_search': '',
                 'cdn_store': ''
             }
         };

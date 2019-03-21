@@ -15,6 +15,11 @@ window.scrollToAnchor = function(id) {
     }, "slow")
 };
 
+// 七牛 images 镜像
+window.assert_images = function (path) {
+    return Config.routes.images_domain + path;
+};
+
 class Learnku {
     init() {
         this.initSubmitBtn();

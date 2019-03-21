@@ -32,12 +32,12 @@
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <input type="hidden" name="avatar_image_id" value="">
 
-                        <div id="image-preview-div">
-                            <img id="preview-img" class="avatar-preview-img image-border " src="" width="320">
-                        </div>
-
-                        <div class="mb-3 mt-3">
-                            <button class="ui button" id="test" type="button">上传图片</button>
+                        <div>
+                            <img id="upload-img"
+                                 class="upload-img image-border ui popover"
+                                 data-variation="inverted"
+                                 data-content="【点击我】上传图片吧"
+                                 src="{{ default_img() }}" width="320">
                         </div>
 
                         <div class="filed mt-3">
@@ -53,8 +53,15 @@
 
 @section('script')
 <script type="text/javascript">
-    $("#test").click(function () {
-        new MyUploadOne();
+    $("#upload-img").click(function () {
+        let self = this;
+        new MyUploadOne({
+            'file_type': 'avatar',
+            success: function (res) {
+                let path = assert_images(res.data.path);
+                $(self).attr('src', path);
+            }
+        });
     });
 </script>
 @endsection
