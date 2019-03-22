@@ -17,26 +17,13 @@ class BlogArticlesController extends Controller
 
 	public function index()
 	{
-        // SELECT * FROM blog_articles left JOIN users ON blog_articles.user_id = users.id JOIN user_infos ON blog_articles.user_id = user_infos.user_id JOIN images ON blog_articles.user_id = images.user_id AND images.image_type = 'avatar';
-        // SELECT blog_articles.*, images.path user_avatar FROM blog_articles left JOIN users ON blog_articles.user_id = users.id JOIN user_infos ON blog_articles.user_id = user_infos.user_id JOIN images ON blog_articles.user_id = images.user_id AND images.image_type = 'avatar'
-
-        // DB::raw("SELECT * FROM users WHERE name =:name and password = :password"),
-        /*$blog_articles = DB::table('blog_articles')
+        $blog_articles = BlogArticle::with(['category', 'user'])
+        	->select('blog_articles.*', 'images.path as avatar_path')
             ->leftJoin('images', function ($join){
                 $join->on('images.user_id', '=', 'blog_articles.user_id')
                     ->where('images.image_type', '=', 'avatar');
             })->paginate();
-        ;*/
-        // dd($blog_articles);
-        // paginate()
-        $a = $blog_articles = BlogArticle::with(['category', 'user'])
-            ->leftJoin('images', function ($join){
-                $join->on('images.user_id', '=', 'blog_articles.user_id')
-                    ->where('images.image_type', '=', 'avatar');
-            })->toSql();
 
-        dd($a);
-        // dd(BlogArticle::with(['category', 'user'])->toSql());
 		// $blog_articles = BlogArticle::with(['category', 'user'])->paginate();
 		return view('pages.blog_articles.index', compact('blog_articles'));
 	}
