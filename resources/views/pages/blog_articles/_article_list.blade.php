@@ -1,12 +1,13 @@
 @if(count($blog_articles))
     <div class="ui feed topic-list rm-link-color mt-0">
         @foreach($blog_articles as $article)
+            {{ $article }}
             <div class="event pt-3 pb-0 mb-0">
                 <div class="label mt-1" style="width: 3.2em;">
                     <a href="{{ route('users.show', [$article->user_id]) }}">
-                        <img class="lazy" data-original="{{ assert_images(isset($article->user->info->image->path) ? $article->user->info->image->path : '') }}" alt="" style="border: 1px solid #ddd;padding: 2px;">
+                        <img class="lazy" data-original="{{ assert_images('') }}" alt="" style="border: 1px solid #ddd;padding: 2px;">
+                        {{--<h1>{{ $article->user->avatar() }}</h1>--}}
                     </a>
-
                 </div>
                 <div class="content ml-3">
                     <div class="summary " style="color: #555;">
@@ -30,8 +31,8 @@
                                 <i class="icon folder outline"></i> {{ $article->category->name }}
                             </a>
                             <span class="divider">|</span>
-                            <a class="" data-tooltip="2019-02-27 11:07:02">
-                                发布于 <span title="2019-02-27 11:07:02">{{ $article->created_at->diffForHumans() }}</span>
+                            {{--<a class="" data-tooltip="2019-02-27 11:07:02">
+                                发布于 <span title="2019-02-27 11:07:02">{{ $article->created_at->diffForHumans() }}</span>--}}
                             </a>
                             <span class="divider">|</span>
                             <a>
@@ -48,10 +49,10 @@
                 <div class="item-meta mt-2 text-right" style="color:#ccc;font-size: 12px;width: 150px;">
                     <a class="ui " href="{{ route('blog.articles.show', [$article->id]) }}"><i class="mr-1 icon thumbs up"></i> {{ $article->zan_count }} </a>
                     <span style="margin: 0px 4px;text-align: center;font-size: 13px;">/</span>
-                    <a class="ui  popover" data-content="活跃于：{{ $article->updated_at->diffForHumans() }}"
+                    {{--<a class="ui  popover" data-content="活跃于：{{ $article->updated_at->diffForHumans() }}"
                        href="{{ route('blog.articles.show', [$article->id]) }}">
                         {{ $article->updated_at->diffForHumans() }}
-                    </a>
+                    </a>--}}
                 </div>
             </div>
         @endforeach

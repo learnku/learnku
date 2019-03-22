@@ -33,12 +33,12 @@ class User extends Authenticatable implements JWTSubject
      */
     public function info()
     {
-        return $this->hasOne(UserInfo::class)->with(['image', 'user']);
+        return $this->hasOne(UserInfo::class);
     }
 
     public function avatar()
     {
-        return $this->hasOne(UserInfo::class)->with('image');
+        return 'sss';
     }
 
     /**
