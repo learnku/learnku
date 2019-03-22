@@ -15,6 +15,6 @@
 php artisan migrate:refresh --seed
 
 // 博客分类
-php artisan make:scaffold BlogCategories --schema="name:string:index,description:text:nullable,post_count:integer:default(0)"
+php artisan make:scaffold BlogCategories --schema="name:string:index,description:text:nullable,post_count:integer:default(0),user_id:integer:unsigned:index"
 
 ```

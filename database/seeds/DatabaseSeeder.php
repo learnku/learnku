@@ -11,6 +11,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        // 本地才允许 seed
+        if (app()->isLocal()) {
+            // $this->call(UsersTableSeeder::class);
+            // $this->call(BlogCategorysTableSeeder::class);
+        }
     }
 }

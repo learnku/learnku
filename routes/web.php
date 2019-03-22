@@ -40,7 +40,24 @@ Route::patch('users/{user}/update_password', 'UsersController@update_password')-
 /**
  * 博客
  */
-Route::group(['namespace'=> 'Blog', 'prefix'=> 'blog'], function (){
-    Route::get('/', 'PagesController@root')->name('root');
-});
+Route::group(['prefix'=> 'blog'], function (){
+    Route::get('/', function (){
+        return redirect()->to('/');
+    });
 
+    // 分类
+    Route::resource('categories', 'BlogCategoriesController', [
+        'names' => [
+            'index' => 'blog.categories.index',
+            'show' => 'blog.categories.show',
+            'create' => 'blog.categories.create',
+            'store' => 'blog.categories.store',
+            'edit' => 'blog.categories.edit',
+            'update' => 'blog.categories.update',
+            'destroy' => 'blog.categories.destroy',
+        ],
+        'only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']
+    ]);
+
+    // 文章
+});
