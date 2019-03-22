@@ -60,4 +60,16 @@ Route::group(['prefix'=> 'blog'], function (){
     ]);
 
     // 文章
+    Route::resource('articles', 'BlogArticlesController', [
+        'names'=> [
+            'index' => 'blog.articles.index',
+            'show' => 'blog.articles.show',
+            'create' => 'blog.articles.create',
+            'store' => 'blog.articles.store',
+            'edit' => 'blog.articles.edit',
+            'update' => 'blog.articles.update',
+            'destroy' => 'blog.articles.destroy',
+        ],
+        'only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']
+    ]);
 });

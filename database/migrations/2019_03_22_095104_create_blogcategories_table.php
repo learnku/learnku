@@ -12,7 +12,7 @@ class CreateBlogCategoriesTable extends Migration
             $table->string('name')->index()->comment('名称');
             $table->text('description')->nullable()->comment('描述');
             $table->integer('post_count')->default(0)->comment('文章数');
-            $table->tinyInteger('cascade')->default(0)->comment('归类=> 0:顶级分类');
+            $table->tinyInteger('cascade')->default(0)->index()->comment('归类=> 0:顶级分类');
             $table->integer('user_id')->unsigned()->index()->comment('用户id');
             $table->timestamps();
         });

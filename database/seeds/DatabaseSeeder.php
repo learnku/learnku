@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
         if (app()->isLocal()) {
             // $this->call(UsersTableSeeder::class);
             // $this->call(BlogCategorysTableSeeder::class);
+		    // $this->call(BlogArticlesTableSeeder::class);
         }
     }
 }
