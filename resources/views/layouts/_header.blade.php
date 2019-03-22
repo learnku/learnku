@@ -3,7 +3,7 @@
     <a href="/" class="item secondary">
       网站首页
     </a>
-    <a href="" class="item secondary">
+    <a href="{{ route('blog.articles.index') }}" class="item secondary">
       文章专栏
     </a>
     <a href="" class="item secondary">
@@ -40,7 +40,7 @@
 
         {{-- 个人中心 --}}
         <div class="ui simple item dropdown article stackable nav-user-item" tabindex="0">
-          <img class="ui avatar image" src="{{ assert_images(isset(Auth::user()->info->image->path) ? Auth::user()->info->image->path : '') }}"> &nbsp;{{ Auth::user()->name }}
+          <img class="ui avatar image lazy" data-original="{{ assert_images(isset(Auth::user()->info->image->path) ? Auth::user()->info->image->path : '') }}"> &nbsp;{{ Auth::user()->name }}
           <i class="dropdown icon"></i>
           <div class="ui menu stackable" tabindex="-1">
             <a href="/" class="item">

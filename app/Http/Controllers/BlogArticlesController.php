@@ -16,7 +16,7 @@ class BlogArticlesController extends Controller
 
 	public function index()
 	{
-		$blog_articles = BlogArticle::paginate();
+		$blog_articles = BlogArticle::with(['category', 'user'])->paginate();
 		return view('pages.blog_articles.index', compact('blog_articles'));
 	}
 

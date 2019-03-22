@@ -25,6 +25,7 @@ class Learnku {
         this.initSubmitBtn();
         this.closeMessage();
         this.initSematicUI();
+        this.initLazyload();
         this.initDeleteForm();
     }
 
@@ -123,6 +124,14 @@ class Learnku {
 
         // 选项页
         $('.menu .item').tab()
+    }
+
+    /** 懒加载*/
+    initLazyload(){
+        // <img class="lazy" data-original="img/corvette_pitstop.jpg">
+        $("img.lazy").lazyload({
+            // placeholder
+        });
     }
 
     /** 删除form表单 */

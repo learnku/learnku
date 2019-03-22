@@ -34,5 +34,13 @@ class UsersTableSeeder extends Seeder
         $user->name = '大黄蜂';
         $user->email = 'guccilee@163.com';
         $user->save();
+
+        // 联动更新 user_infos 表
+        foreach (User::all() as $user){
+            $user_id = $user->id;
+            \App\Models\UserInfo::insert([
+                'user_id' => $user_id,
+            ]);
+        }
     }
 }

@@ -38,6 +38,8 @@ try {
     // https://semantic-ui.com/
     require('./SemanticUI/semantic');
 
+    require('../ext/imglazyload/jquery.lazyload.js');
+
     // H5 图片上传
     require('../ext/upload-h5/upload');
 } catch (e) {}
