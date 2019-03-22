@@ -20,6 +20,7 @@ class AppServiceProvider extends ServiceProvider
     {
         // 全局共享数据
         // view()->share('share', '我是共享数据');
+        // View::share('key', '我也是共享数据');
 
         // 中文友好时间戳
         \Carbon\Carbon::setLocale('zh');

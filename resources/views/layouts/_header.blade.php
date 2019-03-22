@@ -40,19 +40,20 @@
 
         {{-- 个人中心 --}}
         <div class="ui simple item dropdown article stackable nav-user-item" tabindex="0">
-          <img class="ui avatar image lazy" data-original="{{ assert_images(isset(Auth::user()->info->image->path) ? Auth::user()->info->image->path : '') }}"> &nbsp;{{ Auth::user()->name }}
+          <img class="ui avatar image lazy" data-original="{{ assert_images(isset( $common['auth']['avatar_path'] ) ? $common['auth']['avatar_path'] : '') }}"> &nbsp;
+          {{ $common['auth']['name'] }}
           <i class="dropdown icon"></i>
           <div class="ui menu stackable" tabindex="-1">
             <a href="/" class="item">
               <i class="icon heart"></i> 我的收藏
             </a>
 
-            <a href="{{ route('users.show', Auth::id()) }}" class="item">
+            <a href="{{ route('users.show', $common['auth']['id']) }}" class="item">
               <i class="icon user"></i>
               个人中心
             </a>
 
-            <a href="{{ route('users.edit', Auth::id()) }}" class="item">
+            <a href="{{ route('users.edit', $common['auth']['id']) }}" class="item">
               <i class="icon settings"></i>
               编辑资料
             </a>

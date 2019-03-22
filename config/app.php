@@ -184,6 +184,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        // 视图合成器 https://learnku.com/docs/laravel/5.5/views/1299#sharing-data-with-all-views
+        App\Providers\ComposerServiceProvider::class,
     ],
 
     /*
