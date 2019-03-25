@@ -17,6 +17,7 @@ class BlogArticlesController extends Controller
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
+    // 列表页
 	public function index(Request $request)
 	{
         $blog_articles = BlogArticle::withOrder($request->order)
@@ -30,12 +31,14 @@ class BlogArticlesController extends Controller
 		return view('pages.blog_articles.index', compact('blog_articles'));
 	}
 
+    // 详情页
     public function show(BlogArticle $article)
     {
         $article->body = $this->markdownToHtml($article->body);
         return view('pages.blog_articles.show', compact('article'));
     }
 
+    // 创建页面
 	public function create(BlogArticle $article)
 	{
         $categories = BlogCategory::all();
@@ -71,6 +74,7 @@ class BlogArticlesController extends Controller
 		return redirect()->route('blog.articles.show', $article->id)->with('message', '文章创建成功.');
 	}
 
+    // 编辑页面
 	public function edit(BlogArticle $article)
 	{
         $categories = BlogCategory::all();
@@ -78,6 +82,7 @@ class BlogArticlesController extends Controller
 		return view('pages.blog_articles.create_and_edit', compact('article', 'categories'));
 	}
 
+    // 更新文章
 	public function update(BlogArticleRequest $request, BlogArticle $article)
 	{
 		$this->authorize('update', $article);
@@ -92,10 +97,11 @@ class BlogArticlesController extends Controller
 		return redirect()->route('blog.articles.show', $article->id)->with('message', '更新成功.');
 	}
 
-	public function destroy(BlogArticle $blog_article)
+    // 删除文章
+	public function destroy(BlogArticle $article)
 	{
-		$this->authorize('update', $blog_article);
-		$blog_article->delete();
+		$this->authorize('destroy', $article);
+		$article->delete();
 
 		return redirect()->route('blog.articles.index')->with('message', '删除成功.');
 	}

@@ -28,6 +28,11 @@ class User extends Authenticatable implements JWTSubject
         'password', 'remember_token',
     ];
 
+    // 判断当前用户是否是作者
+    public function isAuthorOf($model){
+        return $model->user_id == $this->id;
+    }
+
     /**
      * 关联
      */
