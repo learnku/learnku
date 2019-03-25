@@ -13,18 +13,18 @@
                 <div class="content extra-padding">
 
                     <div class="ui header text-center text gery" style="margin:10px 0 40px">
-                        @if($blog_article->id)
+                        @if($article->id)
                             <i class="icon paint brush"></i>编辑博文
                         @else
                             <i class="icon paint brush"></i>新建博文
                         @endif
                     </div>
 
-                    @if($blog_article->id)
+                    @if($article->id)
                         <form id="article-update-form"
                               class="ui form"
                               style="min-height: 50px;"
-                              action="{{ route('blog.articles.update', $blog_article->id) }}" method="POST" accept-charset="UTF-8">
+                              action="{{ route('blog.articles.update', $article->id) }}" method="POST" accept-charset="UTF-8">
                             <input type="hidden" name="_method" value="PUT">
                             @else
                             <form id="article-create-form"
@@ -36,7 +36,7 @@
 
                                 <div class="field">
                                     <input class="form-control" type="text" name="title"
-                                           id="title-field" value="{{ old('title', $blog_article->title ) }}"
+                                           id="title-field" value="{{ old('title', $article->title ) }}"
                                            placeholder="请填写标题" required="">
                                 </div>
 
@@ -45,35 +45,17 @@
                                         <a target="_blank" href="{{ route('blog.categories.index') }}">管理分类</a>
                                     </label>
                                     <div class="field">
-                                        <div class="ui menu">
-                                            <div class="ui pointing teal buttons">
-
-                                            </div>
-                                            <div class="ui pointing  selection dropdown">
-                                                {{-- 设置此值会自动设置默认值 --}}
-                                                <input type="hidden" name="cascade" value="0">
-                                                <i class="dropdown icon"></i>
-                                                <div class="default text">顶级分类</div>
-                                                <div class="menu">
-                                                    <div class="item" data-value="0">顶级分类</div>
-                                                    @foreach ($categories as $value)
-                                                        <div class="item" data-value="{{ $value->id }}">{{ $value->name }}</div>
-                                                    @endforeach
-                                                </div>
-                                            </div>
-
-                                            <div class="ui fluid search selection tags dropdown " >
-                                                <input type="hidden" name="category_id" value="" >
-                                                <i class="dropdown icon"></i>
-                                                <input type="text" class="search">
-                                                <div class="default text">请选择分类（必选）</div>
-                                                <div class="menu">
-                                                    @foreach ($categories as $value)
-                                                        <div class="item" data-value="{{ $value->id }}">
-                                                            {{ $value->name }}
-                                                        </div>
-                                                    @endforeach
-                                                </div>
+                                        <div class="ui fluid selection dropdown">
+                                            {{-- 设置此值会自动设置默认值 --}}
+                                            <input type="hidden" name="category_id" value="{{ old('category_id', $article->category_id) }}">
+                                            <i class="dropdown icon"></i>
+                                            <div class="default text">请选择分类标签（必选）</div>
+                                            <div class="menu">
+                                                @foreach ($categories as $value)
+                                                    <div class="item" data-value="{{ $value->id }}">
+                                                        {{ $value->name }}
+                                                    </div>
+                                                @endforeach
                                             </div>
                                         </div>
                                     </div>
@@ -102,7 +84,7 @@
                                         id="markdown-editor"
                                         name="body"
                                         placeholder="请输入至少三个字符的内容。"
-                                        rows="6">{{ old('body', $blog_article->body ) }}</textarea>
+                                        rows="6">{{ old('body', $article->body ) }}</textarea>
                                 </div>
 
                                 <div class="ui segment private-checkbox">

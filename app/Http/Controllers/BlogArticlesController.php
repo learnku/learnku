@@ -36,11 +36,10 @@ class BlogArticlesController extends Controller
         return view('pages.blog_articles.show', compact('article'));
     }
 
-	public function create(BlogArticle $blog_article)
+	public function create(BlogArticle $article)
 	{
         $categories = BlogCategory::all();
-
-        return view('pages.blog_articles.create_and_edit', compact('blog_article', 'categories'));
+        return view('pages.blog_articles.create_and_edit', compact('article', 'categories'));
 	}
 
 	// 保存文章
@@ -48,7 +47,7 @@ class BlogArticlesController extends Controller
 	{
 	    $category_id = $request->category_id;
         $user_id = Auth::id();
-        if ($category->where('id', $category_id)->doesntExist() && $category->where('name', trim($category_id))->doesntExist()) {
+        /*if ($category->where('id', $category_id)->doesntExist() && $category->where('name', trim($category_id))->doesntExist()) {
             $data = [
                 'name' => trim($category_id),
                 'description' => '',
@@ -58,7 +57,7 @@ class BlogArticlesController extends Controller
             $category->user_id = $user_id;
             $category->save();
             $category_id = $category->id;
-        }
+        }*/
 
         $data = [
             'title' => $request->title,
@@ -72,25 +71,32 @@ class BlogArticlesController extends Controller
 		return redirect()->route('blog.articles.show', $article->id)->with('message', '文章创建成功.');
 	}
 
-	public function edit(BlogArticle $blog_article)
+	public function edit(BlogArticle $article)
 	{
-        $this->authorize('update', $blog_article);
-		return view('pages.blog_articles.create_and_edit', compact('blog_article'));
+        $categories = BlogCategory::all();
+        $this->authorize('update', $article);
+		return view('pages.blog_articles.create_and_edit', compact('article', 'categories'));
 	}
 
-	public function update(BlogArticleRequest $request, BlogArticle $blog_article)
+	public function update(BlogArticleRequest $request, BlogArticle $article)
 	{
-		$this->authorize('update', $blog_article);
-		$blog_article->update($request->all());
+		$this->authorize('update', $article);
+        $category_id = $request->category_id;
+        $data = [
+            'title' => $request->title,
+            'body' => $request->body,
+            'category_id' => $category_id,
+        ];
+        $article->update($data);
 
-		return redirect()->route('blog.articles.show', $blog_article->id)->with('message', 'Updated successfully.');
+		return redirect()->route('blog.articles.show', $article->id)->with('message', '更新成功.');
 	}
 
 	public function destroy(BlogArticle $blog_article)
 	{
-		$this->authorize('destroy', $blog_article);
+		$this->authorize('update', $blog_article);
 		$blog_article->delete();
 
-		return redirect()->route('blog.articles.index')->with('message', 'Deleted successfully.');
+		return redirect()->route('blog.articles.index')->with('message', '删除成功.');
 	}
 }
