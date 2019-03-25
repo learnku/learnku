@@ -30,9 +30,10 @@ class BlogArticlesController extends Controller
 		return view('pages.blog_articles.index', compact('blog_articles'));
 	}
 
-    public function show(BlogArticle $blog_article)
+    public function show(BlogArticle $article)
     {
-        return view('pages.blog_articles.show', compact('blog_article'));
+        $article->body = $this->markdownToHtml($article->body);
+        return view('pages.blog_articles.show', compact('article'));
     }
 
 	public function create(BlogArticle $blog_article)

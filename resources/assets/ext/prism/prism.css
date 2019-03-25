@@ -4,6 +4,44 @@
 pre.line-numbers {
     padding-top: 45px !important;
 }
+.window-controls{
+    position: absolute;
+    width: 65px;
+    height: 14px;
+    top: 15px;
+    padding: 0;
+    display: block;
+    /*margin-left: -36px;*/
+    z-index: 1000;
+}
+
+.window-controls i{
+    margin-right: 8px;
+}
+
+.window-controls .red{
+    background: rgb(224, 68, 62);
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    float: left;
+}
+
+.window-controls .yellow{
+    background: rgb(255, 189, 46);
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    float: left;
+}
+
+.window-controls .green{
+    background: rgb(26, 171, 41);
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    float: left;
+}
 
 
 /* PrismJS 1.14.0
@@ -13,46 +51,6 @@ http://prismjs.com/download.html#themes=prism-okaidia&languages=markup+css+clike
  * Loosely based on Monokai textmate theme by http://www.monokai.nl/
  * @author ocodia
  */
-.window-controls{
-	position: absolute;
-	width: 65px;
-	height: 14px;
-	top: 15px;
-	padding: 0;
-	display: block;
-	margin-left: -36px;
-	z-index: 1000;
-}
-
-.window-controls i{
-	margin-right: 8px;
-}
-
-.window-controls .red{
-	background: rgb(224, 68, 62);
-	width: 13px;
-	height: 13px;
-	border-radius: 50%;
-	float: left;
-}
-
-.window-controls .yellow{
-	background: rgb(255, 189, 46);
-	width: 13px;
-	height: 13px;
-	border-radius: 50%;
-	float: left;
-}
-
-.window-controls .green{
-	background: rgb(26, 171, 41);
-	width: 13px;
-	height: 13px;
-	border-radius: 50%;
-	float: left;
-}
-
-
 code[class*="language-"],
 pre[class*="language-"] {
 	color: #f8f8f2;

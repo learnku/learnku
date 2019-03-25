@@ -11,9 +11,7 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/assets/js/app.js', 'public/js')
-    .sass('resources/assets/sass/app.scss', 'public/css')
-    .js('resources/assets/js/learnku.js', 'public/js')
+mix.js('resources/assets/js/learnku.js', 'public/js')
     .sass('resources/assets/sass/learnku.scss', 'public/css')
     .version()
     .copyDirectory('resources/assets/ext', 'public/ext');

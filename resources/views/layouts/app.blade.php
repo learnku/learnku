@@ -18,6 +18,7 @@
 
       <!-- Styles -->
     <link href="{{ mix('css/learnku.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ assert_cdns('/ext/prism/prism.css') }}">
     @yield('style')
 
     <script type="text/javascript">

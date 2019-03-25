@@ -1,12 +1,14 @@
 {{-- 代码高亮工具 --}}
 {{--<link rel="stylesheet" href="{{ asset_cdn('sass/vendor/markdown.scss') }}">--}}
 
-<link rel="stylesheet" href="{{ assert_cdns('/ext/prism/prism.css') }}">
-<link rel="stylesheet" href="{{ assert_cdns('/ext/jquery/jquery.tocify/jquery.tocify.css') }}">
-<script src="{{ assert_cdns('/ext/prism/prism.js') }}"></script>
-<script src="{{ assert_cdns('/ext/jquery/jquery-ui/jquery-ui.min.js') }}"></script>
-<script src="{{ assert_cdns('/ext/jquery/jquery.tocify/jquery.tocify.min.js') }}"></script>
+{{--<link rel="stylesheet" href="{{ assert_cdns('/ext/prism/prism.css') }}">--}}
+{{--<link rel="stylesheet" href="{{ assert_cdns('/ext/jquery/jquery.tocify/jquery.tocify.css') }}">--}}
 
+{{--<script src="{{ assert_cdns('/ext/prism/prism.js') }}"></script>--}}
+{{--<script src="{{ assert_cdns('/ext/jquery/jquery-ui/jquery-ui.min.js') }}"></script>--}}
+{{--<script src="{{ assert_cdns('/ext/jquery/jquery.tocify/jquery.tocify.min.js') }}"></script>--}}
+
+{{--
 <script type="text/javascript">
     /** 代码高亮工具 */
     class MarkdownBody {
@@ -59,3 +61,4 @@
         new MarkdownBody();
     });
 </script>
+--}}

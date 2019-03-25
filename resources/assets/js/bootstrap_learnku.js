@@ -43,6 +43,10 @@ try {
 
     // H5 图片上传
     require('../ext/upload-h5/upload');
+
+    require('../ext/prism/prism.js');
+    require('../ext/jquery/jquery-ui/jquery-ui.min.js');
+    require('../ext/jquery/jquery.tocify/jquery.tocify.min.js');
 } catch (e) {}
 
 /**
