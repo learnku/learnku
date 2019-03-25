@@ -17,12 +17,12 @@
                             <div class="ui item" style="font-size:13px;padding: 0px 4px;color: #777;">
                                 文章排序：
                             </div>
-                            {{--<a class="ui item popover {{ active_class( ! if_query('order', 'vote')) }}"
+                            <a class="ui item popover {{ active_class( ! if_query('order', 'vote')) }}"
                                data-content="按照时间排序"
                                href="{{ Request::url() }}?order=recent" role="button">时间</a>
                             <a class="ui item  popover {{ active_class(if_query('order', 'vote')) }}"
                                data-content="按照投票排序"
-                               href="{{ Request::url() }}?order=vote" role="button">投票</a>--}}
+                               href="{{ Request::url() }}?order=vote" role="button">投票</a>
                         </div>
 
                     </h1>

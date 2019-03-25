@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BlogArticle;
 use App\Models\BlogCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -20,9 +21,17 @@ class BlogCategoriesController extends Controller
 		return view('pages.blog_categories.index', compact('blog_categories'));
 	}
 
-    public function show(BlogCategory $blog_category)
+    public function show(Request $request, BlogCategory $category)
     {
-        return view('pages.blog_categories.show', compact('blog_category'));
+        $blog_articles = BlogArticle::withOrder($request->order)
+            ->select('blog_articles.*', 'images.path as avatar_path')
+            ->where('category_id', $category->id)
+            ->leftJoin('images', function ($join){
+                $join->on('images.user_id', '=', 'blog_articles.user_id')
+                    ->where('images.image_type', '=', 'avatar');
+            })->paginate(20);
+
+        return view('pages.blog_articles.index', compact('blog_articles', 'category'));
     }
 
 	public function create(BlogCategory $blog_category)

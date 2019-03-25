@@ -133,6 +133,7 @@ npm run watch-poll
 | [jwt-auth](https://github.com/tymondesigns/jwt-auth)	| JWT 令牌 |  Api 认证 |
 | [intervention/image](https://github.com/Intervention/image)	| 裁剪图片 |  图片上传 |
 | [summerblue/generator:~1.0](https://github.com/summerblue/generator)	|  代码生成器 |   代码生成器 |
+| [hieu-le/active](https://github.com/letrunghieu/active)	|  为导航栏添加 `active` 类 |   导航的 Active 状态 |
 
 ## 自定义 Artisan 命令
 | 命令行名字        | 说明    |  Cron  | 代码调用 |
