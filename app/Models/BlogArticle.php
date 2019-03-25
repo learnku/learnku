@@ -6,6 +6,12 @@ class BlogArticle extends Model
 {
     protected $fillable = ['title', 'body', 'category_id', 'excerpt', 'slug'];
 
+    // 生成 url
+    public function link($params = [])
+    {
+        return route('blog.articles.show', array_merge([$this->id, $this->slug], $params));
+    }
+
     // 对应分类
     public function category()
     {
@@ -16,6 +22,12 @@ class BlogArticle extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    // 对应回复
+    public function replies()
+    {
+        return $this->hasMany(BlogReply::class, 'article_id');
     }
 
     // 文章排序

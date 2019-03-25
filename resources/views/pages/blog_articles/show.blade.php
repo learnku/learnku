@@ -120,9 +120,8 @@
             </div>
 
             {{-- 回复 --}}
-            {{--@include('pages.blog_articles._reply_list')--}}
-            {{--@include('pages.blog_articles._reply_box')--}}
-            {{--@includeWhen(Auth::check(), 'pages.articles._reply_box')--}}
+            @include('pages.blog_articles._reply_list')
+            @includeWhen(Auth::check(), 'pages.blog_articles._reply_box')
         </div>
 
         @include('pages.blog_articles._sidebar')

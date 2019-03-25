@@ -34,8 +34,17 @@ class BlogArticlesController extends Controller
     // 详情页
     public function show(BlogArticle $article)
     {
+        // 回复数据
+        $replies = $article->replies()->with('user')
+            ->select('blog_replies.*', 'images.path as avatar_path')
+            ->leftJoin('images', function ($join){
+                $join->on('images.user_id', '=', 'blog_replies.user_id')
+                    ->where('images.image_type', '=', 'avatar');
+            })->get();
+
+        // 文章主体
         $article->body = $this->markdownToHtml($article->body);
-        return view('pages.blog_articles.show', compact('article'));
+        return view('pages.blog_articles.show', compact('article', 'replies'));
     }
 
     // 创建页面

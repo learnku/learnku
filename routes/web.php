@@ -72,4 +72,15 @@ Route::group(['prefix'=> 'blog'], function (){
         ],
         'only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']
     ]);
+
+    // 回复
+    Route::resource('replies', 'BlogRepliesController', [
+        'names'=> [
+            'store' => 'blog.replies.store',
+            'edit' => 'blog.replies.edit',
+            'update' => 'blog.replies.update',
+            'destroy' => 'blog.replies.destroy',
+        ],
+        'only' => ['store', 'update', 'edit', 'destroy']
+    ]);
 });

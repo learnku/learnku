@@ -41,9 +41,10 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasOne(UserInfo::class);
     }
 
-    public function avatar()
+    // 对应回复
+    public function replies()
     {
-        return 'sss';
+        return $this->hasMany(BlogReply::class);
     }
 
     /**
