@@ -7374,8 +7374,8 @@ a.ui.inverted.grey.header:hover {
 
 @font-face {
   font-family: "Icons";
-  src: url(/fonts/icons.eot?8e3c7f5520f5ae906c6cf6d7f3ddcd19);
-  src: url(/fonts/icons.eot?8e3c7f5520f5ae906c6cf6d7f3ddcd19) format("embedded-opentype"), url(/fonts/icons.woff2?0ab54153eeeca0ce03978cc463b257f7) format("woff2"), url(/fonts/icons.woff?faff92145777a3cbaf8e7367b4807987) format("woff"), url(/fonts/icons.ttf?b87b9ba532ace76ae9f6edfe9f72ded2) format("truetype"), url(/fonts/icons.svg?448f2aaa315fa9dce7b2cf6ce31caed6) format("svg");
+  src: url("/fonts/SemanticUI/icons.eot");
+  src: url("/fonts/SemanticUI/icons.eot?#iefix") format("embedded-opentype"), url("/fonts/SemanticUI/icons.woff2") format("woff2"), url("/fonts/SemanticUI/icons.woff") format("woff"), url("/fonts/SemanticUI/icons.ttf") format("truetype"), url("/fonts/SemanticUI/icons.svg#icons") format("svg");
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
@@ -12647,8 +12647,8 @@ i.icon.youtube.play:before {
 
 @font-face {
   font-family: "outline-icons";
-  src: url(/fonts/outline-icons.eot?701ae6abd4719e9c2ada3535a497b341);
-  src: url(/fonts/outline-icons.eot?701ae6abd4719e9c2ada3535a497b341) format("embedded-opentype"), url(/fonts/outline-icons.woff2?cd6c777f1945164224dee082abaea03a) format("woff2"), url(/fonts/outline-icons.woff?ef60a4f6c25ef7f39f2d25a748dbecfe) format("woff"), url(/fonts/outline-icons.ttf?ad97afd3337e8cda302d10ff5a4026b8) format("truetype"), url(/fonts/outline-icons.svg?b551b554a67e86a840bc80cbb8066c30) format("svg");
+  src: url("/fonts/SemanticUI/outline-icons.eot");
+  src: url("/fonts/SemanticUI/outline-icons.eot?#iefix") format("embedded-opentype"), url("/fonts/SemanticUI/outline-icons.woff2") format("woff2"), url("/fonts/SemanticUI/outline-icons.woff") format("woff"), url("/fonts/SemanticUI/outline-icons.ttf") format("truetype"), url("/fonts/SemanticUI/outline-icons.svg#icons") format("svg");
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
@@ -13153,8 +13153,8 @@ i.icon.star.empty:before {
 
 @font-face {
   font-family: "brand-icons";
-  src: url(/fonts/brand-icons.eot?13db00b7a34fee4d819ab7f9838cc428);
-  src: url(/fonts/brand-icons.eot?13db00b7a34fee4d819ab7f9838cc428) format("embedded-opentype"), url(/fonts/brand-icons.woff2?e8c322de9658cbeb8a774b6624167c2c) format("woff2"), url(/fonts/brand-icons.woff?a046592bac8f2fd96e994733faf3858c) format("woff"), url(/fonts/brand-icons.ttf?c5ebe0b32dc1b5cc449a76c4204d13bb) format("truetype"), url(/fonts/brand-icons.svg?65363c4d55617bbeb57d8ce6dcd46099) format("svg");
+  src: url("/fonts/SemanticUI/brand-icons.eot");
+  src: url("/fonts/SemanticUI/brand-icons.eot?#iefix") format("embedded-opentype"), url("/fonts/SemanticUI/brand-icons.woff2") format("woff2"), url("/fonts/SemanticUI/brand-icons.woff") format("woff"), url("/fonts/SemanticUI/brand-icons.ttf") format("truetype"), url("/fonts/SemanticUI/brand-icons.svg#icons") format("svg");
   font-style: normal;
   font-weight: normal;
   font-variant: normal;

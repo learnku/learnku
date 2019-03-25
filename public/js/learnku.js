@@ -33695,6 +33695,7 @@ var jwt_token = document.head.querySelector('meta[name="jwt-token"]');
 
 if (jwt_token) {
   window.axios.defaults.headers.common['Authorization'] = jwt_token.content;
+  Config.isApi = true;
 } // X-CSRF-TOKEN
 
 

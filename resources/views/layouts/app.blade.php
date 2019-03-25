@@ -23,6 +23,7 @@
     <script type="text/javascript">
         window.Config = {
             'token': "{{ csrf_token() }}",
+            'isApi': false,
             'url': "{{ config('app.url') }}",
             'following_users': ['GucciLee'],
             'routes': {

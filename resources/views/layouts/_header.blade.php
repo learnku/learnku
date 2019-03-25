@@ -32,7 +32,7 @@
           <i class="icon paint brush"></i>  <i class="dropdown icon"></i>
 
           <div class="ui menu stackable" tabindex="-1">
-            <a href="" class="item no-pjax">
+            <a href="{{ route('blog.articles.create') }}" class="item no-pjax">
               <i class="icon paint brush"></i> 新建博文
             </a>
           </div>

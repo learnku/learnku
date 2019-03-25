@@ -6,30 +6,10 @@ class BlogCategoryRequest extends Request
 {
     public function rules()
     {
-        switch($this->method())
-        {
-            // CREATE
-            case 'POST':
-            {
-                return [
-                    // CREATE ROLES
-                ];
-            }
-            // UPDATE
-            case 'PUT':
-            case 'PATCH':
-            {
-                return [
-                    // UPDATE ROLES
-                ];
-            }
-            case 'GET':
-            case 'DELETE':
-            default:
-            {
-                return [];
-            };
-        }
+        return [
+            'name' => 'unique:blog_categories,name',
+            'category_id'=> 'unique:blog_categories,name'
+        ];
     }
 
     public function messages()

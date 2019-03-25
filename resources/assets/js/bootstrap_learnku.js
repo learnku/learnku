@@ -14,6 +14,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 let jwt_token = document.head.querySelector('meta[name="jwt-token"]');
 if(jwt_token) {
     window.axios.defaults.headers.common['Authorization'] = jwt_token.content;
+    Config.isApi = true;
 }
 // X-CSRF-TOKEN
 let token = document.head.querySelector('meta[name="csrf-token"]');

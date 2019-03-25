@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\BlogArticle;
+use App\Models\BlogCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BlogArticleRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class BlogArticlesController extends Controller
@@ -17,12 +19,6 @@ class BlogArticlesController extends Controller
 
 	public function index(Request $request)
 	{
-        /*$blog_articles = BlogArticle::with(['category', 'user'])
-        	->select('blog_articles.*', 'images.path as avatar_path')
-            ->leftJoin('images', function ($join){
-                $join->on('images.user_id', '=', 'blog_articles.user_id')
-                    ->where('images.image_type', '=', 'avatar');
-            })->paginate();*/
         $blog_articles = BlogArticle::withOrder($request->order)
         	->select('blog_articles.*', 'images.path as avatar_path')
             ->leftJoin('images', function ($join){
@@ -41,13 +37,38 @@ class BlogArticlesController extends Controller
 
 	public function create(BlogArticle $blog_article)
 	{
-		return view('pages.blog_articles.create_and_edit', compact('blog_article'));
+        $categories = BlogCategory::all();
+
+        return view('pages.blog_articles.create_and_edit', compact('blog_article', 'categories'));
 	}
 
-	public function store(BlogArticleRequest $request)
+	// 保存文章
+	public function store(BlogArticleRequest $request, BlogArticle $article, BlogCategory $category)
 	{
-		$blog_article = BlogArticle::create($request->all());
-		return redirect()->route('blog.articles.show', $blog_article->id)->with('message', 'Created successfully.');
+	    $category_id = $request->category_id;
+        $user_id = Auth::id();
+        if ($category->where('id', $category_id)->doesntExist() && $category->where('name', trim($category_id))->doesntExist()) {
+            $data = [
+                'name' => trim($category_id),
+                'description' => '',
+                'cascade' => $request->cascade,
+            ];
+            $category->fill($data);
+            $category->user_id = $user_id;
+            $category->save();
+            $category_id = $category->id;
+        }
+
+        $data = [
+            'title' => $request->title,
+            'body' => $request->body,
+            'category_id' => $category_id,
+        ];
+        $article->fill($data);
+        $article->user_id = $user_id;
+        $article->save();
+
+		return redirect()->route('blog.articles.show', $article->id)->with('message', '文章创建成功.');
 	}
 
 	public function edit(BlogArticle $blog_article)

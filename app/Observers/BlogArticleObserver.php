@@ -9,13 +9,8 @@ use App\Models\BlogArticle;
 
 class BlogArticleObserver
 {
-    public function creating(BlogArticle $blog_article)
+    public function saving(BlogArticle $article)
     {
-        //
-    }
-
-    public function updating(BlogArticle $blog_article)
-    {
-        //
+        $article->excerpt = make_excerpt($article->body);
     }
 }

@@ -39,6 +39,8 @@ Route::group([
 
     // 图片资源
     $router->post('images', 'ImagesController@store')->name('api.images.store');
+
+    $router->post('blog/categories', 'BlogCategoriesController@store')->name('api.blog.articles.store');
 });
 
 
