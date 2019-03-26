@@ -17,8 +17,8 @@ class BlogCategoriesController extends Controller
 
 	public function index()
 	{
-		$blog_categories = BlogCategory::paginate();
-		return view('pages.blog_categories.index', compact('blog_categories'));
+		$categories = BlogCategory::paginate();
+		return view('pages.blog_categories.index', compact('categories'));
 	}
 
     public function show(Request $request, BlogCategory $category)

@@ -1,61 +1,50 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-  <div class="col-md-10 offset-md-1">
-    <div class="card ">
-      <div class="card-header">
-        <h1>
-          BlogCategory
-          <a class="btn btn-success float-xs-right" href="{{ route('blog.categories.create') }}">Create</a>
-        </h1>
-      </div>
+    <div class="ui centered grid container stackable">
+        <div class="sixteen wide column ">
+            <h1><a href="{{ route('blog.categories.create') }}">新建分类</a></h1>
+            @if($categories->count())
+            {{-- inverted --}}
+            <table class="ui celled table selectable">
+                <thead>
+                <tr><th>分类名称</th>
+                    <th>分类描述</th>
+                    <th>操作</th>
+                </tr></thead>
+                <tbody>
+                @foreach($categories as $category)
+                <tr>
+                    <td>{{$category->name}}</td>
+                    <td>{{$category->description}}</td>
+                    <td>
+                        <a class="btn btn-sm btn-primary" href="{{ route('blog.categories.show', $category->id) }}">
+                            V
+                        </a>
 
-      <div class="card-body">
-        @if($blog_categories->count())
-          <table class="table table-sm table-striped">
-            <thead>
-              <tr>
-                <th class="text-xs-center">#</th>
-                <th>Name</th> <th>Description</th> <th>Post_count</th> <th>User_id</th>
-                <th class="text-xs-right">OPTIONS</th>
-              </tr>
-            </thead>
+                        <a class="btn btn-sm btn-warning" href="{{ route('blog.categories.edit', $category->id) }}">
+                            E
+                        </a>
 
-            <tbody>
-              @foreach($blog_categories as $blog_category)
-              <tr>
-                <td class="text-xs-center"><strong>{{$blog_category->id}}</strong></td>
+                        <form action="{{ route('blog.categories.destroy', $category->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Delete? Are you sure?');">
+                            {{csrf_field()}}
+                            <input type="hidden" name="_method" value="DELETE">
 
-                <td>{{$blog_category->name}}</td> <td>{{$blog_category->description}}</td> <td>{{$blog_category->post_count}}</td> <td>{{$blog_category->user_id}}</td>
-
-                <td class="text-xs-right">
-                  <a class="btn btn-sm btn-primary" href="{{ route('blog.categories.show', $blog_category->id) }}">
-                    V
-                  </a>
-
-                  <a class="btn btn-sm btn-warning" href="{{ route('blog.categories.edit', $blog_category->id) }}">
-                    E
-                  </a>
-
-                  <form action="{{ route('blog.categories.destroy', $blog_category->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Delete? Are you sure?');">
-                    {{csrf_field()}}
-                    <input type="hidden" name="_method" value="DELETE">
-
-                    <button type="submit" class="btn btn-sm btn-danger">D </button>
-                  </form>
-                </td>
-              </tr>
-              @endforeach
-            </tbody>
-          </table>
-          {!! $blog_categories->render() !!}
-        @else
-          <h3 class="text-xs-center alert alert-info">Empty!</h3>
-        @endif
-      </div>
+                            <button type="submit" class="btn btn-sm btn-danger">D </button>
+                        </form>
+                    </td>
+                </tr>
+                @endforeach
+                </tbody>
+                <tfoot>
+                <tr><th colspan="3">
+                        {!! $categories->render() !!}
+                    </th>
+                </tr></tfoot>
+            </table>
+            @else
+                暂无分类数据 ~
+            @endif
+        </div>
     </div>
-  </div>
-</div>
-
 @endsection
