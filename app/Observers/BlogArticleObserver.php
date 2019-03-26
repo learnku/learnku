@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Handlers\SlugTranslateHandler;
+use App\Jobs\TranslateSlug;
 use App\Models\BlogArticle;
 
 // creating, created, updating, updated, saving,
@@ -14,9 +15,18 @@ class BlogArticleObserver
     {
         // 生成话题摘录
         $article->excerpt = make_excerpt($article->body);
+    }
 
-        //
-        dd(app(SlugTranslateHandler::class)->translate($article->title));
+    public function saved(BlogArticle $article)
+    {
+        // 如 slug 字段无内容，即使用翻译器对 title 进行翻译
+        if ( ! $article->slug) {
+            // 翻译器对 title 进行翻译
+            // $article->slug = app(SlugTranslateHandler::class)->translate($article->title);
+
+            // 推送任务到队列
+            dispatch(new TranslateSlug($article));
+        }
     }
 
     // 连带删除文章下的评论
