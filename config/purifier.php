@@ -110,6 +110,13 @@ return [
             'AutoFormat.AutoParagraph' => false,
             'AutoFormat.RemoveEmpty'   => false,
         ],
+        'markdownNoH1_6' => [
+            'HTML.Doctype'             => 'XHTML 1.0 Transitional',
+            'HTML.Allowed'             => 'div,b,strong,i,em,a[href|title],ul,ol,ol[start],li,p[style],br,span[style],img[width|height|alt|src],*[style|class],pre,hr,code,blockquote,del,table,thead,tbody,tr,th,td',
+            'CSS.AllowedProperties'    => 'font,font-size,font-weight,font-style,margin,width,height,font-family,text-decoration,padding-left,color,background-color,text-align',
+            'AutoFormat.AutoParagraph' => false,
+            'AutoFormat.RemoveEmpty'   => false,
+        ],
     ],
 
 ];

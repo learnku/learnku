@@ -11,6 +11,25 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 
 trait ApiHelper
 {
+    public function defaultApi($content = [], $location = null)
+    {
+        $rtn = [
+            'status' => 0,
+            'data'=> [],
+            'msg' => '',
+        ];
+        $rtn = array_merge($rtn, $content);
+        $response = new Response($rtn);
+
+        // 201
+        $response->setStatusCode(Response::HTTP_CREATED);
+        if (! is_null($location)) {
+            $response->header('Location', $location);
+        }
+
+        return $response;
+    }
+
     /**
      * 响应创建的响应并关联位置（如果提供）。
      * Respond with a created response and associate a location if provided.

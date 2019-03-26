@@ -1,6 +1,6 @@
 {{-- 回复列表 --}}
 <div id="replies" name="replies"></div>
-<div class="ui threaded comments comment-list ">
+<div class="ui threaded comments comment-list">
     <div class="ui divider horizontal grey">
         <i class="icon comments"></i> 讨论数量: <span class="reply-count">{{ count($replies) }}</span>
     </div>
@@ -24,7 +24,7 @@
 
                 <div class="text comment-body markdown-reply fluidbox-content">
                     <div class="px-3">
-                        <p>{!! $reply->content !!}</p>
+                        <p>{!! markdownToHtml($reply->content) !!}</p>
                     </div>
                 </div>
 
@@ -50,16 +50,18 @@
                         </a>--}}
 
                         {{-- 编辑 --}}
-                        {{--<a class="item ui " style="color:rgba(0, 0, 0, 0.4);font-size: 0.9em;" href="">
+                        @can('update', $reply)
+                        <a class="item ui " style="color:rgba(0, 0, 0, 0.4);font-size: 0.9em;" href="{{ route('blog.replies.edit', $reply->id) }}">
                             <i class="icon edit" style="margin: 0;width: 1em;"></i>
-                        </a>--}}
+                        </a>
+                        @endcan
 
                         {{-- 删除 --}}
                         @can('destroy', $reply)
                         <a class="item ui " style="cursor: pointer;"
                            href="javascript:;"
-                           data-method="delete"
-                           data-url="{{ route('blog.replies.destroy', $reply->id) }}">
+                           axios-method="delete"
+                           data-url="{{ route('api.blog.replies.destroy', $reply->id) }}">
                             <i class="icon trash" style="margin: 0;width: 1em;color:rgba(0, 0, 0, 0.4);font-size: 0.9em;"></i>
                         </a>
                         @endcan

@@ -56,3 +56,29 @@ if (!function_exists('make_excerpt')) {
         return str_limit($excerpt, $length);
     }
 }
+
+
+if (!function_exists('markdownToHtml')) {
+    /**
+     * markdown 转 html
+     * @param $markdown
+     * @return mixed
+     */
+    function markdownToHtml($markdown)
+    {
+        // markdown to html
+        $convertedHmtl = app('Parsedown')->setBreaksEnabled(true)->text($markdown);
+
+        /** XSS 防注入 */
+        $convertedHmtl = clean($convertedHmtl, 'markdownNoH1_6');
+
+        // 代码高亮展示优化
+        $convertedHmtl = str_replace("<pre><code>", '<pre><code class=" language-php">', $convertedHmtl);
+
+        // 移除 {{}}
+        // $convertedHmtl = remove_vue($convertedHmtl);
+
+        // 返回 html
+        return $convertedHmtl;
+    }
+}

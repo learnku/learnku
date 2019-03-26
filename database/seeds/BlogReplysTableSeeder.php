@@ -26,6 +26,8 @@ class BlogReplysTableSeeder extends Seeder
                 $blog_reply->user_id = $faker->randomElement($user_ids);
 
                 $blog_reply->article_id = $faker->randomElement($article_ids);
+
+                $blog_reply->verify = 1;
             });
 
         BlogReply::insert($blog_replys->toArray());

@@ -20,6 +20,41 @@ window.assert_images = function (path) {
     return Config.routes.images_domain + path;
 };
 
+// 全局公用函数
+window.public = {
+    axios_then: function (res) {
+        Swal.fire({
+            type: 'success',
+            title: res.msg,
+        });
+    },
+    axios_catch: function(error) {
+        let response = error.response,
+            html = '';
+        if (response.data && response.data.errors) {
+            for (let error in response.data.errors) {
+                html += '<p style="text-align: left;">' + response.data.errors[error] + '</p>';
+            }
+            Swal.fire({
+                type: 'error',
+                html: html,
+                showConfirmButton: false,
+                showCancelButton: true
+            });
+        } else if(response.data && response.data.message){
+            Swal.fire({
+                type: 'error',
+                text: response.data.message,
+                showConfirmButton: false,
+                showCancelButton: true
+            });
+        }else {
+            // 回调
+            self.setting.error(error);
+        }
+    },
+};
+
 class Learnku {
     init() {
         this.initSubmitBtn();
@@ -27,6 +62,7 @@ class Learnku {
         this.initSematicUI();
         this.initLazyload();
         this.initDeleteForm();
+        // this.axiosDeleteForm();
     }
 
     /** 表单提交 */
@@ -134,7 +170,7 @@ class Learnku {
         });
     }
 
-    /** 删除form表单 */
+    /** 删除 form 表单 */
     initDeleteForm(){
         $("[data-method]").append(function() {
             return `
@@ -175,6 +211,50 @@ class Learnku {
                 })
             }
         });
+    }
+
+    /** 删除 form 表单 2*/
+    axiosDeleteForm(callback = null) {
+        $("[axios-method]").css("cursor", "pointer").click(function () {
+            let self = this;
+            let method = $(this).attr("axios-method").toUpperCase();
+            if("DELETE" == method){
+                Swal.fire({
+                    title: "",
+                    html: $(self).attr("data-hint") ? $(self).attr("data-hint") : "你确定要删除此内容吗？",
+                    type: "warning",
+                    showCancelButton: !0,
+                    cancelButtonText: "取消",
+                    confirmButtonText: "删除"
+                }).then(function(res) {
+                    axios({
+                        url: $(self).attr('data-url'),
+                        method: method
+                    }).then((res)=> {
+                        if (callback) {
+                            callback(self, res);
+                        }
+                        Swal.fire({
+                            type: 'success',
+                            title: '删除成功 . . .',
+                        });
+                    })
+                })
+            }else if("POST" != method && "GET" != method || (e.attr("data-prompt"))){
+                /*Swal.fire({
+                    title: "",
+                    html: $(self).attr("data-prompt"),
+                    type: "warning",
+                    showCancelButton: !0,
+                    cancelButtonText: "取消",
+                    confirmButtonText: "确定"
+                }).then(function(res) {
+                    if(res.value){
+                        e.find("form").submit()
+                    }
+                })*/
+            }
+        })
     }
 }
 

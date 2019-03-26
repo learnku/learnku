@@ -16,10 +16,6 @@
     </style>
 @endsection
 
-@section('jquery')
-    @include('common.markdown_view')
-@endsection
-
 @section('content')
     <div class="ui centered grid container main stackable blog" style="">
         <div class="twelve wide column pull-right main main-column">
@@ -121,9 +117,68 @@
 
             {{-- 回复 --}}
             @include('pages.blog_articles._reply_list')
-            @includeWhen(Auth::check(), 'pages.blog_articles._reply_box')
+            @include('pages.blog_articles._reply_box')
+            {{--@includeWhen(Auth::check(), 'pages.blog_articles._reply_box')--}}
         </div>
 
         @include('pages.blog_articles._sidebar')
     </div>
 @endsection
+
+@section('script')
+    <script type="text/javascript">
+        // 发表回复
+        var markdown = new Markdown();
+        markdown.init({
+            'textarea': {
+                'id': 'markdown-editor'
+            },
+            'interval': false,
+            'markdown': {
+                status: false,
+                toolbar: false,
+            },
+            'events': {
+                change: function (html) {
+                    if ($.trim(html) !== '') {
+                        $("#preview-box").html(html).fadeIn();
+                    } else {
+                        $("#preview-box").fadeOut();
+                    }
+                }
+            }
+        });
+    </script>
+    <script type="text/javascript">
+        // 删除评论
+        LearnkuNew.axiosDeleteForm(function (btn) {
+            $(btn).closest('.comment').remove();
+        })
+    </script>
+    <script type="text/javascript">
+        var auth = Boolean("{{ Auth::check() }}");
+        // 发表评论
+        $("#comment-composing-form").submit(function () {
+            if (auth) {
+                axios({
+                    method: $(this).attr('method'),
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                }).then((res)=> {
+                    Swal.fire({
+                        type: 'success',
+                        title: '评论发表成功 . . .',
+                        text: '请耐心等待管理员审核',
+                    });
+                    // 重置 markdown
+                    window['markdown_markdown-editor'].value('');
+                }).catch(function (error) {
+                    window.public.axios_catch(error);
+                });
+            } else {
+                window.location.href = "{{ route('login') }}";
+            }
+        });
+    </script>
+@endsection
+

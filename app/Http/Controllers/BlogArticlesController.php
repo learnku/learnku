@@ -36,6 +36,7 @@ class BlogArticlesController extends Controller
     {
         // 回复数据
         $replies = $article->replies()->with('user')
+            ->where('verify', '=', 1)
             ->select('blog_replies.*', 'images.path as avatar_path')
             ->leftJoin('images', function ($join){
                 $join->on('images.user_id', '=', 'blog_replies.user_id')
@@ -80,7 +81,7 @@ class BlogArticlesController extends Controller
         $article->user_id = $user_id;
         $article->save();
 
-		return redirect()->route('blog.articles.show', $article->id)->with('message', '文章创建成功.');
+		return redirect()->route('blog.articles.show', $article->id)->with('success', '文章创建成功.');
 	}
 
     // 编辑页面
@@ -103,7 +104,7 @@ class BlogArticlesController extends Controller
         ];
         $article->update($data);
 
-		return redirect()->route('blog.articles.show', $article->id)->with('message', '更新成功.');
+		return redirect()->route('blog.articles.show', $article->id)->with('success', '更新成功.');
 	}
 
     // 删除文章
@@ -112,6 +113,6 @@ class BlogArticlesController extends Controller
 		$this->authorize('destroy', $article);
 		$article->delete();
 
-		return redirect()->route('blog.articles.index')->with('message', '删除成功.');
+		return redirect()->route('blog.articles.index')->with('success', '删除成功.');
 	}
 }

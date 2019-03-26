@@ -12,6 +12,7 @@ class CreateBlogRepliesTable extends Migration
             $table->integer('article_id')->unsigned()->default(0)->index();
             $table->integer('user_id')->unsigned()->default(0)->index();
             $table->text('content');
+            $table->tinyInteger('verify')->unsigned()->default(0)->index()->comment('审核');
             $table->timestamps();
         });
 	}

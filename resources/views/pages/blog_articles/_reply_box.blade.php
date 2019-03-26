@@ -15,7 +15,7 @@
         <form class="ui reply form topic-reply-form"
               onsubmit="return false;"
               method="POST"
-              action="{{ route('blog.replies.store') }}"
+              action="{{ route('api.blog.replies.store') }}"
               accept-charset="UTF-8"
               id="comment-composing-form">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -62,65 +62,3 @@
         <div class="box preview markdown-reply fluidbox-content" id="preview-box" style="display: none;border: dashed 1px #ccc;background: #ffffff;border-radius: 6px;box-shadow:none;margin-top: 20px;margin-bottom: 6px;"></div>
     </div>
 </div>
-
-@section('script')
-    <script type="text/javascript">
-        var markdown = new Markdown();
-        markdown.init({
-            'textarea': {
-                'id': 'markdown-editor'
-            },
-            'interval': false,
-            'markdown': {
-                status: false,
-                toolbar: false,
-            },
-            'events': {
-                change: function (html) {
-                    if ($.trim(html) !== '') {
-                        $("#preview-box").html(html).fadeIn();
-                    } else {
-                        $("#preview-box").fadeOut();
-                    }
-                }
-            }
-        });
-    </script>
-    <script type="text/javascript">
-        var auth = Boolean("{{ Auth::check() }}");
-        // 发表评论
-        $("#comment-composing-form").submit(function () {
-            if (auth) {
-                $.ajax({
-                    type: $(this).attr('method'),
-                    url: $(this).attr('action'),
-                    dataType: 'json',
-                    data: $(this).serialize(),
-                    xhrFields: { //cookie
-                        withCredentials: true
-                    },
-                    crossDomain: true, //cookie
-                    success: function (res) {
-                        Swal.fire({
-                            type: 'success',
-                            title: '评论发表成功 . . .',
-                            text: '请耐心等待管理员审核',
-                        });
-                        // 重置 markdown
-                        window['markdown_markdown-editor'].value('');
-                    },
-                    error: function (xhr) {
-                        Swal.fire({
-                            type: 'error',
-                            title: '评论发表失败 . . .',
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
-                    }
-                });
-            } else {
-                window.location.href = "{{ route('login') }}";
-            }
-        });
-    </script>
-@endsection
