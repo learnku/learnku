@@ -22,6 +22,12 @@ class ComposerServiceProvider extends ServiceProvider
             'App\Http\ViewComposers\WebComposer'
         );
 
+        // 博客公用数据
+        View::composer(
+            ['pages.blog_articles._sidebar'],
+            'App\Http\ViewComposers\BlogComposer'
+        );
+
         // 使用基于闭包的 composers...
         // View::composer('*', function ($view) {
         //
