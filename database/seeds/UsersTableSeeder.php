@@ -34,6 +34,8 @@ class UsersTableSeeder extends Seeder
         $user->name = '大黄蜂';
         $user->email = 'guccilee@163.com';
         $user->save();
+        // 初始化用户角色，将 1 号用户指派为『站长』
+        $user->assignRole('Founder');
 
         // 联动更新 user_infos 表
         foreach (User::all() as $user){
