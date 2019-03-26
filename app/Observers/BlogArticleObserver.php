@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Handlers\SlugTranslateHandler;
 use App\Models\BlogArticle;
 
 // creating, created, updating, updated, saving,
@@ -11,7 +12,11 @@ class BlogArticleObserver
 {
     public function saving(BlogArticle $article)
     {
+        // 生成话题摘录
         $article->excerpt = make_excerpt($article->body);
+
+        //
+        dd(app(SlugTranslateHandler::class)->translate($article->title));
     }
 
     // 连带删除文章下的评论
