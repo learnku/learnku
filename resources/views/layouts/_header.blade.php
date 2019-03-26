@@ -51,9 +51,12 @@
           {{ $common['auth']['name'] }}
           <i class="dropdown icon"></i>
           <div class="ui menu stackable" tabindex="-1">
+            {{-- 是否是站长 --}}
+            @if(Auth()->user()->hasRole('Founder'))
             <a href="/horizon" class="item" target="_blank">
               <i class="icon heart"></i> Laravel Horizon
             </a>
+            @endif
             <a href="/" class="item">
               <i class="icon heart"></i> 我的收藏
             </a>

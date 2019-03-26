@@ -54,6 +54,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        if (app()->isLocal()) {
+            // 用户切换工具 sudo-su
+            $this->app->register(\VIACreative\SudoSu\ServiceProvider::class);
+        }
     }
 }
