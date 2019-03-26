@@ -47,26 +47,7 @@ class BlogComposer
         }
 
         // 个人分类
-        $tmp = BlogCategory::all();
-        $this->blogInfo['categories'] = [];
-        $aa = [];
-        foreach ($tmp as $item) {
-            $key = $item['id'];
-            if ($item['cascade'] != 0) {
-                // $aa['']
-            }
-
-            if (!array_key_exists($item['cascade'], $this->blogInfo['categories'])) {
-                $this->blogInfo['categories'][$key] = [
-                    'main'=> $item->toArray(),
-                    'items'=> []
-                ];
-            } else {
-                array_push($this->blogInfo['categories'][$key]['items'], $item->toArray());
-            }
-        }
-
-        dd($this->blogInfo);
+        $this->blogInfo['categories'] = BlogCategory::all();
         // dd($articles->toArray());
     }
 

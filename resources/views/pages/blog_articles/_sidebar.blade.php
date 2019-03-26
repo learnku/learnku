@@ -49,12 +49,12 @@
                 <span class="">个人分类</span>
             </div>
             <div class="extra content readmore" style="padding-bottom: 18px; max-height: none;">
-                {{--@foreach($common['blogInfo']['categories'] as $item)
+                @foreach($common['blogInfo']['categories'] as $item)
                 <a class="ui label basic" href="{{ route('blog.categories.show', $item['id']) }}">
                     {{ $item['name'] }}
                     <div class="detail">{{ $item['post_count'] }}</div>
                 </a>
-                @endforeach--}}
+                @endforeach
             </div>
         </div>
 
