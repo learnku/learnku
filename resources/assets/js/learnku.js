@@ -295,6 +295,7 @@ class MarkdownBody {
         }
         /**   #markdown-tocify   */
         $("#markdown-tocify").tocify({
+            theme: '',
             context: self.bodyClass,    // 任意可用的jQuery选择器
             selectors: selectorsTmp,    // 文章节点，可以关联生成目录
             showAndHide: false,         // 是否展示二级目录结构

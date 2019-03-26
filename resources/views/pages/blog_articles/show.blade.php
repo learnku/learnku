@@ -13,6 +13,9 @@
         .ui.top.menu {
             margin-bottom: 30px;
         }
+        .tocify-header{
+            padding: 0 !important;
+        }
     </style>
 @endsection
 

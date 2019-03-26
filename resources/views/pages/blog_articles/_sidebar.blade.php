@@ -1,3 +1,5 @@
+{{--<div class="four wide column" style="padding-right: 0px;">
+    <div class="item header book-article" style="height:auto !important;">--}}
 <div class="four wide column pull-left sidebar clear" style="padding-right: 0px;">
     <div class="item header blog-article sidebar" style="height:auto !important;">
         <div class="ui segment orange text-center" style="padding: 25px;">
@@ -136,5 +138,13 @@
             </div>
 
         </div>
+
+        {{-- 文章导航 --}}
+        @if(if_route('blog.articles.show'))
+        <div class="ui sticky doc toc">
+            <div class="ui card column author-box grid  tocify" id="markdown-tocify"
+                 style="max-height: 100%;padding: 22px 4px;"></div>
+        </div>
+        @endif
     </div>
 </div>
