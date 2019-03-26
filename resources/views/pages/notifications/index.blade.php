@@ -27,7 +27,7 @@
                                         </div>
 
                                         <div class=" markdown-reply mt-2">
-                                            {!! $notification->data['reply_content'] !!}
+                                            {!! markdownToHtml($notification->data['reply_content']) !!}
                                         </div>
                                     </div>
                                 </div>

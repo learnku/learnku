@@ -41,7 +41,7 @@ class BlogArticleReplied extends Notification implements ShouldQueue
     public function toDatabase($notifiable)
     {
         $article = $this->reply->article;
-        $link =  $article->link(['#reply' . $this->reply->id]);
+        $link =  $article->link();
 
         // 存入数据库里的数据
         return [
@@ -49,7 +49,6 @@ class BlogArticleReplied extends Notification implements ShouldQueue
             'reply_content' => $this->reply->content,
             'user_id' => $this->reply->user->id,
             'user_name' => $this->reply->user->name,
-            'user_avatar' => $this->reply->user->avatar,
             'article_link' => $link,
             'article_id' => $article->id,
             'article_title' => $article->title,
