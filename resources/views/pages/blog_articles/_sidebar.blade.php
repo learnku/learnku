@@ -48,13 +48,33 @@
             <div class="content">
                 <span class="">个人分类</span>
             </div>
-            <div class="extra content readmore" style="padding-bottom: 18px; max-height: none;">
-                @foreach($common['blogInfo']['categories'] as $item)
-                <a class="ui label basic" href="{{ route('blog.categories.show', $item['id']) }}">
-                    {{ $item['name'] }}
-                    <div class="detail">{{ $item['post_count'] }}</div>
-                </a>
-                @endforeach
+            <div class="extra content">
+                <div class="ui list">
+                    @foreach($common['blogInfo']['categories'] as $item)
+                    <div class="item">
+                        <i class="folder icon"></i>
+                        <div class="content">
+                            <a class="item description" href="{{ route('blog.categories.show', $item['main']['id']) }}">
+                                <span class=" pull-right" style="color:inherit">{{ $item['main']['post_count'] }} 篇</span>
+                                {{ $item['main']['name'] }}
+                            </a>
+                            <div class="list">
+                                @foreach($item['items'] as $val)
+                                <div class="item flex">
+                                    <i class="file icon"></i>
+                                    <div class="content">
+                                        <a class="item description" href="{{ route('blog.categories.show', $val['id']) }}">
+                                            <span class="pull-right" style="color:inherit;">{{ $val['post_count'] }} 篇</span>
+                                            {{ $val['name'] }}
+                                        </a>
+                                    </div>
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
             </div>
         </div>
 
@@ -96,50 +116,22 @@
             <div class="ui bottom attached tab active" data-tab="first">
 
                 <div class="ui middle aligned divided  list" style="padding: 0px 15px;margin-top: 0px;margin-bottom: 5px;">
-                    <a class="item" href="https://learnku.com/articles/25001">
-                        <span class="ui label tiny">2周前 </span>
-                        HTML 与 Markdown 互相转换
+                    @foreach( $common['blogInfo']['articles_news'] as $item )
+                    <a class="item" href="{{ route('blog.articles.show', $item['id']) }}">
+                        {{--<span class="ui label tiny">{{ $item['created_at'] }} </span>--}}
+                        {{ $item['title'] }}
                     </a>
-                    <a class="item" href="https://learnku.com/articles/24877">
-                        <span class="ui label tiny">3周前 </span>
-                        test
-                    </a>
-                    <a class="item" href="https://learnku.com/articles/24169">
-                        <span class="ui label tiny">1个月前 </span>
-                        Laravel - 验证码 - API
-                    </a>
-                    <a class="item" href="https://learnku.com/articles/24063">
-                        <span class="ui label tiny">1个月前 </span>
-                        Laravel 短信发送组件 - easy-sms
-                    </a>
-                    <a class="item" href="https://learnku.com/articles/24055">
-                        <span class="ui label tiny">1个月前 </span>
-                        Laravel 安装 DingoAPI
-                    </a>
+                    @endforeach
                 </div>
             </div>
             <div class="ui bottom attached tab" data-tab="second">
                 <div class="ui middle aligned divided  list" style="padding: 0px 15px;margin-top: 0px;">
-                    <a class="item" href="https://learnku.com/articles/22588">
-                        <span class="ui label tiny"><i class="thumbs up icon"></i> 8 </span>
-                        XSS 安全漏洞 - HTMLPurifier
+                    @foreach( $common['blogInfo']['articles_hots'] as $item )
+                    <a class="item" href="{{ route('blog.articles.show', $item['id']) }}">
+                        {{--<span class="ui label tiny"><i class="thumbs up icon"></i> {{ $item['created_at'] }} </span>--}}
+                        {{ $item['title'] }}
                     </a>
-                    <a class="item" href="https://learnku.com/articles/22514">
-                        <span class="ui label tiny"><i class="thumbs up icon"></i> 3 </span>
-                        Laravel Artisan 命令大全
-                    </a>
-                    <a class="item" href="https://learnku.com/articles/22539">
-                        <span class="ui label tiny"><i class="thumbs up icon"></i> 1 </span>
-                        Laravel 开发者工具类 - Laravel-debugbar。
-                    </a>
-                    <a class="item" href="https://learnku.com/articles/22548">
-                        <span class="ui label tiny"><i class="thumbs up icon"></i> 1 </span>
-                        Laravel - 获取当前路由的 `active` class 样式
-                    </a>
-                    <a class="item" href="https://learnku.com/articles/22300">
-                        <span class="ui label tiny"><i class="thumbs up icon"></i> 1 </span>
-                        Laravel Artisan 命令工具使用技巧
-                    </a>
+                    @endforeach
                 </div>
             </div>
 

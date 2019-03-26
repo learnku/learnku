@@ -34,7 +34,6 @@ class BlogComposer
 
         // 文章归档
         $this->blogInfo['groupTime'] = [];
-        $this->blogInfo['groupTime'] = [];
         foreach ($articles as $item){
             $a = strtotime($item['created_at']);
             $key = date('Y', $a) . date('m', $a);
@@ -47,8 +46,37 @@ class BlogComposer
         }
 
         // 个人分类
-        $this->blogInfo['categories'] = BlogCategory::all();
-        // dd($articles->toArray());
+        $this->blogInfo['categories'] = [];
+        $categories = BlogCategory::all()->toArray();
+        $tmp = array_filter($categories, function ($item) {
+            return $item['cascade'] == '0';
+        });
+        foreach ($tmp as $item) {
+            $key = $item['id'];
+            $this->blogInfo['categories'][$key] = [
+                'main' => $item,
+                'items' => [],
+            ];
+        }
+        $tmp = array_filter($categories, function ($item) {
+            return $item['cascade'] != '0';
+        });
+        foreach ($tmp as $item) {
+            $key = $item['cascade'];
+            array_push($this->blogInfo['categories'][$key]['items'], $item);
+        }
+
+        // 最新文章
+        $this->blogInfo['articles_news'] = array_sort($articles, function ($a, $b){
+            return strtotime($b['created_at']) - strtotime($a['created_at']);
+        });
+        $this->blogInfo['articles_news'] = array_slice($this->blogInfo['articles_news'], 0, 5);
+
+        // 最受欢迎
+        $this->blogInfo['articles_hots'] = array_sort($articles, function ($a, $b){
+            return (int) $b['view_count'] - (int) $a['view_count'];
+        });
+        $this->blogInfo['articles_hots'] = array_slice($this->blogInfo['articles_hots'], 0, 5);
     }
 
     /**

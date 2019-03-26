@@ -10,6 +10,10 @@
 @import "vendor/markdown";
 @import "vendor/learnku_com";
 
+.flex {
+    display: flex;
+}
+
 // 自定义样式
 .column-max-width-500{
   .image {
