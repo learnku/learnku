@@ -37,6 +37,9 @@ Route::patch('users/{user}/update_avatar', 'UsersController@update_avatar')->nam
 Route::get('users/{user}/edit_password', 'UsersController@edit_password')->name('users.edit_password');          // 修改密码
 Route::patch('users/{user}/update_password', 'UsersController@update_password')->name('users.update_password');  // 修改密码
 
+// 消息通知
+Route::resource('notifications', 'NotificationsController', ['only' => ['index']]);
+
 /**
  * 博客
  */

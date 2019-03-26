@@ -12,13 +12,14 @@ class BlogReplyObserver
 {
     public function created(BlogReply $reply)
     {
-        // $reply->article->reply_count = $reply->article->replies->count();
-        // $reply->article->save();
-
-        $reply->article->reply_count = $reply->article->replies->count();
-        $reply->article->save();
+        $reply->topic->updateReplyCount();
 
         // 通知话题作者有新的评论
         $reply->article->user->notify(new BlogArticleReplied($reply));
+    }
+
+    public function deleted(BlogReply $reply)
+    {
+        $reply->topic->updateReplyCount();
     }
 }

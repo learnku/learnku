@@ -38,6 +38,13 @@
           </div>
         </div>
 
+        {{-- 消息通知 --}}
+        <a class="item" href="{{ route('notifications.index') }}" title="消息通知">
+                <span class="{{ Auth::user()->notification_count > 0 ? 'red' : 'basic' }} ui circular label notification" id="notification-count">
+                    {{ Auth::user()->notification_count }}
+                </span>
+        </a>
+
         {{-- 个人中心 --}}
         <div class="ui simple item dropdown article stackable nav-user-item" tabindex="0">
           <img class="ui avatar image lazy" data-original="{{ assert_images(isset( $common['auth']['avatar_path'] ) ? $common['auth']['avatar_path'] : '') }}"> &nbsp;
