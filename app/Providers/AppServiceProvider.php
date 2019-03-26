@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use App\Models\BlogArticle;
+use App\Models\BlogReply;
 use App\Models\User;
 use App\Observers\BlogArticleObserver;
+use App\Observers\BlogReplyObserver;
 use App\Observers\UserObserver;
 use App\Services\FileSystem\QiniuAdapter;
 use Illuminate\Support\Facades\Storage;
@@ -42,6 +44,7 @@ class AppServiceProvider extends ServiceProvider
         // 用户表 `users` 监听
         User::observe(UserObserver::class);
         BlogArticle::observe(BlogArticleObserver::class);
+        BlogReply::observe(BlogReplyObserver::class);
     }
 
     /**
