@@ -2,13 +2,16 @@
 
 namespace App\Http\Requests;
 
+
+use Illuminate\Routing\Route;
+
 class BlogCategoryRequest extends Request
 {
     public function rules()
     {
         return [
-            'name' => 'unique:blog_categories,name',
-            'category_id'=> 'unique:blog_categories,name'
+            // 'name' => 'required|min:2|max:88|unique:blog_categories,name,' . $id,
+            'name' => 'required|min:2|max:88',
         ];
     }
 

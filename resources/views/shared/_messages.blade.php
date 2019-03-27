@@ -5,7 +5,7 @@ session()->flash('warning', 'This is a warning alert—check it out!');
 session()->flash('info', 'This is a info alert—check it out!');
 session()->flash('error', 'This is a info alert—check it out!');
 --}}
-@foreach (['danger', 'warning', 'success', 'info', 'error', 'status'] as $msg)
+@foreach (['danger', 'warning', 'success', 'info', 'error', 'status', 'message'] as $msg)
   @if(session()->has($msg))
     @php
       $flag_class = '';
@@ -14,6 +14,7 @@ session()->flash('error', 'This is a info alert—check it out!');
               $flag_class = 'error';
               break;
           case 'status':
+          case 'message':
               $flag_class = 'success';
               break;
       }

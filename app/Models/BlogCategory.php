@@ -4,5 +4,5 @@ namespace App\Models;
 
 class BlogCategory extends Model
 {
-    protected $fillable = ['name', 'description'];
+    protected $fillable = ['name', 'description', 'cascade'];
 }

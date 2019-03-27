@@ -2,59 +2,91 @@
 
 @section('content')
 
-<div class="container">
-  <div class="col-md-10 offset-md-1">
-    <div class="card ">
+    @include('shared._error')
 
-      <div class="card-header">
-        <h1>
-          BlogCategory /
-          @if($blog_category->id)
-            Edit #{{ $blog_category->id }}
-          @else
-            Create
-          @endif
-        </h1>
-      </div>
+    <div class="ui centered grid container stackable">
+        <div class="twelve wide column">
+            <div class="ui segment">
+                <a class="ui right corner label compose-help" href="javascript:;">
+                    <i class="info icon"></i>
+                </a>
 
-      <div class="card-body">
-        @if($blog_category->id)
-          <form action="{{ route('blog.categories.update', $blog_category->id) }}" method="POST" accept-charset="UTF-8">
-          <input type="hidden" name="_method" value="PUT">
-        @else
-          <form action="{{ route('blog.categories.store') }}" method="POST" accept-charset="UTF-8">
-        @endif
+                <div class="content extra-padding">
 
-          @include('common.error')
+                    <div class="ui header text-center text gery" style="margin:10px 0 40px">
+                        @if($category->id)
+                            <i class="icon paint brush"></i>编辑 {{ $category->name }} 分类
+                        @else
+                            <i class="icon paint brush"></i>新建分类
+                        @endif
+                    </div>
 
-          <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    @if($category->id)
+                        <form id="category-update-form"
+                              class="ui form"
+                              style="min-height: 50px;"
+                              action="{{ route('blog.categories.update', $category->id) }}" method="POST" accept-charset="UTF-8">
+                            <input type="hidden" name="_method" value="PUT">
+                    @else
+                        <form id="category-create-form"
+                              style="min-height: 50px;"
+                              class="ui form"
+                              action="{{ route('blog.categories.store') }}" method="POST" accept-charset="UTF-8">
+                    @endif
 
-          
-                <div class="form-group">
-                	<label for="name-field">Name</label>
-                	<input class="form-control" type="text" name="name" id="name-field" value="{{ old('name', $blog_category->name ) }}" />
-                </div> 
-                <div class="form-group">
-                	<label for="description-field">Description</label>
-                	<textarea name="description" id="description-field" class="form-control" rows="3">{{ old('description', $blog_category->description ) }}</textarea>
-                </div> 
-                <div class="form-group">
-                    <label for="post_count-field">Post_count</label>
-                    <input class="form-control" type="text" name="post_count" id="post_count-field" value="{{ old('post_count', $blog_category->post_count ) }}" />
-                </div> 
-                <div class="form-group">
-                    <label for="user_id-field">User_id</label>
-                    <input class="form-control" type="text" name="user_id" id="user_id-field" value="{{ old('user_id', $blog_category->user_id ) }}" />
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+                            <div class="field">
+                                <label>名称</label>
+                                <input class="form-control" type="text" name="name"
+                                       id="title-field" value="{{ old('name', $category->name ) }}"
+                                       placeholder="请填写分类名称" required="">
+                            </div>
+
+                            <div class="field">
+                                <label>描述</label>
+                                <input class="form-control" type="text" name="description"
+                                       id="title-field" value="{{ old('description', $category->description ) }}"
+                                       placeholder="请填写分类描述">
+                            </div>
+
+
+                            <div class="field">
+                                <label>
+                                    上级分类（分类归属）
+                                </label>
+                                <div class="field">
+                                    <div class="ui fluid selection dropdown">
+                                        <input type="hidden" name="cascade" value="{{ $category->cascade }}">
+                                        <i class="dropdown icon"></i>
+                                        <div class="default text">请选择分类标签（必选）</div>
+                                        <div class="menu">
+                                            <div class="item" data-value="0">
+                                                顶级分类
+                                            </div>
+                                            @foreach ($categories as $value)
+                                                <div class="item" data-value="{{ $value->id }}">
+                                                    {{ $value->name }}
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div contenteditable="true" id="pastebin"></div>
+
+                            <div class="ui message">
+                                <button type="submit" class="ui button primary publish-btn loading-on-clicked" id="">
+                                    <i class="icon send"></i>
+                                    保存
+                                </button>
+                            </div>
+                        </form>
                 </div>
-
-          <div class="well well-sm">
-            <button type="submit" class="btn btn-primary">Save</button>
-            <a class="btn btn-link float-xs-right" href="{{ route('blog.categories.index') }}"> <- Back</a>
-          </div>
-        </form>
-      </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
-
 @endsection

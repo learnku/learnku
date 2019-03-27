@@ -20,7 +20,7 @@
 @endsection
 
 @section('content')
-    <div class="ui centered grid container main stackable blog" style="">
+    <div class="ui centered grid container main stackable blog" style="min-height: 120vh;">
         <div class="twelve wide column pull-right main main-column">
             {{-- 文章 --}}
             <div class="ui segment article-content" style="min-height: 40vh;">

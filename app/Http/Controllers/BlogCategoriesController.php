@@ -7,6 +7,7 @@ use App\Models\BlogCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BlogCategoryRequest;
+use Illuminate\Support\Facades\Auth;
 
 class BlogCategoriesController extends Controller
 {
@@ -17,7 +18,7 @@ class BlogCategoriesController extends Controller
 
 	public function index()
 	{
-		$categories = BlogCategory::paginate();
+		$categories = BlogCategory::where('user_id', Auth::id())->paginate();
 		return view('pages.blog_categories.index', compact('categories'));
 	}
 
@@ -34,36 +35,40 @@ class BlogCategoriesController extends Controller
         return view('pages.blog_articles.index', compact('blog_articles', 'category'));
     }
 
-	public function create(BlogCategory $blog_category)
+	public function create(BlogCategory $category)
 	{
-		return view('pages.blog_categories.create_and_edit', compact('blog_category'));
+        $categories = BlogCategory::all();
+		return view('pages.blog_categories.create_and_edit', compact('categories', 'category'));
 	}
 
-	public function store(BlogCategoryRequest $request)
+	public function store(BlogCategoryRequest $request, BlogCategory $category)
 	{
-		$blog_category = BlogCategory::create($request->all());
-		return redirect()->route('blog.categories.show', $blog_category->id)->with('message', 'Created successfully.');
+        $category->fill($request->all());
+        $category->user_id = Auth::id();
+        $category->save();
+		return redirect()->route('blog.categories.index', $category->id)->with('message', '创建成功.');
 	}
 
-	public function edit(BlogCategory $blog_category)
+	public function edit(BlogCategory $category)
 	{
-        $this->authorize('update', $blog_category);
-		return view('pages.blog_categories.create_and_edit', compact('blog_category'));
+        $this->authorize('update', $category);
+        $categories = BlogCategory::all();
+		return view('pages.blog_categories.create_and_edit', compact('categories', 'category'));
 	}
 
-	public function update(BlogCategoryRequest $request, BlogCategory $blog_category)
+	public function update(BlogCategoryRequest $request, BlogCategory $category)
 	{
-		$this->authorize('update', $blog_category);
-		$blog_category->update($request->all());
+		$this->authorize('update', $category);
+        $category->update($request->all());
 
-		return redirect()->route('blog.categories.show', $blog_category->id)->with('message', 'Updated successfully.');
+		return redirect()->route('blog.categories.index', $category->id)->with('message', '更新成功.');
 	}
 
-	public function destroy(BlogCategory $blog_category)
+	public function destroy(BlogCategory $category)
 	{
-		$this->authorize('destroy', $blog_category);
-		$blog_category->delete();
+		$this->authorize('destroy', $category);
+        $category->delete();
 
-		return redirect()->route('blog.categories.index')->with('message', 'Deleted successfully.');
+		return redirect()->route('blog.categories.index')->with('message', '删除成功.');
 	}
 }

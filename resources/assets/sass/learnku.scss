@@ -11,7 +11,9 @@
 @import "vendor/learnku_com";
 
 .flex {
-    display: flex;
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
 }
 
 // 自定义样式
