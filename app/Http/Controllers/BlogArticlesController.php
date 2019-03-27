@@ -51,6 +51,7 @@ class BlogArticlesController extends Controller
     // 创建页面
 	public function create(BlogArticle $article)
 	{
+        $this->authorize('admin', $article);
         $categories = BlogCategory::all();
         return view('pages.blog_articles.create_and_edit', compact('article', 'categories'));
 	}
@@ -58,6 +59,7 @@ class BlogArticlesController extends Controller
 	// 保存文章
 	public function store(BlogArticleRequest $request, BlogArticle $article, BlogCategory $category)
 	{
+        $this->authorize('admin', $article);
 	    $category_id = $request->category_id;
         $user_id = Auth::id();
         /*if ($category->where('id', $category_id)->doesntExist() && $category->where('name', trim($category_id))->doesntExist()) {
@@ -87,8 +89,8 @@ class BlogArticlesController extends Controller
     // 编辑页面
 	public function edit(BlogArticle $article)
 	{
-        $categories = BlogCategory::all();
         $this->authorize('update', $article);
+	    $categories = BlogCategory::all();
 		return view('pages.blog_articles.create_and_edit', compact('article', 'categories'));
 	}
 

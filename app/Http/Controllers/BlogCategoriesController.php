@@ -37,12 +37,14 @@ class BlogCategoriesController extends Controller
 
 	public function create(BlogCategory $category)
 	{
+        $this->authorize('admin', $category);
         $categories = BlogCategory::all();
 		return view('pages.blog_categories.create_and_edit', compact('categories', 'category'));
 	}
 
 	public function store(BlogCategoryRequest $request, BlogCategory $category)
 	{
+        $this->authorize('admin', $category);
         $category->fill($request->all());
         $category->user_id = Auth::id();
         $category->save();

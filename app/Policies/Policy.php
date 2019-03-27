@@ -19,4 +19,15 @@ class Policy
 	    // 		return true;
 	    // }
 	}
+
+    /**
+     * 超级管理员
+     * @param $user
+     * @param $ability
+     * @return mixed
+     */
+    public function admin($user, $ability)
+    {
+        return $user->hasRole('Founder');
+    }
 }

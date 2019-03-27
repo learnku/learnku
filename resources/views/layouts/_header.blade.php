@@ -28,15 +28,16 @@
         </div>
       @else
         {{-- 添加博文 --}}
+        @if(Auth()->user()->hasRole('Founder'))
         <div class="ui simple item dropdown article stackable nav-user-item  secondary" tabindex="0">
           <i class="icon paint brush"></i>  <i class="dropdown icon"></i>
-
           <div class="ui menu stackable" tabindex="-1">
             <a href="{{ route('blog.articles.create') }}" class="item no-pjax">
               <i class="icon paint brush"></i> 新建博文
             </a>
           </div>
         </div>
+        @endif
 
         {{-- 消息通知 --}}
         <a class="item" href="{{ route('notifications.index') }}" title="消息通知">

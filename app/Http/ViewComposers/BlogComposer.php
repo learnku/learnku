@@ -14,6 +14,8 @@ class BlogComposer
     // 博客信息
     protected $blogInfo = [];
 
+    protected $userId = 1;
+
     /**
      * 创建一个新的 profile composer
      *
