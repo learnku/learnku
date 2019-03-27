@@ -30,6 +30,13 @@ class BlogArticle extends Model
         return $this->hasMany(BlogReply::class, 'article_id');
     }
 
+    // 获取文章标签
+    public function tags()
+    {
+        // return DB::select("select 'id','name' from `tags` inner join `tags_link_articles` on `tags`.`id` = `tags_link_articles`.`tag_id` where `tags_link_articles`.`article_id` = " . $article_id);
+        return $this->belongsToMany('App\Models\BlogTag', 'blog_tags_link_articles', 'article_id', 'tag_id');
+    }
+
     // 文章排序
     public function scopeWithOrder($query, $order)
     {

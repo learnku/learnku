@@ -41,7 +41,7 @@
                                 </div>
 
                                 <div class="field">
-                                    <label>分类（Tab 键可创建新分类）
+                                    <label>分类
                                         <a target="_blank" href="{{ route('blog.categories.index') }}">管理分类</a>
                                     </label>
                                     <div class="field">
@@ -61,7 +61,7 @@
                                     </div>
                                 </div>
 
-                                {{--<div class="field">
+                                <div class="field">
                                     <label>选择标签（Tab 键可创建新标签）</label>
                                     <div class="ui search multiple selection tags dropdown " >
                                         <input type="hidden" name="tags" value="{{ isset($articleTags) ? $articleTags : '' }}" >
@@ -76,7 +76,7 @@
                                             @endforeach
                                         </div>
                                     </div>
-                                </div>--}}
+                                </div>
 
                                 {{-- 加载 markdown 编辑器 --}}
                                 <div class="markdown-base">
@@ -132,8 +132,6 @@
                 allowAdditions: true,
                 saveRemoteData : false,
                 onChange: function (value, text, $selectedItem) {
-                    console.log(value, text, $selectedItem);
-                    
                 }
                 /*apiSettings: {
                     url: 'https://learnku.com/articles/tags/search?q={query}',
