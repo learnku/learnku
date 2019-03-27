@@ -102,8 +102,8 @@ class Learnku {
         $(".ui.checkbox").checkbox();
         $(".ui.accordion").accordion();
         $(".ui.toc.sticky").sticky({
-            silent: !0,
-            debug: !1,
+            silent: true,
+            debug: true,
             context: ".article-content"
         });
         $(".ui.topic-operation.sticky").sticky({
