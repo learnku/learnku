@@ -4,6 +4,7 @@ namespace App\Http\ViewComposers;
 
 use App\Models\BlogArticle;
 use App\Models\BlogCategory;
+use App\Models\BlogTag;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
@@ -49,7 +50,7 @@ class BlogComposer
 
         // 个人分类
         $this->blogInfo['categories'] = [];
-        $categories = BlogCategory::all()->toArray();
+        $categories = BlogCategory::where('id', $this->userId)->get()->toArray();
         $tmp = array_filter($categories, function ($item) {
             return $item['cascade'] == '0';
         });
@@ -67,6 +68,12 @@ class BlogComposer
             $key = $item['cascade'];
             array_push($this->blogInfo['categories'][$key]['items'], $item);
         }
+
+        // 标签云
+        // $this->blogInfo['tags'] = BlogTag::all();
+        $this->blogInfo['tags'] = DB::select(
+            DB::raw("SELECT A.*,COUNT(B.id) AS count_num FROM `blog_tags` AS A LEFT JOIN blog_tags_link_articles AS B ON A.id=B.tag_id GROUP BY A.id")
+        );
 
         // 最新文章
         $this->blogInfo['articles_news'] = array_sort($articles, function ($a, $b){

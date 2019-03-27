@@ -81,33 +81,19 @@
         </div>
 
         {{-- 博客标签 --}}
-        {{--<div class="ui card tag-active-user-card blog-tags responsive">
+        <div class="ui card tag-active-user-card blog-tags responsive">
             <div class="content">
                 <span class="">博客标签</span>
             </div>
             <div class="extra content readmore" style="padding-bottom: 18px; max-height: none;">
+                @foreach($common['blogInfo']['tags'] as $item)
                 <a class="ui label basic" href="https://learnku.com/blog/liguanjie8/tags/api_40">
-                    api
-                    <div class="detail">1</div>
+                    {{ $item->name }}
+                    <div class="detail">{{ $item->count_num }}</div>
                 </a>
-                <a class="ui label basic" href="https://learnku.com/blog/liguanjie8/tags/artisan_549">
-                    artisan
-                    <div class="detail">3</div>
-                </a>
-                <a class="ui label basic" href="https://learnku.com/blog/liguanjie8/tags/faker_589">
-                    faker
-                    <div class="detail">2</div>
-                </a>
-                <a class="ui label basic" href="https://learnku.com/blog/liguanjie8/tags/toolbar_3904">
-                    toolbar
-                    <div class="detail">8</div>
-                </a>
-                <a class="ui label basic" href="https://learnku.com/blog/liguanjie8/tags/webmaster-tools_Dc_49134">
-                    站长工具
-                    <div class="detail">1</div>
-                </a>
+                @endforeach
             </div>
-        </div>--}}
+        </div>
 
         {{-- 最新 热门文章 --}}
         <div class="ui card tag-active-user-card popular-card responsive" style="font-size: 13px;">
