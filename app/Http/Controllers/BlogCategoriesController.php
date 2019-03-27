@@ -67,8 +67,12 @@ class BlogCategoriesController extends Controller
 	public function destroy(BlogCategory $category)
 	{
 		$this->authorize('destroy', $category);
-        $category->delete();
-
-		return redirect()->route('blog.categories.index')->with('message', '删除成功.');
+        $category_id = $category->id;
+        if (BlogArticle::where('category_id', $category_id)->exists()) {
+            return redirect()->route('blog.categories.index')->with('error', '分类下含有文章，不可删除.');
+        } else {
+            $category->delete();
+            return redirect()->route('blog.categories.index')->with('message', '删除成功.');
+        }
 	}
 }

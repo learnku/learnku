@@ -24,8 +24,8 @@
 
                         <div class="date" style="font-size: 13px;margin: 7px 0 0 0;">
                             <a href="{{ route('blog.categories.show', ['category'=> $article->category_id]) }}"
-                               data-tooltip="分类" title="{{ $article->category->name }}">
-                                <i class="icon folder outline"></i> {{ $article->category->name }}
+                               data-tooltip="分类" title="{{ isset($article->category->name) ? $article->category->name : '' }}">
+                                <i class="icon folder outline"></i> {{ isset($article->category->name) ? $article->category->name : '' }}
                             </a>
                             <span class="divider">|</span>
                             <a class="" data-tooltip="2019-02-27 11:07:02">
