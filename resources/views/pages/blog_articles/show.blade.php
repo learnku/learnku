@@ -20,14 +20,14 @@
 @endsection
 
 @section('content')
-    <div class="ui centered grid container main stackable blog" style="min-height: 120vh;">
-        <div class="twelve wide column pull-right main main-column">
+    <div class="ui centered grid container main stackable blog">
+        <div class="js-computed-height-right twelve wide column pull-right main main-column">
             {{-- 文章 --}}
-            <div class="ui segment article-content" style="min-height: 40vh;">
+            <div class="ui segment article-content">
                 {{-- 右侧工具条 --}}
-                <div class="right ui rail hide-on-mobile" style="left: 96%; top: 0px; width: 10px; min-height: 292px; height: 4017px;">
+                <div class="right ui rail hide-on-mobile">
 
-                    <div class="ui sticky topic-operation" style="left: 1557.69px;">
+                    <div class="ui sticky topic-operation">
                         <div class="ui vertical icon menu border-0">
                             <a class="item text-mute ui action topic-vote popover rm-link-color text-mute" data-position="left center" id="topic-vote-24169" data-id="24169" href="javascript:;" data-html="                    点赞
                 ">
@@ -112,7 +112,7 @@
                     <div class="ui divider"></div>
 
                     {{-- 文章详情 --}}
-                    <div class="ui readme markdown-body content-body article-content fluidbox-content">
+                    <div class="ui readme markdown-body content-body fluidbox-content">
                         {!! $article->body !!}
                     </div>
                 </div>

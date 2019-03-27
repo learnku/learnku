@@ -101,21 +101,25 @@ class Learnku {
         });
         $(".ui.checkbox").checkbox();
         $(".ui.accordion").accordion();
-        $(".ui.toc.sticky").sticky({
-            silent: true,
-            debug: true,
-            context: ".article-content"
+        $(".ui.popover").popup({
+            on: "hover",
+            position: "top center"
         });
+        // 文章详情页 贴附效果
+        if ($('.js-computed-height-right ').outerHeight(true) > $(".js-computed-height-left").outerHeight(true)) {
+            $(".ui.toc.sticky").sticky({
+                silent: true,
+                debug: false,
+                context: ".article-content"
+            });
+        }
+        // 文章详情页 右边栏 贴附效果
         $(".ui.topic-operation.sticky").sticky({
-            silent: !0,
+            silent: true,
             context: ".main-column"
         });
         $(".ui.translate-box.sticky").sticky({
             silent: !0
-        });
-        $(".ui.popover").popup({
-            on: "hover",
-            position: "top center"
         });
         $(".message .close").on("click", function() {
             $(".message-container").transition("fade")

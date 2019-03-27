@@ -1,6 +1,6 @@
 {{--<div class="four wide column" style="padding-right: 0px;">
     <div class="item header book-article" style="height:auto !important;">--}}
-<div class="four wide column pull-left sidebar clear" style="padding-right: 0px;">
+<div class="js-computed-height-left four wide column pull-left sidebar clear" style="padding-right: 0px;">
     <div class="item header blog-article sidebar" style="height:auto !important;">
         <div class="ui segment orange text-center" style="padding: 25px;">
             刻意记录，每日精进。

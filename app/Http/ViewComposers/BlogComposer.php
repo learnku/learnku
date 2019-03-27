@@ -15,7 +15,7 @@ class BlogComposer
     // 博客信息
     protected $blogInfo = [];
 
-    protected $userId = 1;
+    protected $userId = '1';
 
     /**
      * 创建一个新的 profile composer
@@ -50,7 +50,7 @@ class BlogComposer
 
         // 个人分类
         $this->blogInfo['categories'] = [];
-        $categories = BlogCategory::where('id', $this->userId)->get()->toArray();
+        $categories = BlogCategory::where('user_id', $this->userId)->get()->toArray();
         $tmp = array_filter($categories, function ($item) {
             return $item['cascade'] == '0';
         });
