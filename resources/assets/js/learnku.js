@@ -7,6 +7,8 @@
 
 require('./bootstrap_learnku');
 
+require('./vendor/search');
+
 /** 返回对应位置 */
 window.scrollToAnchor = function(id) {
     var e = $("*[id='" + id + "']");
@@ -260,6 +262,7 @@ class Learnku {
             }
         })
     }
+
 }
 
 

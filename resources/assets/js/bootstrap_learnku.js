@@ -31,6 +31,8 @@ if (token) {
  */
 
 try {
+    window.Vue = require('vue');
+
     window.$ = window.jQuery = require('jquery');
 
     // https://sweetalert2.github.io/

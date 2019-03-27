@@ -11,12 +11,28 @@
     </a>
 
     {{-- 搜索 --}}
-    <form class="ui fluid category search item secondary" action="/" method="GET">
-      <div class="ui icon input">
-        <input class="prompt" name="q" type="text" placeholder="搜索" autocomplete="off">
-        <i class="search icon"></i>
-      </div>
-      <div class="results"></div>
+    <form id="header-search-app" class="ui fluid category search item secondary" action="{{ route('api.search.index') }}" method="GET">
+        <div class="ui icon input">
+            <select class="ui compact selection dropdown header-search-left" id="header-search-left">
+                <option value="all">所有</option>
+                <option selected="" value="articles">文章</option>
+            </select>
+            <input class="prompt header-search-right" name="q" type="text" placeholder="搜索" autocomplete="off"
+              @input="search($event)" v-model="search_val">
+            <i class="search icon"></i>
+        </div>
+        <div class="results transition visible" v-if="search_blog.length" style="display: block !important;">
+          <a class="result" v-for="item in search_blog" :href="item.href">
+            {{--<div class="image"> 
+              <img src="https://iocaffcdn.phphub.org/uploads/avatars/3848_1477641871.png!/both/100x100">    
+            </div>--}}
+            <div class="content">
+              <div class="title" v-text="item.title"></div>
+              <div class="description" v-text="item.excerpt"></div>
+            </div>
+          </a>
+
+          <a href="https://learnku.com/search?q=a" class="action"><i class="icon search"></i>当前列表仅搜加精，更多请搜全站</a></div>
     </form>
 
     {{-- 右侧导航 --}}

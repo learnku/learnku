@@ -18,8 +18,9 @@ Route::group([
     'namespace'=> 'Api',
 ], function ($router){
     // 登录
-    $router->post('authorizations', 'AuthorizationsController@login')
-        ->name('api.authorizations.login');
+    $router->post('authorizations', 'AuthorizationsController@login')->name('api.authorizations.login');
+    // 全站搜索
+    $router->get('search', 'SearchController@index')->name('api.search.index');
 });
 
 
