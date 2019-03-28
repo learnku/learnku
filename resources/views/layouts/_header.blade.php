@@ -12,7 +12,8 @@
 
         {{-- 搜索 vue --}}
         <form id="header-search-app" class="ui fluid category search item secondary"
-              action="{{ route('api.search.index') }}" method="GET">
+              data-api="{{ route('api.search.index') }}"
+              action="{{ route('search.index') }}" method="GET">
             <div class="ui icon input" :class="{ 'loading' : loading }">
                 <select class="ui compact selection dropdown header-search-left"
                         v-model="form.search_type"
@@ -33,14 +34,14 @@
                         <div class="description" v-text="item.excerpt"></div>
                     </div>
                 </a>
-                <a href="" class="action"><i class="icon search"></i>搜全站</a>
+                <a :href="search_all_url" class="action"><i class="icon search"></i>搜全站</a>
             </div>
             <div class="results transition"
                 :class="{ visible:  !search_blog_results.length && form.q.length && !loading }">
                 <div class="message empty">
                     <div class="header">结果为空</div>
                     <div class="description">搜索结果为空！</div>
-                    <a href="" class="action ui button mt-3 fluid">
+                    <a :href="search_all_url" class="action ui button mt-3 fluid">
                         <i class="icon search"></i>
                         搜全站
                     </a>

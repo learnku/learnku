@@ -26,13 +26,12 @@
             'token': "{{ csrf_token() }}",
             'isApi': false,
             'url': "{{ config('app.url') }}",
-            'following_users': ['GucciLee'],
             'routes': {
                 'images_domain': "{{ config('app.images_url') }}",
                 'cdns_domain': "{{ config('app.cdns_url') }}",
                 'upload_image': "{{ route('api.images.store') }}",
-                'api_search': '',
-                'cdn_store': ''
+                'api_search': "{{ route('api.search.index') }}",
+                'search': "{{ route('search.index') }}",
             }
         };
     </script>

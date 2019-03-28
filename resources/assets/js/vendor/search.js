@@ -9,11 +9,15 @@ var app = new Vue({
     data: {
         timmer: null,
         loading: false,
-        search_blog_results: [],
+        // 提交数据
         form: {
             search_type: 'is_blog',
             q: ''
-        }
+        },
+        // 全局搜索
+        search_all_url: Config.routes.search,
+        // 搜索结果
+        search_blog_results: [],
     },
     methods: {
         search($event) {
@@ -22,7 +26,9 @@ var app = new Vue({
                 clearTimeout(this.timmer);
                 // todo
                 let form = $($event.target).closest('form');
-                let action = form.attr('action');
+                let action = form.attr('data-api');
+                this.search_all_url = this.search_all_url + '?' + form.serialize();
+
                 this.loading = true;
                 if ($.trim(this.form.q) != '') {
                     axios({

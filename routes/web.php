@@ -40,6 +40,9 @@ Route::patch('users/{user}/update_password', 'UsersController@update_password')-
 // 消息通知
 Route::resource('notifications', 'NotificationsController', ['only' => ['index']]);
 
+// 搜索
+Route::get('search', 'SearchController@index')->name('search.index');
+
 /**
  * 博客
  */
