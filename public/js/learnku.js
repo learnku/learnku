@@ -49614,6 +49614,7 @@ var app = new Vue({
     loading: false,
     search_blog_results: [],
     form: {
+      search_type: 'is_blog',
       q: ''
     }
   },

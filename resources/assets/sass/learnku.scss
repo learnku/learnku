@@ -17,8 +17,13 @@
 }
 
 // 头部
-.header-search-left{border-radius: 500rem 0 0 500rem !important;border-right: 0 !important;}
-.header-search-right{border-radius:0 500rem 500rem 0 !important;}
+.header-search-left{
+    border-radius: 500rem 0 0 500rem !important;
+    border-right: 0 !important;
+}
+.header-search-right{
+    border-radius:0 500rem 500rem 0 !important;
+}
 
 // 自定义样式
 .column-max-width-500{

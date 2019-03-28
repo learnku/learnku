@@ -10,13 +10,15 @@
             关于本站
         </a>
 
-        {{-- 搜索 --}}
+        {{-- 搜索 vue --}}
         <form id="header-search-app" class="ui fluid category search item secondary"
               action="{{ route('api.search.index') }}" method="GET">
             <div class="ui icon input" :class="{ 'loading' : loading }">
-                <select class="ui compact selection dropdown header-search-left" id="header-search-left">
-                    <option value="all">所有</option>
-                    <option selected="" value="articles">文章</option>
+                <select class="ui compact selection dropdown header-search-left"
+                        v-model="form.search_type"
+                        id="header-search-left">
+                    <option value="is_all">所有</option>
+                    <option selected="selected" value="is_blog">文章</option>
                 </select>
                 <input class="prompt header-search-right" name="q" type="text" placeholder="搜索" autocomplete="off"
                        @input="search($event)" v-model="form.q">
