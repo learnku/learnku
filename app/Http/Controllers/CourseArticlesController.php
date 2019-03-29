@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\CourseArticle;
+use App\Models\CourseBook;
+use App\Models\CourseSection;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CourseArticleRequest;
+use Illuminate\Support\Facades\Auth;
 
 class CourseArticlesController extends Controller
 {
@@ -22,6 +25,13 @@ class CourseArticlesController extends Controller
         if (empty($this->book_id)) {
             abort(403, '非法访问');
         }
+
+        $this->data = array_merge($this->data, [
+            // 教程
+            'books'=> CourseBook::all(),
+            // 章节
+            'sections'=> CourseSection::all(),
+        ]);
     }
 
 	public function index(Request $request)
@@ -31,9 +41,10 @@ class CourseArticlesController extends Controller
 		return view('pages.course_articles.index', compact('articles', 'data'));
 	}
 
-    public function show(CourseArticle $course_article)
+    public function show(CourseBook $book,CourseArticle $article)
     {
-        return view('course_articles.show', compact('course_article'));
+        $data = $this->data;
+        return view('pages.course_articles.show', compact('article', 'data'));
     }
 
 	public function create(CourseArticle $article)
@@ -42,31 +53,40 @@ class CourseArticlesController extends Controller
 		return view('pages.course_articles.create_and_edit', compact('article', 'data'));
 	}
 
-	public function store(CourseArticleRequest $request)
+	public function store(CourseArticleRequest $request, CourseArticle $article)
 	{
-		$course_article = CourseArticle::create($request->all());
-		return redirect()->route('course_articles.show', $course_article->id)->with('message', 'Created successfully.');
+        $data = [
+            'title' => $request->title,
+            'body' => $request->body,
+        ];
+        $article->fill($data);
+        $article->course_books_id = $request->course_books_id;
+        $article->courses_section_id = $request->courses_section_id;
+        $article->user_id = Auth::id();
+        $article->save();
+
+		return redirect()->route('course.articles.show', [$this->book_id, $article->id])->with('message', '教程创建成功.');
 	}
 
-	public function edit(CourseArticle $course_article)
+	public function edit(CourseArticle $article)
 	{
-        $this->authorize('update', $course_article);
-		return view('course_articles.create_and_edit', compact('course_article'));
+        $this->authorize('update', $article);
+		return view('pages.course_articles.create_and_edit', compact('article'));
 	}
 
-	public function update(CourseArticleRequest $request, CourseArticle $course_article)
+	public function update(CourseArticleRequest $request, CourseArticle $article)
 	{
-		$this->authorize('update', $course_article);
-		$course_article->update($request->all());
+		$this->authorize('update', $article);
+        $article->update($request->all());
 
-		return redirect()->route('course_articles.show', $course_article->id)->with('message', 'Updated successfully.');
+		return redirect()->route('course.articles.show', $article->id)->with('message', 'Updated successfully.');
 	}
 
-	public function destroy(CourseArticle $course_article)
+	public function destroy(CourseArticle $article)
 	{
-		$this->authorize('destroy', $course_article);
-		$course_article->delete();
+		$this->authorize('destroy', $article);
+		$article->delete();
 
-		return redirect()->route('course_articles.index')->with('message', 'Deleted successfully.');
+		return redirect()->route('course.articles.index')->with('message', 'Deleted successfully.');
 	}
 }
