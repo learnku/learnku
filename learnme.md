@@ -39,4 +39,16 @@ php artisan make:scaffold BlogArticles --schema="title:string:index,body:text,us
 
 // 博文回复
 php artisan make:scaffold BlogReply --schema="topic_id:integer:unsigned:default(0):index,user_id:integer:unsigned:default(0):index,content:text"
+
+// 教程
+php artisan make:scaffold CoursesArticles --schema=""
+{
+title:string:index,
+body:text,
+// 书籍id
+// 目录id
+
+user_id:integer:unsigned:index,
+}
+
 ```
