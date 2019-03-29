@@ -1,7 +1,7 @@
 <?php
 
 /**
- * 书籍章节表
+ * 教程书籍 章节表
  */
 
 use Illuminate\Database\Schema\Blueprint;

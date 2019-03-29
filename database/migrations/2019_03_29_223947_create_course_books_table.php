@@ -1,6 +1,6 @@
 <?php
 /**
- * 教程书籍表
+ * 教程 书籍表
  */
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
