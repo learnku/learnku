@@ -6,6 +6,7 @@
  *      $learnkuUrl->show('');
  *      $learnkuUrl->update([]);
  *      $learnkuUrl->delete([]);
+ *      $learnkuUrl->changePath('');
  */
 
 namespace App\Handlers;
@@ -14,22 +15,25 @@ namespace App\Handlers;
 class LearnkuUrlHandler
 {
     protected $domain = '';
-    protected $url = '';
+    protected $url = [];
     protected $params = [];
 
+    /**
+     *
+     * LearnkuUrlHandler constructor.
+     * @param string $url http://learnku.net/xxx.html?a=1&b=2
+     */
     public function __construct($url)
     {
-        // http://learnku.net/xxx.html?a=1&b=2
-        $this->url = $url;
-        if (strstr($this->url, '?')){
-            // http://learnku.net/xxx.html?
-            $this->domain = substr($this->url, 0, strpos($this->url, '?') + 1);
+        // ['query' => 'a=1&b=2']
+        $this->url = parse_url($url);
 
-            // a=1&b=2
-            $this->url = str_replace($this->domain, '', $this->url);
+        // http://learnku.net/xxx.html?
+        $this->domain = $this->url['path'];
 
-            // [ a => 1, b => 2 ]
-            $this->params = $this->_convertUrlQuery($this->url);
+        // [ a => 1, b => 2 ]
+        if (isset($this->url['query'])) {
+            parse_str($this->url['query'], $this->params);
         }
     }
 
@@ -72,6 +76,17 @@ class LearnkuUrlHandler
         return $this->_getUrl();
     }
 
+    /**
+     * 改变 域名
+     * @param $domain
+     * @return string
+     */
+    public function changePath($domain)
+    {
+        $this->domain = $domain;
+        return $this->_getUrl();
+    }
+
 
     /**
      * 获取 完整 url => http://www.leanku.net/xxx.html?a=1&b=2
@@ -79,11 +94,29 @@ class LearnkuUrlHandler
      */
     protected function _getUrl()
     {
-        return $this->domain . $this->_getUrlQuery($this->params);
+        return $this->domain . '?' . http_build_query($this->params);
     }
 
     /**
-     * 反转 url 参数为 params 数组
+     * 使用 http_build_query 代替
+     * 获取 url 参数 【 使用 http_build_query 代替 】
+     * @param $array_query
+     * @return string => a=1&b=2
+     */
+    protected function _getUrlQuery($array_query)
+    {
+        $tmp = array();
+        foreach($array_query as $k=>$param)
+        {
+            $tmp[] = $k.'='.$param;
+        }
+        $params = implode('&',$tmp);
+        return $params;
+    }
+
+    /**
+     * 使用 parse_str 代替
+     * 反转 url 参数为 params 数组 【 使用 parse_str 代替 】
      * @param $query
      * @return array
      */
@@ -96,22 +129,6 @@ class LearnkuUrlHandler
             $item = explode('=', $param);
             $params[$item[0]] = $item[1];
         }
-        return $params;
-    }
-
-    /**
-     * 获取 url 参数
-     * @param $array_query
-     * @return string => a=1&b=2
-     */
-    protected function _getUrlQuery($array_query)
-    {
-        $tmp = array();
-        foreach($array_query as $k=>$param)
-        {
-            $tmp[] = $k.'='.$param;
-        }
-        $params = implode('&',$tmp);
         return $params;
     }
 }
