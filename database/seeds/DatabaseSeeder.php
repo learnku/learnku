@@ -14,10 +14,11 @@ class DatabaseSeeder extends Seeder
         // 本地才允许 seed
         if (app()->isLocal()) {
             $this->call(UsersTableSeeder::class);
-		$this->call(CourseBooksTableSeeder::class);
             $this->call(BlogCategorysTableSeeder::class);
 		    $this->call(BlogArticlesTableSeeder::class);
             $this->call(BlogReplysTableSeeder::class);
+            // $this->call(CourseBooksTableSeeder::class);
+            // $this->call(CourseSectionsTableSeeder::class);
         }
     }
 }
