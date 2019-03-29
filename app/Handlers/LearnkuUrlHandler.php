@@ -21,15 +21,16 @@ class LearnkuUrlHandler
     {
         // http://learnku.net/xxx.html?a=1&b=2
         $this->url = $url;
+        if (strstr($this->url, '?')){
+            // http://learnku.net/xxx.html?
+            $this->domain = substr($this->url, 0, strpos($this->url, '?') + 1);
 
-        // http://learnku.net/xxx.html?
-        $this->domain = substr($this->url, 0, strpos($this->url, '?') + 1);
+            // a=1&b=2
+            $this->url = str_replace($this->domain, '', $this->url);
 
-        // a=1&b=2
-        $this->url = str_replace($this->domain, '', $this->url);
-
-        // [ a => 1, b => 2 ]
-        $this->params = $this->_convertUrlQuery($this->url);
+            // [ a => 1, b => 2 ]
+            $this->params = $this->_convertUrlQuery($this->url);
+        }
     }
 
     /**

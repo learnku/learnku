@@ -21,12 +21,18 @@
                     <option value="is_all">所有</option>
                     <option selected="selected" value="is_blog">文章</option>
                 </select>
-                <input class="prompt header-search-right" name="q" type="text" placeholder="搜索" autocomplete="off"
-                       @input="search($event)" v-model="form.q">
+                <input class="prompt header-search-right"
+                       type="text"
+                       placeholder="搜索"
+                       autocomplete="off"
+                       @input.stop="search($event)" @focus.stop="search($event)"
+                       name="q"
+                       data-value="{{ old('q', isset($data['search']['q'])) ? $data['search']['q'] : '' }}"
+                       v-model="form.q">
                 <i class="search icon"></i>
             </div>
             <div class="results transition"
-                 :class="{ visible:  search_blog_results.length && form.q.length }"
+                 :class="{ visible:  search_blog_results.length && search_has_results }"
                  id="search-results">
                 <a class="result" v-for="item in search_blog_results" :href="item.href">
                     <div class="content">
@@ -37,7 +43,7 @@
                 <a :href="search_all_url" class="action"><i class="icon search"></i>搜全站</a>
             </div>
             <div class="results transition"
-                :class="{ visible:  !search_blog_results.length && form.q.length && !loading }">
+                :class="{ visible: search_no_results }">
                 <div class="message empty">
                     <div class="header">结果为空</div>
                     <div class="description">搜索结果为空！</div>
