@@ -40,6 +40,7 @@
 
                             <a class="item text-mute ui action collect popover rm-link-color text-mute"
                                data-position="left center"
+                               id="article-collection"
                                href="javascript:;"
                                data-html="收藏">
                                 <i class="heart icon fs-large "></i>
@@ -180,6 +181,9 @@
         });
     </script>
     <script type="text/javascript">
+        /**
+         * 点赞
+         */
         $('#article-vote').click(function () {
             var self = this;
             var icon = $(self).find('i');
@@ -197,10 +201,23 @@
                         type: 'error',
                         title: res.data.msg,
                         showConfirmButton: false,
-                        timer: 1500
+                        timer: 2000
                     })
                 }
             })
+        });
+
+        /**
+         * 收藏
+         */
+        $('#article-collection').click(function () {
+            Swal.fire({
+                title: '开小差 ~',
+                text: "程序员开小差啦~ 暂未开发此功能",
+                type: 'warning',
+                showConfirmButton: false,
+                timer: 2000
+            });
         });
     </script>
 @endsection

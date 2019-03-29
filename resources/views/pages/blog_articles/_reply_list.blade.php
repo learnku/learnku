@@ -34,21 +34,6 @@
 
                 <div class="footer">
                     <div class="ui menu reactions">
-                        {{-- 点赞 --}}
-                        <a class="item reply-upvote ui popover" href="javascript:;"
-                           title="为此评论点赞"
-                           data-id="{{ $reply->id }}"
-                           style="color:rgba(0, 0, 0, 0.4);font-size: 0.9em;">
-                            <i class="reaction-emoji  icon thumbs up outline"></i>
-                            <span class="vote-count"></span>
-                        </a>
-                        {{-- 举报 --}}
-                        {{--<a class="item ui popover  report-modal"
-                           data-content="举报违规内容，共建品质社区"
-                           href="{{ route('contact.index') }}">
-                            <i class="icon flag outline"></i> 举报
-                        </a>--}}
-
                         {{-- 编辑 --}}
                         @can('update', $reply)
                         <a class="item ui " style="color:rgba(0, 0, 0, 0.4);font-size: 0.9em;" href="{{ route('blog.replies.edit', $reply->id) }}">
