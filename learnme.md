@@ -28,27 +28,57 @@ php artisan make:scaffold Topic --schema="title:string:index,body:text,user_id:i
 
 ## artisan 
 ```
-// 重置数据库
+// 重置数据库 ---------------------------------------------------
 php artisan migrate:refresh --seed
 
-// 博客分类
+// 博客分类 ---------------------------------------------------
 php artisan make:scaffold BlogCategories --schema="name:string:index,description:text:nullable,post_count:integer:default(0),cascade:tinyInteger:default(0):index,user_id:integer:unsigned:index"
 
-// 博客文章
-php artisan make:scaffold BlogArticles --schema="title:string:index,body:text,user_id:integer:unsigned:index,category_id:integer:unsigned:index,reply_count:integer:unsigned:default(0),view_count:integer:unsigned:default(0),last_reply_user_id:integer:unsigned:default(0),order:integer:unsigned:default(0),excerpt:text:nullable,slug:string:nullable"
-
-// 博文回复
-php artisan make:scaffold BlogReply --schema="topic_id:integer:unsigned:default(0):index,user_id:integer:unsigned:default(0):index,content:text"
-
-// 教程
-php artisan make:scaffold CoursesArticles --schema=""
-{
+// 博客文章 ---------------------------------------------------
+php artisan make:scaffold BlogArticles --schema="
 title:string:index,
 body:text,
-// 书籍id
-// 目录id
-
 user_id:integer:unsigned:index,
-}
+category_id:integer:unsigned:index,
+reply_count:integer:unsigned:default(0),
+view_count:integer:unsigned:default(0),
+last_reply_user_id:integer:unsigned:default(0),
+order:integer:unsigned:default(0),
+excerpt:text:nullable,
+slug:string:nullable"
+
+// 博文回复 ---------------------------------------------------
+php artisan make:scaffold BlogReply --schema="topic_id:integer:unsigned:default(0):index,user_id:integer:unsigned:default(0):index,content:text"
+
+
+// 教程文章 ---------------------------------------------------
+php artisan make:scaffold CourseArticles --schema="
+// 充当目录
+title:string:index,
+body:text,
+reply_count:integer:unsigned:default(0),
+view_count:integer:unsigned:default(0),
+slug:string:nullable,
+// 书籍id
+course_books_id:integer:unsigned:index,  
+// 章节id
+courses_section_id:integer:unsigned:index, 
+user_id:integer:unsigned:index
+"
+
+// 教程章节 ---------------------------------------------------
+php artisan make:scaffold CourseSections --schema="
+title:string:index,
+// 书籍id
+course_books_id:integer:unsigned:index
+"
+
+// 教程书 ---------------------------------------------------
+php artisan make:scaffold CourseBooks --schema="
+title:string:index,
+excerpt:text:nullable,
+user_id:integer:unsigned:index
+"
+
 
 ```

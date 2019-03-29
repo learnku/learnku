@@ -90,3 +90,5 @@ Route::group(['prefix'=> 'blog'], function (){
         'only' => ['store', 'update', 'edit', 'destroy']
     ]);
 });
+
+Route::resource('course_books', 'CourseBooksController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
