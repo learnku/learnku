@@ -50,9 +50,6 @@ window.public = {
                 showConfirmButton: false,
                 showCancelButton: true
             });
-        }else {
-            // 回调
-            self.setting.error(error);
         }
     },
 };

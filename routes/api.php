@@ -21,6 +21,9 @@ Route::group([
     $router->post('authorizations', 'AuthorizationsController@login')->name('api.authorizations.login');
     // 全站搜索
     $router->get('search', 'SearchController@index')->name('api.search.index');
+
+    // 文章点赞
+    $router->get('blog/articles/{article}/upvote', 'BlogArticlesController@upvote')->name('api.blog.articles.upvote');
 });
 
 

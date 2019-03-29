@@ -29,37 +29,33 @@
 
                     <div class="ui sticky topic-operation">
                         <div class="ui vertical icon menu border-0">
-                            <a class="item text-mute ui action topic-vote popover rm-link-color text-mute" data-position="left center" id="topic-vote-24169" data-id="24169" href="javascript:;" data-html="                    点赞
-                ">
+                            <a class="item text-mute ui action topic-vote popover rm-link-color text-mute"
+                               data-position="left center"
+                               id="article-vote"
+                               href="javascript:;"
+                               data-html="点赞">
                                 <i class="thumbs up icon fs-large "></i>
-                                <span class="count vote-count fs-small mt-2 display-inline-block">1</span>
+                                <span class="count vote-count fs-small mt-2 display-inline-block">{{ $article->vote_count }}</span>
                             </a>
 
-                            <a class="item text-mute ui action collect popover rm-link-color text-mute" data-position="left center" data-id="24169" href="javascript:;" data-html="                    收藏
-                ">
+                            <a class="item text-mute ui action collect popover rm-link-color text-mute"
+                               data-position="left center"
+                               href="javascript:;"
+                               data-html="收藏">
                                 <i class="heart icon fs-large "></i>
                             </a>
 
-                            <a class="item text-mute ui action  popover rm-link-color text-mute" data-position="left center" data-id="24169" href="#replies" onclick="scrollToAnchor('replies')" title="评论">
+                            <a class="item text-mute ui action  popover rm-link-color text-mute"
+                               data-position="left center"
+                               href="#replies"
+                               onclick="scrollToAnchor('replies')" title="评论">
                                 <i class="comments icon fs-large"></i>
                                 <span class="fs-small mt-2 display-inline-block">0</span>
                             </a>
 
-                            <a class="popover item text-mute ui attend-topic is-sticker" data-position="left center" href="javascript:void(0);" data-url="https://learnku.com/attentions/24169" data-id="24169" data-html="                    关注以获取本文最新动态
-                ">
-                                <div class="top aligned content">
-                                    <i class="icon fs-large eye "></i>
-                                </div>
-                            </a>
-
-
-                            <a class="item text-mute ui popover report-modal" data-position="left center" data-toggle="modal" data-target="#reportModal" data-contentid="24169" href="javascript:void(0)" data-contenttype="App\Models\Topic" data-typename="话题" data-content="举报违规内容，共建品质社区">
-                                <div class="top aligned content">
-                                    <i class="icon fs-large flag checkered"></i>
-                                </div>
-                            </a>
-
-                            <a class="item ui   popover rm-link-color text-mute" data-position="left center" href="#topnav" onclick="scrollToAnchor('topnav')" title="返回顶部">
+                            <a class="item ui   popover rm-link-color text-mute"
+                               data-position="left center" href="#topnav"
+                               onclick="scrollToAnchor('topnav')" title="返回顶部">
                                 <i class="angle double up icon fs-large fw-bold"></i>
                             </a>
                         </div>
@@ -181,6 +177,30 @@
             } else {
                 window.location.href = "{{ route('login') }}";
             }
+        });
+    </script>
+    <script type="text/javascript">
+        $('#article-vote').click(function () {
+            var self = this;
+            var icon = $(self).find('i');
+            icon.addClass("spinner loading").removeClass("thumbs up");
+            axios({
+                url: "{{ route('api.blog.articles.upvote', $article->id) }}",
+                type: 'get'
+            }).then((res)=> {
+                icon.addClass("thumbs up").removeClass("spinner loading");
+                if (res.data.status) {
+                    $(self).find('span').text(res.data.vote_count);
+                } else {
+                    Swal.fire({
+                        position: 'top-end',
+                        type: 'error',
+                        title: res.data.msg,
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+            })
         });
     </script>
 @endsection
