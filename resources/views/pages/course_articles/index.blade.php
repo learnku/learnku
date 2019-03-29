@@ -7,12 +7,12 @@
       <div class="card-header">
         <h1>
           CourseArticle
-          <a class="btn btn-success float-xs-right" href="{{ route('course_articles.create') }}">Create</a>
+          <a class="btn btn-success float-xs-right" href="{{ route('course.articles.create', $data['book_id']) }}">Create</a>
         </h1>
       </div>
 
       <div class="card-body">
-        @if($course_articles->count())
+        @if($articles->count())
           <table class="table table-sm table-striped">
             <thead>
               <tr>
@@ -23,22 +23,22 @@
             </thead>
 
             <tbody>
-              @foreach($course_articles as $course_article)
+              @foreach($articles as $article)
               <tr>
-                <td class="text-xs-center"><strong>{{$course_article->id}}</strong></td>
+                <td class="text-xs-center"><strong>{{$article->id}}</strong></td>
 
-                <td>{{$course_article->title}}</td> <td>{{$course_article->body}}</td> <td>{{$course_article->reply_count}}</td> <td>{{$course_article->view_count}}</td> <td>{{$course_article->slug}}</td> <td>{{$course_article->course_books_id}}</td> <td>{{$course_article-> courses_section_id}}</td> <td>{{$course_article->user_id}}</td>
+                <td>{{$article->title}}</td> <td>{{$article->body}}</td> <td>{{$article->reply_count}}</td> <td>{{$article->view_count}}</td> <td>{{$article->slug}}</td> <td>{{$article->course_books_id}}</td> <td>{{$article-> courses_section_id}}</td> <td>{{$article->user_id}}</td>
 
                 <td class="text-xs-right">
-                  <a class="btn btn-sm btn-primary" href="{{ route('course_articles.show', $course_article->id) }}">
+                  <a class="btn btn-sm btn-primary" href="{{ route('course.articles.show', $article->id) }}">
                     V
                   </a>
 
-                  <a class="btn btn-sm btn-warning" href="{{ route('course_articles.edit', $course_article->id) }}">
+                  <a class="btn btn-sm btn-warning" href="{{ route('course.articles.edit', $article->id) }}">
                     E
                   </a>
 
-                  <form action="{{ route('course_articles.destroy', $course_article->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Delete? Are you sure?');">
+                  <form action="{{ route('course.articles.destroy', $article->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Delete? Are you sure?');">
                     {{csrf_field()}}
                     <input type="hidden" name="_method" value="DELETE">
 
@@ -49,7 +49,7 @@
               @endforeach
             </tbody>
           </table>
-          {!! $course_articles->render() !!}
+          {!! $articles->render() !!}
         @else
           <h3 class="text-xs-center alert alert-info">Empty!</h3>
         @endif

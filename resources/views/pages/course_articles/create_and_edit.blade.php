@@ -9,8 +9,8 @@
       <div class="card-header">
         <h1>
           CourseArticle /
-          @if($course_article->id)
-            Edit #{{ $course_article->id }}
+          @if($article->id)
+            Edit #{{ $article->id }}
           @else
             Create
           @endif
@@ -18,11 +18,11 @@
       </div>
 
       <div class="card-body">
-        @if($course_article->id)
-          <form action="{{ route('course_articles.update', $course_article->id) }}" method="POST" accept-charset="UTF-8">
+        @if($article->id)
+          <form action="{{ route('course.articles.update', $article->id, $article->id) }}" method="POST" accept-charset="UTF-8">
           <input type="hidden" name="_method" value="PUT">
         @else
-          <form action="{{ route('course_articles.store') }}" method="POST" accept-charset="UTF-8">
+          <form action="{{ route('course.articles.store', $data['book_id']) }}" method="POST" accept-charset="UTF-8">
         @endif
 
           @include('common.error')
@@ -32,40 +32,40 @@
           
                 <div class="form-group">
                 	<label for="title-field">Title</label>
-                	<input class="form-control" type="text" name="title" id="title-field" value="{{ old('title', $course_article->title ) }}" />
+                	<input class="form-control" type="text" name="title" id="title-field" value="{{ old('title', $article->title ) }}" />
                 </div> 
                 <div class="form-group">
                 	<label for="body-field">Body</label>
-                	<textarea name="body" id="body-field" class="form-control" rows="3">{{ old('body', $course_article->body ) }}</textarea>
+                	<textarea name="body" id="body-field" class="form-control" rows="3">{{ old('body', $article->body ) }}</textarea>
                 </div> 
                 <div class="form-group">
                     <label for="reply_count-field">Reply_count</label>
-                    <input class="form-control" type="text" name="reply_count" id="reply_count-field" value="{{ old('reply_count', $course_article->reply_count ) }}" />
+                    <input class="form-control" type="text" name="reply_count" id="reply_count-field" value="{{ old('reply_count', $article->reply_count ) }}" />
                 </div> 
                 <div class="form-group">
                     <label for="view_count-field">View_count</label>
-                    <input class="form-control" type="text" name="view_count" id="view_count-field" value="{{ old('view_count', $course_article->view_count ) }}" />
+                    <input class="form-control" type="text" name="view_count" id="view_count-field" value="{{ old('view_count', $article->view_count ) }}" />
                 </div> 
                 <div class="form-group">
                 	<label for="slug-field">Slug</label>
-                	<input class="form-control" type="text" name="slug" id="slug-field" value="{{ old('slug', $course_article->slug ) }}" />
+                	<input class="form-control" type="text" name="slug" id="slug-field" value="{{ old('slug', $article->slug ) }}" />
                 </div> 
                 <div class="form-group">
                     <label for="course_books_id-field">Course_books_id</label>
-                    <input class="form-control" type="text" name="course_books_id" id="course_books_id-field" value="{{ old('course_books_id', $course_article->course_books_id ) }}" />
+                    <input class="form-control" type="text" name="course_books_id" id="course_books_id-field" value="{{ old('course_books_id', $article->course_books_id ) }}" />
                 </div> 
                 <div class="form-group">
                     <label for=" courses_section_id-field"> Courses_section_id</label>
-                    <input class="form-control" type="text" name=" courses_section_id" id=" courses_section_id-field" value="{{ old(' courses_section_id', $course_article-> courses_section_id ) }}" />
+                    <input class="form-control" type="text" name=" courses_section_id" id=" courses_section_id-field" value="{{ old(' courses_section_id', $article-> courses_section_id ) }}" />
                 </div> 
                 <div class="form-group">
                     <label for="user_id-field">User_id</label>
-                    <input class="form-control" type="text" name="user_id" id="user_id-field" value="{{ old('user_id', $course_article->user_id ) }}" />
+                    <input class="form-control" type="text" name="user_id" id="user_id-field" value="{{ old('user_id', $article->user_id ) }}" />
                 </div>
 
           <div class="well well-sm">
             <button type="submit" class="btn btn-primary">Save</button>
-            <a class="btn btn-link float-xs-right" href="{{ route('course_articles.index') }}"> <- Back</a>
+            <a class="btn btn-link float-xs-right" href="{{ route('course.articles.index', $data['book_id'], $article->id) }}"> <- Back</a>
           </div>
         </form>
       </div>

@@ -9,15 +9,26 @@ use App\Http\Requests\CourseArticleRequest;
 
 class CourseArticlesController extends Controller
 {
-    public function __construct()
+    // 教程书籍 id
+    protected $book_id = null;
+
+    protected $data = [];
+
+    public function __construct(Request $request)
     {
         $this->middleware('auth', ['except' => ['index', 'show']]);
+
+        $this->book_id = $this->data['book_id'] = $request->book;
+        if (empty($this->book_id)) {
+            abort(403, '非法访问');
+        }
     }
 
-	public function index()
+	public function index(Request $request)
 	{
-		$course_articles = CourseArticle::paginate();
-		return view('course_articles.index', compact('course_articles'));
+        $data = $this->data;
+		$articles = CourseArticle::paginate();
+		return view('pages.course_articles.index', compact('articles', 'data'));
 	}
 
     public function show(CourseArticle $course_article)
@@ -25,9 +36,10 @@ class CourseArticlesController extends Controller
         return view('course_articles.show', compact('course_article'));
     }
 
-	public function create(CourseArticle $course_article)
+	public function create(CourseArticle $article)
 	{
-		return view('course_articles.create_and_edit', compact('course_article'));
+        $data = $this->data;
+		return view('pages.course_articles.create_and_edit', compact('article', 'data'));
 	}
 
 	public function store(CourseArticleRequest $request)

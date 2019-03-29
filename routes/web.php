@@ -91,6 +91,22 @@ Route::group(['prefix'=> 'blog'], function (){
     ]);
 });
 
-Route::resource('course_books', 'CourseBooksController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
-Route::resource('course_sections', 'CourseSectionsController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
-Route::resource('course_articles', 'CourseArticlesController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
+/**
+ * 教程 书籍
+ */
+Route::group(['prefix'=> 'course'], function(){
+    Route::resource('{book}/articles', 'CourseArticlesController', [
+        'names'=> [
+            'index' => 'course.articles.index',
+            'show' => 'course.articles.show',
+            'create' => 'course.articles.create',
+            'store' => 'course.articles.store',
+            'edit' => 'course.articles.edit',
+            'update' => 'course.articles.update',
+            'destroy' => 'course.articles.destroy',
+        ]
+    ]);
+});
+// Route::resource('course_books', 'CourseBooksController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
+// Route::resource('course_sections', 'CourseSectionsController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
+// Route::resource('course_articles', 'CourseArticlesController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
