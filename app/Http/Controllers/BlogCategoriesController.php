@@ -45,7 +45,11 @@ class BlogCategoriesController extends Controller
 	public function store(BlogCategoryRequest $request, BlogCategory $category)
 	{
         $this->authorize('admin', $category);
-        $category->fill($request->all());
+        $category->fill([
+            'name' => $request->name,
+            'description' => $request->description,
+            'cascade' => $request->cascade ? $request->cascade : 0,
+        ]);
         $category->user_id = Auth::id();
         $category->save();
 		return redirect()->route('blog.categories.index', $category->id)->with('message', '创建成功.');
