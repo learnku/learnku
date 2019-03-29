@@ -49,25 +49,7 @@ class BlogComposer
         }
 
         // 个人分类
-        $this->blogInfo['categories'] = [];
-        $categories = BlogCategory::where('user_id', $this->userId)->get()->toArray();
-        $tmp = array_filter($categories, function ($item) {
-            return $item['cascade'] == '0';
-        });
-        foreach ($tmp as $item) {
-            $key = $item['id'];
-            $this->blogInfo['categories'][$key] = [
-                'main' => $item,
-                'items' => [],
-            ];
-        }
-        $tmp = array_filter($categories, function ($item) {
-            return $item['cascade'] != '0';
-        });
-        foreach ($tmp as $item) {
-            $key = $item['cascade'];
-            array_push($this->blogInfo['categories'][$key]['items'], $item);
-        }
+        $this->blogInfo['categories'] = BlogCategory::where('user_id', $this->userId)->get()->toArray();
 
         // 标签云
         // $this->blogInfo['tags'] = BlogTag::all();

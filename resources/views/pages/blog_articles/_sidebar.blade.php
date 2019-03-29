@@ -50,35 +50,17 @@
             <div class="content">
                 <span class="">个人分类</span>
             </div>
-            <div class="extra content">
-                <div class="ui list">
-                    @foreach($common['blogInfo']['categories'] as $item)
-                    <div class="item">
-                        <i class="folder icon"></i>
-                        <div class="content">
-                            <a class="item description" href="{{ route('blog.categories.show', $item['main']['id']) }}">
-                                <span class=" pull-right" style="color:inherit">{{ $item['main']['post_count'] }} 篇</span>
-                                {{ $item['main']['name'] }}
-                            </a>
-                            <div class="list">
-                                @foreach($item['items'] as $val)
-                                <div class="item flex">
-                                    <i class="file icon"></i>
-                                    <div class="content">
-                                        <a class="item description" href="{{ route('blog.categories.show', $val['id']) }}">
-                                            <span class="pull-right" style="color:inherit;">{{ $val['post_count'] }} 篇</span>
-                                            {{ $val['name'] }}
-                                        </a>
-                                    </div>
-                                </div>
-                                @endforeach
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
-                </div>
+            <div class="ui large vertical fluid pointing menu" style="border-left: 0;border-right: 0;border-bottom: 0;margin-top: 0;">
+                @foreach($common['blogInfo']['categories'] as $item)
+                    <a class="item" href="{{ route('blog.categories.show', $item['id']) }}">
+                        {{ $item['name'] }}
+                        <div class="ui small label">{{ $item['post_count'] }}</div>
+                    </a>
+                @endforeach
             </div>
         </div>
+
+
 
         {{-- 博客标签 --}}
         <div class="ui card tag-active-user-card blog-tags responsive">

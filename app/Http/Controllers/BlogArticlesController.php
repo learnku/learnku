@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\BlogArticleView;
 use App\Models\BlogArticle;
 use App\Models\BlogCategory;
 use App\Models\BlogTag;
@@ -36,6 +37,9 @@ class BlogArticlesController extends Controller
     // 详情页
     public function show(BlogArticle $article)
     {
+        // 更新 文章浏览数
+        event(new BlogArticleView($article));
+
         // 回复数据
         $replies = $article->replies()->with('user')
             ->where('verify', '=', 1)

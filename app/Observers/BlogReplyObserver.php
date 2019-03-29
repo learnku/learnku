@@ -12,7 +12,7 @@ class BlogReplyObserver
 {
     public function created(BlogReply $reply)
     {
-        $reply->topic->updateReplyCount();
+        $reply->article->updateReplyCount();
 
         // 通知话题作者有新的评论
         $reply->article->user->notify(new BlogArticleReplied($reply));
@@ -20,6 +20,6 @@ class BlogReplyObserver
 
     public function deleted(BlogReply $reply)
     {
-        $reply->topic->updateReplyCount();
+        $reply->article->updateReplyCount();
     }
 }

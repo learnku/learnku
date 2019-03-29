@@ -64,4 +64,11 @@ class BlogArticle extends Model
     {
         return $query->orderBy('view_count', 'desc');
     }
+
+    // 更新评论数
+    public function updateReplyCount()
+    {
+        $this->reply_count = $this->replies->count();
+        $this->save();
+    }
 }
