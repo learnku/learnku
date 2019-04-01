@@ -13,9 +13,11 @@
 
                     <div class="ui header text-center text gery" style="margin:10px 0 40px">
                         @if($book->id)
-                            <i class="icon paint brush"></i>编辑 {{ $book->title }} 教程
+                            <i class="icon paint brush"></i>编辑 {{ $book->title }}
+                            <a href="{{ route('course.books.index') }}">教程</a>
                         @else
-                            <i class="icon paint brush"></i>新建教程
+                            <i class="icon paint brush"></i>新建
+                            <a href="{{ route('course.books.index') }}">教程</a>
                         @endif
                     </div>
 

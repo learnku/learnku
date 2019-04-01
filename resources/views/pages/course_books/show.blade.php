@@ -10,7 +10,7 @@
                         <div class="ui items">
                             <div class="item">
                                 <div class="image">
-                                    <img class="ui image image-shadow " src="https://iocaffcdn.phphub.org/uploads/images/201810/26/1/MYg2QNQfss.png">
+                                    <img class="ui image image-shadow lazy" data-original="">
                                 </div>
                                 <div class="content">
                                     <div class="header" style="width:100%">
@@ -19,7 +19,7 @@
 
                                     <div class="description">
                                         <div class="meta" style="line-height:24px">
-                                            <a href="https://learnku.com/courses/laravel-essential-training/5.7/registration-failed-error-message/2556">
+                                            <a href="javascript:;">
                                                 <i class="icon clock"></i> 更新于 <span title="{{ $book->updated_at }}">{{$book->updated_at}}</span>
                                             </a>
                                         </div>
@@ -27,9 +27,15 @@
                                     </div>
 
                                     <div class="extra">
-
-                                        <a class="ui button primary" href="javascript:;"><i class="icon game"></i>开始阅读</a>
-
+                                        <a class="ui button primary go-start-read" href="javascript:;"><i class="icon game"></i>开始阅读</a>
+                                        @if(Auth()->user()->hasRole('Founder'))
+                                        <a class="ui button black" href="">
+                                            新建章节
+                                        </a>
+                                        <a class="ui button black" href="{{ route('course.articles.create', $book->id) }}">
+                                            新建教程文章
+                                        </a>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -67,5 +73,11 @@
             </div>
         </div>
     </div>
+@endsection
 
+@section('script')
+    {{-- 开始阅读 --}}
+    <script type="text/javascript">
+        $('.go-start-read').attr('href', $('ol.sorted_table a').eq(0).attr('href'))
+    </script>
 @endsection

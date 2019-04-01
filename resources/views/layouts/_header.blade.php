@@ -4,11 +4,24 @@
             网站首页
         </a>
         <a href="{{ route('blog.articles.index') }}" class="item secondary">
-            文章专栏
+            博客
         </a>
-        <a href="{{ route('course.books.index') }}" class="item secondary">
-            教程专栏
-        </a>
+        <div class="ui simple item dropdown article stackable nav-user-item  secondary">
+            教程  <i class="dropdown icon"></i>
+
+            <div class="ui menu stackable">
+                <a href="{{ route('course.books.index') }}" class="item">
+                    <i class="icon home"></i> 实战教程首页
+                </a>
+                @foreach(\App\Models\CourseBook::all() as $book)
+                <a class="item" href="{{ route('course.books.show', $book->id) }}"
+                   style="padding-right: 36px!important;">
+                    <img class="ui avatar image" data-original="" style="width:20px;height:20px;">
+                    {{ $book->title }}
+                </a>
+                @endforeach
+            </div>
+        </div>
         <a href="" class="item secondary">
             关于本站
         </a>
@@ -76,8 +89,8 @@
                             <a href="{{ route('blog.articles.create') }}" class="item no-pjax">
                                 <i class="icon paint brush"></i> 新建博文
                             </a>
-                            <a href="{{ route('course.books.index') }}" class="item no-pjax">
-                                <i class="icon paint brush"></i> 教程管理
+                            <a href="{{ route('course.books.create') }}" class="item no-pjax">
+                                <i class="icon paint brush"></i> 新建教程
                             </a>
                         </div>
                     </div>
