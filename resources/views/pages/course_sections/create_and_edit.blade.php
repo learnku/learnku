@@ -1,52 +1,63 @@
 @extends('layouts.app')
 
 @section('content')
+    @include('shared._error')
 
-<div class="container">
-  <div class="col-md-10 offset-md-1">
-    <div class="card ">
+    <div class="ui centered grid container stackable">
+        <div class="sixteen wide column">
+            <div class="ui segment">
+                <a class="ui right corner label compose-help" href="javascript:;">
+                    <i class="info icon"></i>
+                </a>
 
-      <div class="card-header">
-        <h1>
-          CourseSection /
-          @if($course_section->id)
-            Edit #{{ $course_section->id }}
-          @else
-            Create
-          @endif
-        </h1>
-      </div>
+                <div class="content extra-padding">
+                    <div class="ui header text-center text gery" style="margin:10px 0 40px">
+                        @if($section->id)
+                            <i class="icon paint brush"></i>编辑章节 {{ $section->title }}
+                        @else
+                            <i class="icon paint brush"></i>新建章节
+                        @endif
+                    </div>
 
-      <div class="card-body">
-        @if($course_section->id)
-          <form action="{{ route('course_sections.update', $course_section->id) }}" method="POST" accept-charset="UTF-8">
-          <input type="hidden" name="_method" value="PUT">
-        @else
-          <form action="{{ route('course_sections.store') }}" method="POST" accept-charset="UTF-8">
-        @endif
+                    @if($section->id)
+                        <form id="article-update-form"
+                              class="ui form"
+                              style="min-height: 50px;"
+                              action="{{ route('course.sections.update', [$book->id, $section->id]) }}" method="POST"
+                              accept-charset="UTF-8">
+                            <input type="hidden" name="_method" value="PUT">
+                    @else
+                        <form id="article-create-form"
+                              style="min-height: 50px;"
+                              class="ui form"
+                              action="{{ route('course.sections.store', $book->id) }}"
+                              method="POST" accept-charset="UTF-8">
+                    @endif
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-          @include('common.error')
+                            <div class="field">
+                                <label>章节
+                                    <a target="_blank" href="{{ route('course.sections.index', $book->id) }}">管理章节</a>
+                                </label>
+                                <input class="form-control" type="text" name="title"
+                                       id="title-field" value="{{ old('title', $section->title ) }}"
+                                       placeholder="请填写标题" required="">
+                            </div>
 
-          <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-          
-                <div class="form-group">
-                	<label for="title-field">Title</label>
-                	<input class="form-control" type="text" name="title" id="title-field" value="{{ old('title', $course_section->title ) }}" />
-                </div> 
-                <div class="form-group">
-                    <label for="course_books_id-field">Course_books_id</label>
-                    <input class="form-control" type="text" name="course_books_id" id="course_books_id-field" value="{{ old('course_books_id', $course_section->course_books_id ) }}" />
+                            <div class="ui message">
+                                <button type="submit" class="ui button primary publish-btn loading-on-clicked" id="">
+                                    <i class="icon send"></i>
+                                    提交
+                                </button>
+                            </div>
+
+                        </form>
+
                 </div>
 
-          <div class="well well-sm">
-            <button type="submit" class="btn btn-primary">Save</button>
-            <a class="btn btn-link float-xs-right" href="{{ route('course_sections.index') }}"> <- Back</a>
-          </div>
-        </form>
-      </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
 @endsection

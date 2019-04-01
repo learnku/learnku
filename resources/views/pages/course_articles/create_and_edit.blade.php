@@ -56,7 +56,7 @@
 
                         <div class="field">
                             <label>章节
-                                <a target="_blank" href="">管理章节</a>
+                                <a target="_blank" href="{{ route('course.sections.index', $book->id) }}">管理章节</a>
                             </label>
                             <div class="field">
                                 <div class="ui fluid selection dropdown course_section_id_dropdown">

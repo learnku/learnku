@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CourseBook;
 use App\Models\CourseSection;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -14,47 +15,47 @@ class CourseSectionsController extends Controller
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
-	public function index()
+	public function index(CourseBook $book)
 	{
-		$course_sections = CourseSection::paginate();
-		return view('course_sections.index', compact('course_sections'));
+        $sections = $book->sections()->paginate();
+		return view('pages.course_sections.index', compact('book', 'sections'));
 	}
 
-    public function show(CourseSection $course_section)
-    {
-        return view('course_sections.show', compact('course_section'));
-    }
-
-	public function create(CourseSection $course_section)
+	public function create(CourseBook $book, CourseSection $section)
 	{
-		return view('course_sections.create_and_edit', compact('course_section'));
+		return view('pages.course_sections.create_and_edit', compact('book', 'section'));
 	}
 
-	public function store(CourseSectionRequest $request)
+	public function store(CourseSectionRequest $request, CourseBook $book, CourseSection $section)
 	{
-		$course_section = CourseSection::create($request->all());
-		return redirect()->route('course_sections.show', $course_section->id)->with('message', 'Created successfully.');
+        $section->fill($request->all());
+        $section->course_book_id = $book->id;
+        $section->save();
+		return redirect()->route('course.sections.index', $book->id)->with('message', '创建成功.');
 	}
 
-	public function edit(CourseSection $course_section)
+	public function edit(CourseBook $book, CourseSection $section)
 	{
-        $this->authorize('update', $course_section);
-		return view('course_sections.create_and_edit', compact('course_section'));
+        $this->authorize('admin', $section);
+		return view('pages.course_sections.create_and_edit', compact('book', 'section'));
 	}
 
-	public function update(CourseSectionRequest $request, CourseSection $course_section)
+	public function update(CourseSectionRequest $request,CourseBook $book, CourseSection $section)
 	{
-		$this->authorize('update', $course_section);
-		$course_section->update($request->all());
+		$this->authorize('admin', $section);
+        $section->update($request->all());
+        $section->fill($request->all());
+        $section->course_book_id = $book->id;
+        $section->save();
 
-		return redirect()->route('course_sections.show', $course_section->id)->with('message', 'Updated successfully.');
+		return redirect()->route('course.sections.index', $book->id)->with('message', '更新成功.');
 	}
 
-	public function destroy(CourseSection $course_section)
+	public function destroy(CourseBook $book, CourseSection $section)
 	{
-		$this->authorize('destroy', $course_section);
-		$course_section->delete();
+		$this->authorize('admin', $section);
+        $section->delete();
 
-		return redirect()->route('course_sections.index')->with('message', 'Deleted successfully.');
+		return redirect()->route('course.sections.index', $book->id)->with('message', '删除成功.');
 	}
 }

@@ -95,6 +95,7 @@ Route::group(['prefix'=> 'blog'], function (){
  * 教程 书籍
  */
 Route::group(['prefix'=> 'course'], function(){
+    // 教程
     Route::resource('books', 'CourseBooksController', [
         'names'=> [
             'index' => 'course.books.index',
@@ -106,7 +107,18 @@ Route::group(['prefix'=> 'course'], function(){
             'destroy' => 'course.books.destroy',
         ]
     ]);
-
+    // 目录
+    Route::resource('{book}/sections', 'CourseSectionsController', [
+        'names'=> [
+            'index' => 'course.sections.index',
+            'create' => 'course.sections.create',
+            'store' => 'course.sections.store',
+            'edit' => 'course.sections.edit',
+            'update' => 'course.sections.update',
+            'destroy' => 'course.sections.destroy',
+        ]
+    ]);
+    // 文章
     Route::resource('{book}/articles', 'CourseArticlesController', [
         'names'=> [
             'show' => 'course.articles.show',
