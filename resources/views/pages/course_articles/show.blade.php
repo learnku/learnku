@@ -32,7 +32,7 @@
 @section('content')
     <div class="ui centered grid container stackable">
         {{-- 主体 --}}
-        <div class="twelve wide column">
+        <div class="twelve wide column js-computed-height-right">
             <div class="ui segment article-content">
                 <div class="extra-padding">
                     <h1>
@@ -70,7 +70,7 @@
 
                     {{-- 文章详情 --}}
                     <div class="ui readme markdown-body content-body fluidbox-content">
-                        {!! markdownToHtml($article->body) !!}
+                        {!! markdownToHtml($article->body, 'markdown') !!}
                     </div>
                 </div>
             </div>
@@ -91,9 +91,9 @@
         </div>
 
         {{-- 侧边栏 --}}
-        <div class="four wide column">
-            <div class="item header sidebar book-article" style="height: 3015px; min-height: 402px;">
-                <div class="ui segment orange text-center" style="padding: 25px;">
+        <div class="four wide column js-computed-height-left">
+            <div class="item header sidebar book-article">
+                <div class="ui segment orange text-center">
                     刻意练习，每日精进。
                 </div>
 

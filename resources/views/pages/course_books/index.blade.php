@@ -22,7 +22,7 @@
                                 <div class="item">
                                     <a class="image" href="{{ route('course.books.show', $book->id) }}">
 
-                                        <img class="ui image image-shadow lazy" data-original=""></a>
+                                        <img class="ui image image-shadow lazy" data-original="{{ assert_images($book->image['path']) }}"></a>
                                     <div class="content">
                                         <div class="header" style="width:100%">
                                             <a href="{{ route('course.books.show', $book->id) }}" class="ui text black">

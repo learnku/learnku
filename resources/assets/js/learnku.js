@@ -105,7 +105,7 @@ class Learnku {
             position: "top center"
         });
         // 文章详情页 贴附效果
-        if ($('.js-computed-height-right ').outerHeight(true) > $(".js-computed-height-left").outerHeight(true)) {
+        if ($('.js-computed-height-right ').outerHeight(true) >= $(".js-computed-height-left").outerHeight(true)) {
             $(".ui.toc.sticky").sticky({
                 silent: true,
                 debug: false,

@@ -55,6 +55,16 @@
                                 </div>
                             </div>
 
+                            {{-- 封面 --}}
+                            <div class="field">
+                                <label>封面</label>
+                                <input type="hidden" name="image_id" value="{{ old('image_id', $book->image_id) }}">
+                                <img id="upload-img"
+                                     class="upload-img image-border ui popover"
+                                     data-variation="inverted"
+                                     data-content="【点击我】上传图片吧"
+                                     src="{{ assert_images($book->image['path']) }}" width="320">
+                            </div>
 
                             <div contenteditable="true" id="pastebin"></div>
 
@@ -80,6 +90,19 @@
             'textarea': {
                 'id': 'markdown-editor',
             }
+        });
+
+        // 封面上传
+        $("#upload-img").click(function () {
+            let self = this;
+            new MyUploadOne({
+                'file_type': 'course',
+                success: function (res) {
+                    let path = assert_images(res.data.path);
+                    $(self).attr('src', path);
+                    $(self).closest('form').find("input[name='image_id']").val(res.data.id);
+                }
+            });
         });
     </script>
 @endsection

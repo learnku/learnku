@@ -17,14 +17,13 @@ class CourseBooksController extends Controller
 
 	public function index()
 	{
-		$books = CourseBook::paginate();
+		$books = CourseBook::with('image')->paginate();
 		return view('pages.course_books.index', compact('books'));
 	}
 
     public function show(CourseBook $book)
     {
         $sections = $book->sections;
-        // $articles = $book->articles;
 
         return view('pages.course_books.show', compact('book', 'sections'));
     }

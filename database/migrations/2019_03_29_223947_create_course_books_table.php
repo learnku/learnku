@@ -14,6 +14,7 @@ class CreateCourseBooksTable extends Migration
             $table->string('title')->index()->comment('教程名称');
             $table->text('excerpt')->nullable()->comment('教程简介');
             $table->integer('user_id')->unsigned()->index()->comment('用户 id');
+            $table->integer('image_id')->unsigned()->index()->nullable()->comment('封面图 id');
             $table->timestamps();
         });
 	}
