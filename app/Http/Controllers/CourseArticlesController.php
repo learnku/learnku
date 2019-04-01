@@ -23,7 +23,7 @@ class CourseArticlesController extends Controller
 
         $this->book_id = $this->data['book_id'] = $request->book;
         if (empty($this->book_id)) {
-            abort(403, '非法访问');
+            // abort(403, '非法访问');
         }
 
         $this->data = array_merge($this->data, [

@@ -6,6 +6,7 @@ use App\Models\CourseBook;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CourseBookRequest;
+use Illuminate\Support\Facades\Auth;
 
 class CourseBooksController extends Controller
 {
@@ -16,45 +17,52 @@ class CourseBooksController extends Controller
 
 	public function index()
 	{
-		$course_books = CourseBook::paginate();
-		return view('course_books.index', compact('course_books'));
+		$books = CourseBook::paginate();
+		return view('pages.course_books.index', compact('books'));
 	}
 
-    public function show(CourseBook $course_book)
+    public function show(CourseBook $book)
     {
-        return view('course_books.show', compact('course_book'));
+        $sections = $book->sections;
+        // $articles = $book->articles;
+
+        return view('pages.course_books.show', compact('book', 'sections'));
     }
 
-	public function create(CourseBook $course_book)
+	public function create(CourseBook $book)
 	{
-		return view('course_books.create_and_edit', compact('course_book'));
+        $this->authorize('admin', $book);
+		return view('pages.course_books.create_and_edit', compact('book'));
 	}
 
-	public function store(CourseBookRequest $request)
+	public function store(CourseBookRequest $request, CourseBook $book)
 	{
-		$course_book = CourseBook::create($request->all());
-		return redirect()->route('course_books.show', $course_book->id)->with('message', 'Created successfully.');
+        $this->authorize('admin', $book);
+        $book->fill($request->all());
+        $book->user_id = Auth::id();
+        $book->save();
+		return redirect()->route('course.books.show', $book->id)->with('success', '教程创建成功.');
 	}
 
-	public function edit(CourseBook $course_book)
+	public function edit(CourseBook $book)
 	{
-        $this->authorize('update', $course_book);
-		return view('course_books.create_and_edit', compact('course_book'));
+        $this->authorize('admin', $book);
+		return view('pages.course_books.create_and_edit', compact('book'));
 	}
 
-	public function update(CourseBookRequest $request, CourseBook $course_book)
+	public function update(CourseBookRequest $request, CourseBook $book)
 	{
-		$this->authorize('update', $course_book);
-		$course_book->update($request->all());
+        $this->authorize('admin', $book);
+        $book->update($request->all());
 
-		return redirect()->route('course_books.show', $course_book->id)->with('message', 'Updated successfully.');
+		return redirect()->route('course.books.show', $book->id)->with('message', '更新成功.');
 	}
 
-	public function destroy(CourseBook $course_book)
+	public function destroy(CourseBook $book)
 	{
-		$this->authorize('destroy', $course_book);
-		$course_book->delete();
+        $this->authorize('admin', $book);
+        $book->delete();
 
-		return redirect()->route('course_books.index')->with('message', 'Deleted successfully.');
+		return redirect()->route('course.books.index')->with('message', '删除成功.');
 	}
 }

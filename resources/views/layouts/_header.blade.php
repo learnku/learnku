@@ -6,6 +6,9 @@
         <a href="{{ route('blog.articles.index') }}" class="item secondary">
             文章专栏
         </a>
+        <a href="{{ route('course.books.index') }}" class="item secondary">
+            教程专栏
+        </a>
         <a href="" class="item secondary">
             关于本站
         </a>
@@ -72,6 +75,9 @@
                         <div class="ui menu stackable" tabindex="-1">
                             <a href="{{ route('blog.articles.create') }}" class="item no-pjax">
                                 <i class="icon paint brush"></i> 新建博文
+                            </a>
+                            <a href="{{ route('course.books.index') }}" class="item no-pjax">
+                                <i class="icon paint brush"></i> 教程管理
                             </a>
                         </div>
                     </div>

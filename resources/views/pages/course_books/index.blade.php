@@ -1,63 +1,50 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-  <div class="col-md-10 offset-md-1">
-    <div class="card ">
-      <div class="card-header">
-        <h1>
-          CourseBook
-          <a class="btn btn-success float-xs-right" href="{{ route('course_books.create') }}">Create</a>
-        </h1>
-      </div>
+    <div class="ui centered grid container stackable">
+        <div class="sixteen wide column ">
+            <h1><a href="{{ route('course.books.create') }}">新建教程书籍</a></h1>
+            @if($books->count())
+                <table class="ui celled table selectable">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>名称</th>
+                        <th>简介</th>
+                        <th>用户id</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($books as $book)
+                        <tr>
+                            <td>{{$book->id}}</td>
+                            <td><a href="{{ route('course.books.show', $book->id) }}">{{$book->title}}</a></td>
+                            <td>{{$book->excerpt}}</td>
+                            <td>{{$book->user_id}}</td>
+                            <td>
+                                <a class="btn btn-sm btn-warning" href="{{ route('course.books.edit', $book->id) }}">
+                                    编辑
+                                </a>
+                                <form action="{{ route('course.books.destroy', $book->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('你确定要删除吗 ?');">
+                                    {{csrf_field()}}
+                                    <input type="hidden" name="_method" value="DELETE">
 
-      <div class="card-body">
-        @if($course_books->count())
-          <table class="table table-sm table-striped">
-            <thead>
-              <tr>
-                <th class="text-xs-center">#</th>
-                <th>
-Title</th> <th>Excerpt</th> <th>User_id</th>
-                <th class="text-xs-right">OPTIONS</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              @foreach($course_books as $course_book)
-              <tr>
-                <td class="text-xs-center"><strong>{{$course_book->id}}</strong></td>
-
-                <td>{{$course_book->
-title}}</td> <td>{{$course_book->excerpt}}</td> <td>{{$course_book->user_id}}</td>
-
-                <td class="text-xs-right">
-                  <a class="btn btn-sm btn-primary" href="{{ route('course_books.show', $course_book->id) }}">
-                    V
-                  </a>
-
-                  <a class="btn btn-sm btn-warning" href="{{ route('course_books.edit', $course_book->id) }}">
-                    E
-                  </a>
-
-                  <form action="{{ route('course_books.destroy', $course_book->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Delete? Are you sure?');">
-                    {{csrf_field()}}
-                    <input type="hidden" name="_method" value="DELETE">
-
-                    <button type="submit" class="btn btn-sm btn-danger">D </button>
-                  </form>
-                </td>
-              </tr>
-              @endforeach
-            </tbody>
-          </table>
-          {!! $course_books->render() !!}
-        @else
-          <h3 class="text-xs-center alert alert-info">Empty!</h3>
-        @endif
-      </div>
+                                    <button type="submit" class="btn btn-sm btn-danger">删除 </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                    <tfoot>
+                    <tr><th colspan="5">
+                            {!! $books->render() !!}
+                        </th>
+                    </tr></tfoot>
+                </table>
+            @else
+                暂无分类数据 ~
+            @endif
+        </div>
     </div>
-  </div>
-</div>
-
 @endsection

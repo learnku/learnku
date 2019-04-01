@@ -14,7 +14,7 @@ class CreateCourseSectionsTable extends Migration
 		Schema::create('course_sections', function(Blueprint $table) {
             $table->increments('id');
             $table->string('title')->index()->comment('章节名称');
-            $table->integer('course_books_id')->unsigned()->index()->comment('教程书籍 id');
+            $table->integer('course_book_id')->unsigned()->index()->comment('教程书籍 id');
             $table->timestamps();
         });
 	}

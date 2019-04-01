@@ -2,43 +2,70 @@
 
 @section('content')
 
-<div class="container">
-  <div class="col-md-10 offset-md-1">
-    <div class="card ">
-      <div class="card-header">
-        <h1>CourseBook / Show #{{ $course_book->id }}</h1>
-      </div>
+    <div class="ui centered grid container books-page stackable rm-link-color">
+        <div class="fourteen wide column">
+            <div class="ui segment">
+                <div class="content extra-padding">
+                    <br><div class="book header">
+                        <div class="ui items">
+                            <div class="item">
+                                <div class="image">
+                                    <img class="ui image image-shadow " src="https://iocaffcdn.phphub.org/uploads/images/201810/26/1/MYg2QNQfss.png">
+                                </div>
+                                <div class="content">
+                                    <div class="header" style="width:100%">
+                                        {{ $book->title }}
+                                    </div>
 
-      <div class="card-body">
-        <div class="card-block bg-light">
-          <div class="row">
-            <div class="col-md-6">
-              <a class="btn btn-link" href="{{ route('course_books.index') }}"><- Back</a>
+                                    <div class="description">
+                                        <div class="meta" style="line-height:24px">
+                                            <a href="https://learnku.com/courses/laravel-essential-training/5.7/registration-failed-error-message/2556">
+                                                <i class="icon clock"></i> 更新于 <span title="{{ $book->updated_at }}">{{$book->updated_at}}</span>
+                                            </a>
+                                        </div>
+                                        {{$book->excerpt}}
+                                    </div>
+
+                                    <div class="extra">
+
+                                        <a class="ui button primary" href="javascript:;"><i class="icon game"></i>开始阅读</a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="ui  attached tabular menu" id="topics">
+                        <a class="item active" href="javascript:;">
+                            <i class="grey content icon"></i>
+                            文章列表
+                        </a>
+                    </div>
+                    <br>
+                    <ol class=" sorted_table tree " data-chapterid="0" data-filetype="chapter">
+                        @foreach($sections as $section)
+                        <li class="item" data-itemid="461" data-filetype="chapter" data-chapterid="461">
+                            <i class="blue folder icon"></i>
+                            {{ $section->title }}
+                            <ol data-chapterid="461" class="chapter-container">
+                                @foreach($section->articles as $article)
+                                <li class="item" data-itemid="2517" data-filetype="file" data-chapterid="461">
+                                    <i class="grey file text outline icon"></i>
+                                    <a href="{{ route('course.articles.show', [$book->id, $article->id]) }}" class="">
+                                        {{ $article->title }}
+                                        <span class="ui left  green basic label">免费</span>
+                                    </a>
+                                </li>
+                                @endforeach
+                            </ol>
+                        </li>
+                        @endforeach
+                    </ol>
+                </div>
             </div>
-            <div class="col-md-6">
-              <a class="btn btn-sm btn-warning float-right mt-1" href="{{ route('course_books.edit', $course_book->id) }}">
-                Edit
-              </a>
-            </div>
-          </div>
         </div>
-        <br>
-
-        <label>
-Title</label>
-<p>
-	{{ $course_book->
-title }}
-</p> <label>Excerpt</label>
-<p>
-	{{ $course_book->excerpt }}
-</p> <label>User_id</label>
-<p>
-	{{ $course_book->user_id }}
-</p>
-      </div>
     </div>
-  </div>
-</div>
 
 @endsection

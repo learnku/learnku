@@ -7,11 +7,14 @@ class CourseBooksTableSeeder extends Seeder
 {
     public function run()
     {
-        $course_books = factory(CourseBook::class)->times(50)->make()->each(function ($course_book, $index) {
-            if ($index == 0) {
-                // $course_book->field = 'value';
-            }
-        });
+        $faker = app(\Faker\Generator::class);
+
+        $course_books = factory(CourseBook::class)
+            ->times(5)
+            ->make()
+            ->each(function ($course_book, $index) use ($faker){
+                $course_book->user_id = 1;
+            });
 
         CourseBook::insert($course_books->toArray());
     }
