@@ -22,9 +22,6 @@ class CourseArticlesController extends Controller
         $this->middleware('auth', ['except' => ['index', 'show']]);
 
         $this->book_id = $this->data['book_id'] = $request->book;
-        if (empty($this->book_id)) {
-            // abort(403, '非法访问');
-        }
 
         $this->data = array_merge($this->data, [
             // 教程
@@ -34,27 +31,30 @@ class CourseArticlesController extends Controller
         ]);
     }
 
-	public function index(Request $request)
-	{
-        $data = $this->data;
-		$articles = CourseArticle::paginate();
-		return view('pages.course_articles.index', compact('articles', 'data'));
-	}
-
     public function show(CourseBook $book,CourseArticle $article)
     {
+        if (empty($this->book_id)) {
+            abort(403, '非法访问');
+        }
+
+        // 章节
+        $sections = $book->sections;
+
+        // dd($article->section()->toSql());
         $data = $this->data;
-        return view('pages.course_articles.show', compact('article', 'data'));
+        return view('pages.course_articles.show', compact('sections', 'article', 'data'));
     }
 
 	public function create(CourseArticle $article)
 	{
+        $this->authorize('admin', $article);
         $data = $this->data;
 		return view('pages.course_articles.create_and_edit', compact('article', 'data'));
 	}
 
 	public function store(CourseArticleRequest $request, CourseArticle $article)
 	{
+        $this->authorize('admin', $article);
         $data = [
             'title' => $request->title,
             'body' => $request->body,
@@ -70,13 +70,13 @@ class CourseArticlesController extends Controller
 
 	public function edit(CourseArticle $article)
 	{
-        $this->authorize('update', $article);
+        $this->authorize('admin', $article);
 		return view('pages.course_articles.create_and_edit', compact('article'));
 	}
 
 	public function update(CourseArticleRequest $request, CourseArticle $article)
 	{
-		$this->authorize('update', $article);
+		$this->authorize('admin', $article);
         $article->update($request->all());
 
 		return redirect()->route('course.articles.show', $article->id)->with('message', 'Updated successfully.');
@@ -84,7 +84,7 @@ class CourseArticlesController extends Controller
 
 	public function destroy(CourseArticle $article)
 	{
-		$this->authorize('destroy', $article);
+		$this->authorize('admin', $article);
 		$article->delete();
 
 		return redirect()->route('course.articles.index')->with('message', 'Deleted successfully.');

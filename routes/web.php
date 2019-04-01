@@ -109,7 +109,6 @@ Route::group(['prefix'=> 'course'], function(){
 
     Route::resource('{book}/articles', 'CourseArticlesController', [
         'names'=> [
-            'index' => 'course.articles.index',
             'show' => 'course.articles.show',
             'create' => 'course.articles.create',
             'store' => 'course.articles.store',

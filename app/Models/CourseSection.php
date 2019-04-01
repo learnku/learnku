@@ -14,4 +14,13 @@ class CourseSection extends Model
     {
         return $this->hasMany(CourseArticle::class);
     }
+
+    /**
+     * 对应的书籍
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function book()
+    {
+        return $this->belongsTo(CourseBook::class, 'course_book_id', 'id');
+    }
 }

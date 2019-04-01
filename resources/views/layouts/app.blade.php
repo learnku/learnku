@@ -37,8 +37,8 @@
     </script>
 </head>
 <body class="pushable {{ route_class() }}-page">
-    {{-- 登录弹窗 --}}
-    @include('layouts._login')
+    {{-- 网页主体 --}}
+    @yield('body')
 
     <div class="pusher">
         <div class="main container" style="min-height: 80vh;">
