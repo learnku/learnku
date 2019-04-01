@@ -12,9 +12,9 @@
                 <div class="content extra-padding">
                     <div class="ui header text-center text gery" style="margin:10px 0 40px">
                         @if($article->id)
-                            <i class="icon paint brush"></i>编辑教程文章
+                            <i class="icon paint brush"></i>编辑 <a href="{{ route('course.books.index', $book->id) }}">{{ $book->title }}</a> 文章
                         @else
-                            <i class="icon paint brush"></i>新建教程文章
+                            <i class="icon paint brush"></i>新建 <a href="{{ route('course.books.show', $book->id) }}">{{ $book->title }}</a> 文章
                         @endif
                     </div>
 
@@ -22,7 +22,7 @@
                     <form id="article-update-form"
                           class="ui form"
                           style="min-height: 50px;"
-                          action="{{ route('course.articles.update', $article->id, $article->id) }}" method="POST"
+                          action="{{ route('course.articles.update', [$book->id, $article->id]) }}" method="POST"
                           accept-charset="UTF-8">
                         <input type="hidden" name="_method" value="PUT">
                     @else
@@ -36,20 +36,19 @@
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                         <div class="field">
-                            <label>教程书籍
-                                <a target="_blank" href="">管理教程书籍</a>
+                            <label>教程
+                                <a target="_blank" href="{{ route('course.books.index') }}">管理教程</a>
                             </label>
                             <div class="field">
-                                <div class="ui fluid selection dropdown">
-                                    <input type="hidden" name="course_books_id" value="{{ old('course_books_id', $article->course_books_id) }}">
+                                <div class="ui fluid selection dropdown course_books_id_dropdown">
+                                    <input type="hidden" name="course_books_id"
+                                           value="{{ old('course_books_id', $article->course_books_id ? $article->course_books_id : $data['book_id'] ? $data['book_id'] : '') }}">
                                     <i class="dropdown icon"></i>
                                     <div class="default text">请选择教程书籍（必选）</div>
                                     <div class="menu">
-                                        @foreach ($data['books'] as $value)
-                                            <div class="item" data-value="{{ $value->id }}">
-                                                {{ $value->title }}
-                                            </div>
-                                        @endforeach
+                                        <div class="item" data-value="{{ $book->id }}">
+                                            {{ $book->title }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -60,12 +59,13 @@
                                 <a target="_blank" href="">管理章节</a>
                             </label>
                             <div class="field">
-                                <div class="ui fluid selection dropdown">
-                                    <input type="hidden" name="courses_section_id" value="{{ old('courses_section_id', $article->courses_section_id) }}">
+                                <div class="ui fluid selection dropdown course_section_id_dropdown">
+                                    <input type="hidden" name="courses_section_id"
+                                           value="{{ old('course_section_id', $article->course_section_id) }}">
                                     <i class="dropdown icon"></i>
                                     <div class="default text">请选择所属章节（必选）</div>
                                     <div class="menu">
-                                        @foreach ($data['sections'] as $value)
+                                        @foreach ($book->sections as $value)
                                             <div class="item" data-value="{{ $value->id }}">
                                                 {{ $value->title }}
                                             </div>
@@ -127,15 +127,22 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $('.tags.ui.dropdown').dropdown({
+            // 教程
+            $('.course_books_id_dropdown').dropdown({
                 allowAdditions: true,
                 saveRemoteData: false,
                 onChange: function (value, text, $selectedItem) {
+                    console.info(value, text, $selectedItem);
                 }
-                /*apiSettings: {
-                    url: 'https://learnku.com/articles/tags/search?q={query}',
-                    cache: false
-                }*/
+            });
+
+            // 章节
+            $('.course_section_id_dropdown').dropdown({
+                allowAdditions: true,
+                saveRemoteData: false,
+                onChange: function (value, text, $selectedItem) {
+                    console.info(value, text, $selectedItem);
+                }
             });
         });
     </script>
