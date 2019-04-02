@@ -25,7 +25,7 @@
       <div class="four wide column">
         <h4 class="ui inverted header">其他信息</h4>
         <div class="ui inverted link list">
-          <li><a class="item" href=""><i class="icon wechat" aria-hidden="true"></i> 联系站长</a></li>
+          <li><a class="item" href="{{ route('contact.index') }}"><i class="icon wechat" aria-hidden="true"></i> 联系站长</a></li>
           <li><a class="item" href="mailto:'GucciLee@163.com'"><i class="icon envelope" aria-hidden="true"></i> 联系我们</a></li>
         </div>
       </div>

@@ -22,7 +22,7 @@
                 @endforeach
             </div>
         </div>
-        <a href="" class="item secondary">
+        <a href="{{ route('contact.index') }}" class="item secondary">
             关于本站
         </a>
 
@@ -119,9 +119,12 @@
                                 <i class="icon heart"></i> Laravel Horizon
                             </a>
                         @endif
-                        <a href="/" class="item">
-                            <i class="icon heart"></i> 我的收藏
+                        <a href="{{ route('course.orders.index') }}" class="item">
+                            <i class="icon heart"></i> 我的订单
                         </a>
+                        {{--<a href="/" class="item">
+                            <i class="icon heart"></i> 我的收藏
+                        </a>--}}
 
                         <a href="{{ route('users.show', $common['auth']['id']) }}" class="item">
                             <i class="icon user"></i>

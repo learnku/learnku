@@ -58,13 +58,29 @@
 
 @section('script')
     <script>
+        var href = "{{ route('course.orders.show', $data['order_id']) }}";
+        var redirect = "{{ route('course.books.show', $book->id) }}";
         // 检查订单
         var checkOrder = function () {
-            $.get( Config.url + "/courses/books/order/20377", function( data ) {
+            $.get( href, function( data ) {
                 if (data) {
+                    clearInterval(checkOrderTimmer);
                     window.onbeforeunload = function(){};
-                    // location.reload();
-                    alert('支付完成');
+                    // 重定向
+                    Swal.fire({
+                        title: '支付完成，即将跳转 ...',
+                        timer: 2000,
+                        showCloseButton: true,
+                        onBeforeOpen: () => {
+                            Swal.showLoading();
+                        },
+                        onClose: () => {
+                            if (data.status == '1') {
+                                window.location.href = redirect;
+                            }
+                        }
+                    });
+
                 }
             });
         };
@@ -76,9 +92,9 @@
                 return '支付过程中切忌离开页面，以免不必要的损失！';
             };
 
-            setInterval(function () {
+            var checkOrderTimmer = setInterval(function () {
                 checkOrder()
-            }, 3000);
+            }, 1500);
         }
 
         // 点击 已完成付款

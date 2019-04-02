@@ -97,6 +97,18 @@ Route::group(['prefix'=> 'blog'], function (){
  * 教程 书籍
  */
 Route::group(['prefix'=> 'course'], function(){
+    // 订单
+    Route::resource('orders', 'CourseBookOrdersController', [
+        'names'=> [
+            'index' => 'course.orders.index',
+            'show' => 'course.orders.show',
+            'edit' => 'course.orders.edit',
+            'update' => 'course.orders.update',
+            'destroy' => 'course.orders.destroy',
+        ],
+        'only' => ['index','show', 'edit', 'update', 'destroy']
+    ]);
+
     // 教程
     Route::resource('books', 'CourseBooksController', [
         'names'=> [
