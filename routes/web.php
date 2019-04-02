@@ -45,6 +45,12 @@ Route::get('search', 'SearchController@index')->name('search.index');
 
 Route::get('contact', 'ContactController@index')->name('contact.index');
 
+
+// 改版后博客文章 301
+Route::get('articles/{article}', function (\Illuminate\Http\Request $request){
+    return redirect()->route('blog.articles.show', $request->article);
+});
+
 /**
  * 博客
  */
