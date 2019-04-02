@@ -53,10 +53,11 @@ class CourseArticlesController extends Controller
         $data = [
             'title' => $request->title,
             'body' => $request->body,
+            'policy' => $request->policy
         ];
         $article->fill($data);
-        $article->course_books_id = $request->course_books_id;
-        $article->courses_section_id = $request->courses_section_id;
+        // $article->course_books_id = $request->course_books_id;
+        $article->course_section_id = $request->course_section_id;
         $article->user_id = Auth::id();
         $article->save();
 

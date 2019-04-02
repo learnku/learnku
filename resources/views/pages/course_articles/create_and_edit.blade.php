@@ -40,7 +40,7 @@
                                 <a target="_blank" href="{{ route('course.books.index') }}">管理教程</a>
                             </label>
                             <div class="field">
-                                <div class="ui fluid selection dropdown course_books_id_dropdown">
+                                <div class="ui fluid selection dropdown course_books_id_dropdown disabled">
                                     <input type="hidden" name="course_books_id"
                                            value="{{ old('course_books_id', $article->course_books_id ? $article->course_books_id : $data['book_id'] ? $data['book_id'] : '') }}">
                                     <i class="dropdown icon"></i>
@@ -60,7 +60,7 @@
                             </label>
                             <div class="field">
                                 <div class="ui fluid selection dropdown course_section_id_dropdown">
-                                    <input type="hidden" name="courses_section_id"
+                                    <input type="hidden" name="course_section_id"
                                            value="{{ old('course_section_id', $article->course_section_id) }}">
                                     <i class="dropdown icon"></i>
                                     <div class="default text">请选择所属章节（必选）</div>
@@ -76,6 +76,24 @@
                         </div>
 
                         <div class="field">
+                            <label>收费</label>
+                            <div class="field">
+                                <div class="ui fluid selection dropdown course_section_id_dropdown">
+                                    <input type="hidden" name="policy"
+                                           value="{{ old('policy', $article->policy ? $article->policy : '0') }}">
+                                    <i class="dropdown icon"></i>
+                                    <div class="default text">是否收费（必选）</div>
+                                    <div class="menu">
+                                        <div class="item" data-value="0">免费</div>
+                                        <div class="item" data-value="1">收费</div>
+                                        <div class="item" data-value="2">限免</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label>标题</label>
                             <input class="form-control" type="text" name="title"
                                    id="title-field" value="{{ old('title', $article->title ) }}"
                                    placeholder="请填写标题" required="">

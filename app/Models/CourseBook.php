@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class CourseBook extends Model
 {
-    protected $fillable = ['title', 'excerpt' ,'image_id'];
+    protected $fillable = ['title', 'excerpt' , 'prices', 'image_id'];
 
     /**
      * 获取文章章节
@@ -32,6 +32,7 @@ class CourseBook extends Model
      */
     public function order()
     {
-        return $this->hasMany(CourseBookOrder::class)->where('course_book_orders.user_id', Auth::id());
+        // return $this->hasMany(CourseBookOrder::class)->where('course_book_orders.user_id', Auth::id());
+        return $this->hasOne(CourseBookOrder::class)->where('course_book_orders.user_id', Auth::id());
     }
 }

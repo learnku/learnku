@@ -63,7 +63,11 @@
                                     <i class="grey file text outline icon"></i>
                                     <a href="{{ route('course.articles.show', [$book->id, $article->id]) }}" class="">
                                         {{ $article->title }}
-                                        <span class="ui left  green basic label">免费</span>
+                                        @if($article->policy == '0')
+                                            <span class="ui left  green basic label">免费</span>
+                                        @elseif($article->policy == '2')
+                                            <span class="ui left  green basic label">限免</span>
+                                        @endif
                                     </a>
                                 </li>
                                 @endforeach

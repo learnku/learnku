@@ -75,7 +75,7 @@
                         {{-- 需要付费教程文章 --}}
                         @if($article->policy == '1')
                             {{-- 已付款 --}}
-                            @if($article->section->book->order->count() && $article->section->book->order->flag == '1')
+                            @if($article->section->book->order && $article->section->book->order['flag'] == '1')
                                 {!! markdownToHtml($article->body, 'markdown') !!}
                             @else
                                 {{-- 未付款 --}}

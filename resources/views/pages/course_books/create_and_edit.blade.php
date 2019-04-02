@@ -44,6 +44,13 @@
                             </div>
 
                             <div class="field">
+                                <label>价格</label>
+                                <input class="form-control" type="text" name="prices"
+                                       id="title-field" value="{{ old('prices', $book->prices ? $book->prices : '19.99' ) }}"
+                                       placeholder="请输入价格（必填）" required="">
+                            </div>
+
+                            <div class="field">
                                 <label>简介</label>
                                 {{-- 加载 markdown 编辑器 --}}
                                 <div class="markdown-base">

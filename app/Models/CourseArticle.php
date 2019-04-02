@@ -4,7 +4,7 @@ namespace App\Models;
 
 class CourseArticle extends Model
 {
-    protected $fillable = ['title', 'body', 'slug'];
+    protected $fillable = ['title', 'body', 'slug', 'policy'];
 
     /**
      * 获取对应章节
