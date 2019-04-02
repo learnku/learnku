@@ -30,7 +30,7 @@
 
 ### 基础安装
 
-1. 克隆 larabbs 源代码到本地：
+1. 克隆 learnku 源代码到本地：
 ```
 git clone git@github.com:GucciLee/learnku.git
 ```
@@ -39,11 +39,11 @@ git clone git@github.com:GucciLee/learnku.git
 编辑 Homestead.yaml 文件, 修改如下：
 ```
 folders:
-    - map: ~/my-path/larabbs/ # 你本地的项目目录地址
+    - map: ~/my-path/learnku/ # 你本地的项目目录地址
       to: /home/vagrant/learnku
 
 sites:
-    - map: larabbs.test
+    - map: learnku.test
       to: /home/vagrant/learnku/public
 
 databases:
@@ -146,3 +146,32 @@ npm run watch-poll
 ## 队列清单
 | 名称        | 说明    |  调用时机  |
 | --------   | -----:   | :----: |
+
+
+## 生产环境部署
+
+#### 0. [nginx]() 或者 [apache]() 配置
+
+#### 1. 克隆 learnku 源代码到本地：
+> $ git clone git@github.com:GucciLee/learnku.git learnku
+
+#### 2. 安装扩展包依赖
+> $ composer dump-autoload
+> $ composer install      	// 进入到项目目录
+
+#### 3. 生成配置文件
+> $ cp .env.example .env    // 进入到项目目录
+
+#### 4. 创建数据库
+> learnku
+
+#### 5. 生成数据表
+> $ php artisan migrate
+
+#### 6. 生成秘钥
+> $ php artisan key:generate
+> $ php artisan jwt:secret
+
+#### 7. 赋予项目权限			// 一定要给与权限，否则会报 500 错误
+> $ chmod 777 -R storage/
+> $ chmod 777 -R public/uploads/
