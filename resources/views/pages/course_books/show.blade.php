@@ -28,14 +28,16 @@
 
                                     <div class="extra">
                                         <a class="ui button primary go-start-read" href="javascript:;"><i class="icon game"></i>开始阅读</a>
-                                        @if(Auth()->user()->hasRole('Founder'))
-                                        <a class="ui button black" href="{{ route('course.sections.index', $book->id) }}">
-                                            管理章节
-                                        </a>
-                                        <a class="ui button black" href="{{ route('course.articles.create', $book->id) }}">
-                                            新建教程文章
-                                        </a>
-                                        @endif
+                                        @auth
+                                            @if(Auth()->user()->hasRole('Founder'))
+                                                <a class="ui button black" href="{{ route('course.sections.index', $book->id) }}">
+                                                    管理章节
+                                                </a>
+                                                <a class="ui button black" href="{{ route('course.articles.create', $book->id) }}">
+                                                    新建教程文章
+                                                </a>
+                                            @endif
+                                        @endauth
                                     </div>
                                 </div>
                             </div>

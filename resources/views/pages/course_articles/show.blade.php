@@ -53,17 +53,19 @@
                                 <i class="icon map signs"></i> {{ $article->section->title }}
                             </a>
                         </span>
-                        @if(\Illuminate\Support\Facades\Auth::user()->hasRole('Founder'))
-                        <span style="font-size: 13px;color: #adb1af;">（
-                            <a href="{{ route('course.articles.edit', [$data['book_id'], $article->id]) }}"><i class="icon edit"></i>编辑</a>
-                            <span class="divider">|</span>
-                            <a class="  top-admin-operation ml-0" href="javascript:;"
-                               data-method="delete"
-                               data-url="{{ route('course.articles.destroy', [$data['book_id'], $article->id]) }}"
-                               style="cursor: pointer;"><i class=" trash icon"></i>删除
-                            </a>）
-                        </span>
-                        @endif
+                        @auth
+                            @if(\Illuminate\Support\Facades\Auth::user()->hasRole('Founder'))
+                            <span style="font-size: 13px;color: #adb1af;">（
+                                <a href="{{ route('course.articles.edit', [$data['book_id'], $article->id]) }}"><i class="icon edit"></i>编辑</a>
+                                <span class="divider">|</span>
+                                <a class="  top-admin-operation ml-0" href="javascript:;"
+                                   data-method="delete"
+                                   data-url="{{ route('course.articles.destroy', [$data['book_id'], $article->id]) }}"
+                                   style="cursor: pointer;"><i class=" trash icon"></i>删除
+                                </a>）
+                            </span>
+                            @endif
+                        @endauth
                     </div>
 
                     <div class="ui divider"></div>
