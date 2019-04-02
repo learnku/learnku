@@ -72,7 +72,28 @@
 
                     {{-- 文章详情 --}}
                     <div class="ui readme markdown-body content-body fluidbox-content">
-                        {!! markdownToHtml($article->body, 'markdown') !!}
+                        {{-- 需要付费教程文章 --}}
+                        @if($article->policy == '1')
+                            {{-- 已付款 --}}
+                            @if($article->section->book->order->count() && $article->section->book->order->flag == '1')
+                                {!! markdownToHtml($article->body, 'markdown') !!}
+                            @else
+                                {{-- 未付款 --}}
+                                {!! markdownToHtml($article->body, 'markdown', 500) !!}
+                                <blockquote style="border: dashed 3px #9bacc1;">
+                                    <p>为了保证课程的高品质，我们需要对课程进行收费。
+                                        <a href="{{ route('course.purchases.index', $article->section->book->id) }}" target="_blank">付费后</a>
+                                        才能观看剩余内容。
+                                        <a class="ui  label green" href="{{ route('course.purchases.index', $article->section->book->id) }}" target="_blank">
+                                            <i class="icon shop"></i> 购买
+                                        </a>
+                                    </p>
+                                </blockquote>
+                            @endif
+                        @else
+                            {{-- 免费教程文章 --}}
+                            {!! markdownToHtml($article->body, 'markdown') !!}
+                        @endif
                     </div>
                 </div>
             </div>

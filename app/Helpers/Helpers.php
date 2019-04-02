@@ -61,12 +61,22 @@ if (!function_exists('make_excerpt')) {
 if (!function_exists('markdownToHtml')) {
     /**
      * markdown 转 html
-     * @param $markdown
-     * @param string $rule markdownNoH1_6 markdown
+     * @param string $markdown markdown文本
+     * @param string $rule markdownNoH1_6 markdown 规则
+     * @param null $limit   限制大小
      * @return mixed
      */
-    function markdownToHtml($markdown, $rule = 'markdownNoH1_6')
+    function markdownToHtml($markdown, $rule = 'markdownNoH1_6', $limit = null)
     {
+        // 截取大小
+        if ($limit) {
+            if (is_numeric($limit)) {
+                $markdown = substr($markdown, 0, $limit);
+            } else {
+                $markdown = substr($markdown, 0, strlen($markdown) / 3);
+            }
+        }
+
         // markdown to html
         $convertedHmtl = app('Parsedown')->setBreaksEnabled(true)->text($markdown);
 

@@ -18,6 +18,7 @@ class CreateCourseArticlesTable extends Migration
             $table->integer('reply_count')->unsigned()->default(0)->comment('回复数');
             $table->integer('view_count')->unsigned()->default(0)->comment('查看数');
             $table->string('slug')->nullable()->comment('友好SEO');
+            $table->tinyInteger('policy')->unsigned()->default(0)->comment('0:免费，1收费，2限免，注:此字段于订单无关');
             $table->integer('course_section_id')->unsigned()->index()->comment('教程章节 id');
             $table->integer('user_id')->unsigned()->index()->comment('用户 id');
             $table->timestamps();

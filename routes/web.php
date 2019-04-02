@@ -43,6 +43,8 @@ Route::resource('notifications', 'NotificationsController', ['only' => ['index']
 // 搜索
 Route::get('search', 'SearchController@index')->name('search.index');
 
+Route::get('contact', 'ContactController@index')->name('contact.index');
+
 /**
  * 博客
  */
@@ -116,7 +118,8 @@ Route::group(['prefix'=> 'course'], function(){
             'edit' => 'course.sections.edit',
             'update' => 'course.sections.update',
             'destroy' => 'course.sections.destroy',
-        ]
+        ],
+        'only' => ['index', 'create', 'store', 'edit', 'update', 'destroy']
     ]);
     // 文章
     Route::resource('{book}/articles', 'CourseArticlesController', [
@@ -127,6 +130,14 @@ Route::group(['prefix'=> 'course'], function(){
             'edit' => 'course.articles.edit',
             'update' => 'course.articles.update',
             'destroy' => 'course.articles.destroy',
-        ]
+        ],
+        'only' => ['show', 'create', 'store', 'edit', 'update', 'destroy']
+    ]);
+    // 购买
+    Route::resource('{book}/purchases', 'CoursePurchasesController', [
+        'names'=> [
+            'index' => 'course.purchases.index',
+        ],
+        'only' => ['index']
     ]);
 });
