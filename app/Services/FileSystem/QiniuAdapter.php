@@ -257,9 +257,12 @@ class QiniuAdapter extends AbstractAdapter
      *
      * @return array
      */
-    public function listContents($directory = '', $recursive = false)
+    public function listContents($directory = '', $recursive = '')
     {
-        return $this->bucketManager->listFiles($this->bucketName);
+        list($ret, $err) = $this->bucketManager->listFiles($this->bucketName, $recursive);
+
+        return $ret;
+        // return $this->bucketManager->listFiles($this->bucketName, $recursive);
     }
 
     /**

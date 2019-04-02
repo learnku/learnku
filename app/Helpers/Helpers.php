@@ -15,11 +15,17 @@ if (!function_exists('assert_images')) {
     /**
      * 七牛 images 镜像空间
      * @param $path
-     * @param null $secure
+     * @param null $test
      * @return mixed
      */
-    function assert_images($path, $secure = null)
+    function assert_images($path, $test = null)
     {
+        if (substr($path, 0, 1) != '/') {
+            $path = '/' . $path;
+        }
+        if ($test) {
+            return 'https://cdns.learnku.net' . $path;
+        }
         return config('app.images_url') . $path;
     }
 }
@@ -33,6 +39,9 @@ if (!function_exists('assert_cdns')) {
      */
     function assert_cdns($path, $secure = null)
     {
+        if (substr($path, 0, 1) != '/') {
+            $path = '/' . $path;
+        }
         return config('app.cdns_url') . $path;
     }
 }

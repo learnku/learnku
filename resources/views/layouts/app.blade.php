@@ -56,6 +56,16 @@
         @include('layouts._footer')
     </div>
 
+    {{-- 加入群聊 --}}
+    <a class="circular ui icon button fixed feedback popover"
+       target="_blank"
+       data-content="点击加入 Q 群： 304574522"
+       data-variation="inverted"
+       data-position="left center"
+       href="//shang.qq.com/wpa/qunwpa?idkey=d0ae1ecab906fda90348e051314ac221d0386ead9607b698d7e5b60269b56080">
+        <i class="icon talk outline"></i>
+    </a>
+
     @if (app()->isLocal())
         @include('sudosu::user-selector')
     @endif
