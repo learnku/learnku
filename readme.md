@@ -157,6 +157,7 @@ npm run watch-poll
 
 #### 2. 安装扩展包依赖
 > $ composer dump-autoload
+
 > $ composer install      	// 进入到项目目录
 
 #### 3. 生成配置文件
@@ -170,8 +171,10 @@ npm run watch-poll
 
 #### 6. 生成秘钥
 > $ php artisan key:generate
+
 > $ php artisan jwt:secret
 
 #### 7. 赋予项目权限			// 一定要给与权限，否则会报 500 错误
 > $ chmod 777 -R storage/
+
 > $ chmod 777 -R public/uploads/
