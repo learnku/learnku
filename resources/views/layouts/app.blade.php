@@ -17,7 +17,7 @@
     <meta name="Keywords" content="@yield('Keywords', 'LearnKu,博客,开发者博客,编码知识博客')">
 
       <!-- Styles -->
-    <link href="{{ mix('css/learnku.css') }}" rel="stylesheet">
+    <link href="{{ assert_cdns('css/learnku.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ assert_cdns('/ext/prism/prism.css') }}">
     @yield('style')
 
@@ -71,7 +71,7 @@
     @endif
 
     <!-- Scripts -->
-    <script type="text/javascript" src="{{ mix('js/learnku.js') }}"></script>
+    <script type="text/javascript" src="{{ assert_cdns('js/learnku.js') }}"></script>
     @yield('script')
 
     {{-- 推送代码 --}}
