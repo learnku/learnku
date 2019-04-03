@@ -32,11 +32,15 @@ class QiniusController extends Controller
 
     public function index()
     {
+        $this->isFounder();
+
         return view('pages.qinius.index');
     }
 
     public function cdns(Request $request)
     {
+        $this->isFounder();
+
         // 允许的动作
         $actions = ['delete', 'create', 'refresh'];
         // 动作
@@ -103,9 +107,7 @@ class QiniusController extends Controller
 
     public function images()
     {
-        if (!Auth::user()->hasRole('Founder')) {
-            abort(403);
-        }
+        $this->isFounder();
 
         // 获取实例
         $flysystem = new QiniuAdapter('qiniu', '');
@@ -164,5 +166,16 @@ class QiniusController extends Controller
             }
         };
         closedir($dir);
+    }
+
+    /**
+     * 鉴权处理
+     */
+    protected function isFounder(){
+        if (Auth::user() && Auth::user()->hasRole('Founder')) {
+            // ...
+        } else {
+            abort(403);
+        }
     }
 }
