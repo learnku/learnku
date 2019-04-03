@@ -167,7 +167,7 @@
 
                         <a href="javascript:;" class="avatar-link authors first">
                             <img class="ui centered circular tiny image"
-                                 src="{{ $article->user->info->image['path'] }}"><span
+                                 src="{{ assert_images($article->user->info->image['path']) }}"><span
                                 class="author-name">{{ $article->user->name }}</span>
                         </a>
                     </div>
