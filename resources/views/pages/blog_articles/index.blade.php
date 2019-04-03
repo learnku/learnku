@@ -31,7 +31,10 @@
                         <h1>
                             <i class="icon newspaper"></i>
                             @if (isset($category))
-                                {{ $category->name }} ：{{ $category->description }}
+                                分类：<code class="search-keyword">{{ $category->name }} </code>
+                                 {{--{{ $category->description }}--}}
+                            @elseif (isset($tag))
+                                标签：<code class="search-keyword">{{ $tag->name }} </code>
                             @else
                                 所有文章
                             @endif

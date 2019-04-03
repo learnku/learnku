@@ -18,6 +18,6 @@ class BlogTagsController extends Controller
                     ->where('images.image_type', '=', 'avatar');
             })->paginate(20);
 
-        return view('pages.blog_articles.index', compact('blog_articles'));
+        return view('pages.blog_articles.index', compact('blog_articles', 'tag'));
     }
 }
