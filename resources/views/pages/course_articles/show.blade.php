@@ -166,8 +166,8 @@
                         </div>
 
                         <a href="javascript:;" class="avatar-link authors first">
-                            <img class="ui centered circular tiny image lazy"
-                                 data-original="//i.loli.net/2019/04/01/5ca1a5a82e1b7.png"><span
+                            <img class="ui centered circular tiny image"
+                                 src="{{ $article->user->info->image['path'] }}"><span
                                 class="author-name">{{ $article->user->name }}</span>
                         </a>
                     </div>
