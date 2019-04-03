@@ -63,6 +63,9 @@ Route::group(['prefix'=> 'blog'], function (){
         return redirect()->to('/');
     });
 
+    // 标签
+    Route::get('tags/{tag}', 'BlogTagsController@show')->name('blog.tags.show');
+
     // 分类
     Route::resource('categories', 'BlogCategoriesController', [
         'names' => [

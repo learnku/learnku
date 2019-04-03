@@ -20,6 +20,6 @@ class BlogTag extends Model
 
     public function articles()
     {
-        return $this->belongsToMany('App\Models\BlogArticle', 'blog_tags_link_articles');
+        return $this->belongsToMany('App\Models\BlogArticle', 'blog_tags_link_articles', 'tag_id', 'article_id');
     }
 }

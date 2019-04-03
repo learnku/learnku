@@ -69,7 +69,7 @@
             </div>
             <div class="extra content readmore" style="padding-bottom: 18px; max-height: none;">
                 @foreach($common['blogInfo']['tags'] as $item)
-                <a class="ui label basic" href="https://learnku.com/blog/liguanjie8/tags/api_40">
+                <a class="ui label basic" href="{{ route('blog.tags.show', $item->id) }}">
                     {{ $item->name }}
                     <div class="detail">{{ $item->count_num }}</div>
                 </a>
