@@ -23,11 +23,15 @@ class ImageRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = [
-            'image_type' => 'required|string|in:avatar,article,course',
-            'image' => 'required|mimes:jpeg,bmp,png,gif',
-        ];
+        if ($this->request->get('action') != 'delete') {
+            $rules = [
+                'image_type' => 'required|string|in:qiniu,avatar,article,course',
+                'image' => 'required|mimes:jpeg,bmp,png,gif',
+            ];
 
-        return $rules;
+            return $rules;
+        } else {
+            return [];
+        }
     }
 }

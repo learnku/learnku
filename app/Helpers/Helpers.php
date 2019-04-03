@@ -24,7 +24,7 @@ if (!function_exists('assert_images')) {
             $path = '/' . $path;
         }
         if ($test) {
-            return 'https://cdns.learnku.net' . $path;
+            return 'https://images.learnku.net' . $path;
         }
         return config('app.images_url') . $path;
     }

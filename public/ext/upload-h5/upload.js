@@ -39,13 +39,33 @@ class MyUploadOne {
             file_name: 'image',
             // 文件所属类型 [ 后台需要 ][ 必填 ]
             file_type: '',
+            // create:上传， update:更新, delete:删除
+            action: 'create',
+            // url: ''
+            // method: ''
+            // path: ''     更新图片使用
             // 上传成功
             success: function () {},
             // 上传失败
             error: function () {}
         }, setting);
 
-        this.init();
+        if (this.setting.action == 'delete') {
+            let formData = new FormData();
+            // 自定义formData中的内容
+            // 文件所属类型 [ 后台需要 ]
+            formData.append('image_type', this.setting.file_type);
+            // 动作
+            formData.append('action', this.setting.action);
+
+            if (this.setting.path) {
+                formData.append('path', this.setting.path);
+            }
+            // 上传图片
+            this.uploadImg(formData);
+        } else {
+            this.init();
+        }
     }
 
     init(){
@@ -124,6 +144,12 @@ class MyUploadOne {
         formData.append(this.setting.file_name, file);
         // 文件所属类型 [ 后台需要 ]
         formData.append('image_type', this.setting.file_type);
+        // 动作
+        formData.append('action', this.setting.action);
+
+        if (this.setting.path) {
+            formData.append('path', this.setting.path);
+        }
         // 上传图片
         this.uploadImg(formData);
     }
@@ -131,18 +157,26 @@ class MyUploadOne {
     // 上传图片
     uploadImg(formData){
         let self = this;
+        let url = Config.routes.upload_image;
+        let method = 'POST';
+        if (this.setting.action != 'create') {
+            url = this.setting.url;
+            method = this.setting.method;
+        }
         axios({
-            url: Config.routes.upload_image,
-            method: 'POST',
+            url: url,
+            method: method,
             data: formData
         }).then((res)=> {
-            Swal.fire({
-                position: 'top-end',
-                type: 'success',
-                title: 'upload success',
-                showConfirmButton: false,
-                timer: 2000
-            });
+            if (self.setting.action != 'delete') {
+                Swal.fire({
+                    position: 'top-end',
+                    type: 'success',
+                    title: 'upload success',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+            }
             // 回调
             this.setting.success(res);
         }).catch(function (error) {

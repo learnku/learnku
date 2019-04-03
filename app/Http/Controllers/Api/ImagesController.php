@@ -25,6 +25,29 @@ class ImagesController extends Controller
     {
         $user = $this->user();
 
+        // 更新图片
+        if ($request->action && $request->action == 'update') {
+            if ($user->id == '1') {
+                $uploader->update($request->path, $request->image);
+                return $this->json([
+                    'status' => 1,
+                    'msg' => '替换成功 ~',
+                ]);
+            } else {
+                return $this->json([]);
+            }
+        } else if ($request->action && $request->action == 'delete') {
+            if ($user->id == '1') {
+                $uploader->delete($request->path);
+                return $this->json([
+                    'status' => 1,
+                    'msg' => '删除成功 ~',
+                ]);
+            } else {
+                return $this->json([]);
+            }
+        }
+
         $size = $request->type == 'avatar' ? 362 : 1024;
         $result = $uploader->save($request->image, str_plural($request->image_type), $user->id, $size);
 

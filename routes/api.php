@@ -43,6 +43,8 @@ Route::group([
 
     // 图片资源
     $router->post('images', 'ImagesController@store')->name('api.images.store');
+    $router->post('images?action=update', 'ImagesController@update')->name('api.images.update');
+    $router->delete('images', 'ImagesController@destroy')->name('api.images.destroy');
 
     // 分类
     $router->post('blog/categories', 'BlogCategoriesController@store')->name('api.blog.articles.store');

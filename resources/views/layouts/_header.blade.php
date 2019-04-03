@@ -118,6 +118,9 @@
                             <a href="/horizon" class="item" target="_blank">
                                 <i class="icon heart"></i> Laravel Horizon
                             </a>
+                            <a class="item" href="{{ route('qinius.index') }}">
+                                <i class="icon heart"></i> 七牛管理
+                            </a>
                         @endif
                         <a href="{{ route('course.orders.index') }}" class="item">
                             <i class="icon heart"></i> 我的订单

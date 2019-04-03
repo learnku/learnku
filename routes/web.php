@@ -46,7 +46,9 @@ Route::get('search', 'SearchController@index')->name('search.index');
 Route::get('contact', 'ContactController@index')->name('contact.index');
 
 // 七牛图片库管理
-Route::resource('qiniu_images', 'ImagesController');
+Route::get('qinius', 'QiniusController@index')->name('qinius.index');
+Route::get('qinius/images', 'QiniusController@images')->name('qinius.images');
+Route::get('qinius/cdns', 'QiniusController@cdns')->name('qinius.cdns');
 
 // 改版后博客文章 301
 Route::get('articles/{article}', function (\Illuminate\Http\Request $request){

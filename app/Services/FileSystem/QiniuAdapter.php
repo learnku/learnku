@@ -9,6 +9,7 @@ use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use League\Flysystem\Adapter\AbstractAdapter;
 use League\Flysystem\Config;
 use Qiniu\Auth;
+use Qiniu\Cdn\CdnManager;
 use Qiniu\Storage\BucketManager;
 use Qiniu\Storage\UploadManager;
 use Symfony\Component\HttpFoundation\File\Exception\UploadException;
@@ -21,6 +22,7 @@ class QiniuAdapter extends AbstractAdapter
     // images.learnku.net
     protected $uploadManager;
     protected $bucketManager;
+    protected $cdnManager;
     private $bucketName;
     private $domainName;
     private $token;
@@ -37,6 +39,7 @@ class QiniuAdapter extends AbstractAdapter
         $auth = new \Qiniu\Auth($this->accessKey, $this->accessSecret);
         // 管理文件句柄
         $this->bucketManager = new BucketManager($auth);
+        $this->cdnManager = new CdnManager($auth);
         $this->token = $auth->uploadToken($this->bucketName);
 
         $this->setPathPrefix($prefix);
@@ -87,7 +90,18 @@ class QiniuAdapter extends AbstractAdapter
      */
     public function update($path, $contents, Config $config)
     {
-        return $this->upload($path, $contents);
+        // 先删除
+        $error = $this->bucketManager->delete($this->bucketName, $path);
+        if ($error == null) {
+            $urls = array(
+                assert_images($path)
+            );
+            // 再上传
+            $result = $this->upload($path, $contents);
+            // 后刷新
+            $this->cdnManager->refreshUrls($urls);
+            return $result;
+        }
     }
 
     /**
@@ -180,6 +194,15 @@ class QiniuAdapter extends AbstractAdapter
     public function createDir($dirname, Config $config)
     {
         throw new \BadFunctionCallException('暂不支持该操作');
+    }
+
+    /**
+     * 刷新预取
+     * @param $urls
+     */
+    public function refresh($urls)
+    {
+        $this->cdnManager->refreshUrls($urls);
     }
 
     /**
