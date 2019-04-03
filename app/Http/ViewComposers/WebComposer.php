@@ -27,13 +27,14 @@ class WebComposer
 
             // 获取当前登录用户 信息
             $this->currentUser = $user
-                ->select('users.*', 'images.path as avatar_path', 'user_infos.*')
+                ->select('users.*', 'A.path as avatar_path', 'B.id as user_infos_id')
+                ->addSelect('B.gender', 'B.github_name', 'B.real_name', 'B.city', 'B.company', 'B.jobtitle', 'B.personal_website', 'B.wechat_qrcode', 'B.payment_qrcode', 'B.introduction', 'B.signature', 'B.avatar', 'B.image_id', 'B.user_id')
                 ->where('users.id', '=', $authId)
-                ->leftJoin('images', function ($join){
-                    $join->on('images.user_id', '=', 'users.id')
-                        ->where('images.image_type', '=', 'avatar');
+                ->leftJoin('images as A', function ($join){
+                    $join->on('A.user_id', '=', 'users.id')
+                        ->where('A.image_type', '=', 'avatar');
                 })
-                ->leftJoin('user_infos', 'user_infos.user_id', '=', 'users.id')
+                ->leftJoin('user_infos as B', 'B.user_id', '=', 'users.id')
                 ->first();
         }
     }
