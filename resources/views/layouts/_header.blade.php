@@ -16,7 +16,7 @@
                 @foreach(\App\Models\CourseBook::all() as $book)
                 <a class="item" href="{{ route('course.books.show', $book->id) }}"
                    style="padding-right: 36px!important;">
-                    <img class="ui avatar image" data-original="" style="width:20px;height:20px;">
+                    <img class="ui avatar image lazy" data-original="{{ assert_images($book->image['path']) }}" style="width:20px;height:20px;">
                     {{ $book->title }}
                 </a>
                 @endforeach

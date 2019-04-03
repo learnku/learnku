@@ -23,7 +23,7 @@
                                                 <i class="icon clock"></i> 更新于 <span title="{{ $book->updated_at }}">{{$book->updated_at}}</span>
                                             </a>
                                         </div>
-                                        {{$book->excerpt}}
+                                        {!! markdownToHtml($book->excerpt) !!}
                                     </div>
 
                                     <div class="extra">
