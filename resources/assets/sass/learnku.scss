@@ -1,3 +1,4 @@
+@import "../ext/Fluidbox/dist/css/fluidbox.min.css";
 @import "../ext/jquery/jquery.tocify/jquery.tocify.css";
 
 // SemanticUI
@@ -10,6 +11,22 @@
 @import "vendor/markdown";
 @import "vendor/learnku_com";
 
+html{
+    font-size: 14px;
+    font-family: sans-serif;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+body{
+    margin: 0;
+    overflow-x: hidden;
+    min-width: 320px;
+    background: #fff;
+    font-size: 14px;
+    line-height: 1.4285em;
+    color: rgba(0,0,0,.87);
+    font-smoothing: antialiased;
+}
 .flex {
     display: -webkit-box !important;
     display: -ms-flexbox !important;
@@ -38,4 +55,14 @@
 // 弹出层
 .upload-img{
     cursor: pointer;
+}
+
+// 图库灯箱
+.editor-preview *, .editor-preview-active-side *, .markdown-body *, .markdown-reply *{
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+a.fluidbox {
+    cursor: -webkit-zoom-in;
+    cursor: zoom-in;
 }

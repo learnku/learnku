@@ -49,6 +49,8 @@ try {
     require('../ext/prism/prism.js');
     require('../ext/jquery/jquery-ui/jquery-ui.min.js');
     require('../ext/jquery/jquery.tocify/jquery.tocify.min.js');
+
+    require('../ext/Fluidbox/dist/js/jquery.fluidbox.min.js');
 } catch (e) {}
 
 /**

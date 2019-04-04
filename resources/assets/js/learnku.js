@@ -61,6 +61,7 @@ class Learnku {
         this.initSematicUI();
         this.initLazyload();
         this.initDeleteForm();
+        this.initLightBox();
         // this.axiosDeleteForm();
     }
 
@@ -260,6 +261,14 @@ class Learnku {
         })
     }
 
+    /** 图库灯箱 */
+    initLightBox(){
+        $(".fluidbox-content img:not(.emoji)").each(function() {
+            $(this).wrap("<a href='" + $(this).attr("src") + "' class='fluidbox'></a>")
+        }).promise().done(function() {
+            $("a.fluidbox").fluidbox()
+        })
+    }
 }
 
 
