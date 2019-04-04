@@ -21,6 +21,7 @@
 <link rel="stylesheet" href="{{ assert_cdns('/ext/Simplemde_Markdown/dist/simplemde.min.css') }}">
 <script src="{{ assert_cdns('/ext/Simplemde_Markdown/dist/simplemde.min.js') }}"></script>
 <script src="{{ assert_cdns('/ext/InlineAttachment/dist/codemirror-4.inline-attachment.min.js') }}"></script>
+<script src="{{ assert_cdns('/ext/Simplemde_Markdown/HtmlToMarkdown.js') }}"></script>
 
 {{-- 加载 markdown 编辑器 --}}
 <script type="text/javascript">
@@ -119,6 +120,7 @@
 
         initSimpleMDE(setting){
             var self = this;
+            var turndownService = new TurndownService();
             setting.markdown.element = document.getElementById(setting.textarea.id);
             var simplemde = window['markdown_' + setting.textarea.id] = new SimpleMDE(setting.markdown);
 
@@ -138,9 +140,15 @@
             simplemde.codemirror.on("paste", function () {
                 $(window).trigger('resize');
             });
+            // 此处转多次是为了防止用户恶意输入
             simplemde.codemirror.on("change", function(){
-                var markdown = simplemde.value();
-                setting.events.change(simplemde.markdown(markdown));
+                // markdown to html
+                var html = simplemde.markdown(simplemde.value());
+                // html to markdown
+                var markdown = turndownService.turndown(html);
+                // markdown to html
+                html = simplemde.markdown(markdown);
+                setting.events.change(html);
             });
 
             // 图片上传
