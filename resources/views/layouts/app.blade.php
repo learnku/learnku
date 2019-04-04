@@ -78,7 +78,7 @@
     {{-- 推送代码 --}}
     @if(!app()->isLocal())
     {{-- 百度推送 --}}
-    <script async>
+    <script>
         (function(){
             var bp = document.createElement('script');
             var curProtocol = window.location.protocol.split(':')[0];
@@ -93,7 +93,7 @@
         })();
     </script>
     {{-- 360推送 --}}
-    <script async>
+    <script>
         (function(){
             var src = (document.location.protocol == "http:") ? "http://js.passport.qihucdn.com/11.0.1.js?df7a65a30e107fdfc9ad5b5871106767":"https://jspassport.ssl.qhimg.com/11.0.1.js?df7a65a30e107fdfc9ad5b5871106767";
             document.write('<script src="' + src + '" id="sozz"><\/script>');
@@ -104,7 +104,7 @@
     {{-- 统计代码 --}}
     @if(!app()->isLocal())
     {{-- 百度统计 --}}
-    <script async>
+    <script>
         var _hmt = _hmt || [];
         (function() {
             var hm = document.createElement("script");
