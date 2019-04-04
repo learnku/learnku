@@ -10,7 +10,7 @@
         <div class="comment">
             <div class="avatar">
                 <a href="{{ route('users.show', $reply->user_id) }}">
-                    <img class="lazy" data-original="{{ $reply->avatar_path }}">
+                    <img class="lazy" data-original="{{ assert_images($reply->avatar_path) }}">
                 </a>
             </div>
             <div class="content">
