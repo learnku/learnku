@@ -53,6 +53,27 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="ui divider mb-20"></div>
+
+                        <div class="item">
+                            <i class="folder icon"></i>
+                            <div class="content">
+                                <div class="header">提交链接到搜索引擎</div>
+                                <div class="list">
+
+                                    <div class="item">
+                                        <i class="folder icon"></i>
+                                        <div class="content">
+                                            <div class="header">
+                                                <a href="{{ route('qinius.urls') }}?action=baidu">提交到百度</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

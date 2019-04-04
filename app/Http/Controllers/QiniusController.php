@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BlogArticle;
+use App\Models\CourseArticle;
 use App\Services\FileSystem\QiniuAdapter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,6 +32,10 @@ class QiniusController extends Controller
         $this->middleware('auth');
     }
 
+    /**
+     * 资源管理入口
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         $this->isFounder();
@@ -37,6 +43,11 @@ class QiniusController extends Controller
         return view('pages.qinius.index');
     }
 
+    /**
+     * cdns 静态资源
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function cdns(Request $request)
     {
         $this->isFounder();
@@ -105,6 +116,10 @@ class QiniusController extends Controller
         return redirect('qinius')->with('success', $str . '成功 ~');
     }
 
+    /**
+     * images 镜像图片库
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function images()
     {
         $this->isFounder();
@@ -119,6 +134,50 @@ class QiniusController extends Controller
         }
 
         return view('pages.qinius.images', compact('images'));
+    }
+
+    /**
+     * 主动提交链接给搜索引擎抓取
+     */
+    public function urls(Request $request)
+    {
+        // 待推送的 url 数组
+        $urls = [];
+
+        // 博客文章
+        $ids = BlogArticle::orderBy('id', 'asc')->pluck('id');
+        foreach ($ids as $id) {
+            array_push($urls, route('blog.articles.show', $id));
+        }
+
+        // 教程文章
+        $ids = CourseArticle::with('section')->select('id','course_section_id')->get();
+        foreach ($ids as $item) {
+            $book_id = $item->section->book->id;
+            $id = $item->id;
+            array_push($urls, route('course.articles.show', [$book_id, $id]));
+        }
+
+        // 不可推送本地 url
+        if (!app()->isLocal()){
+            // 推送百度
+            if ($request->action == 'baidu') {
+                $api = 'http://data.zz.baidu.com/urls?site=https://www.learnku.net&token=pJNUfWjlnSnO1Ss7';
+                $ch = curl_init();
+                $options =  array(
+                    CURLOPT_URL => $api,
+                    CURLOPT_POST => true,
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_POSTFIELDS => implode("\n", $urls),
+                    CURLOPT_HTTPHEADER => array('Content-Type: text/plain'),
+                );
+                curl_setopt_array($ch, $options);
+                $result = curl_exec($ch);
+                echo $result;
+            };
+        }
+
+        return redirect('qinius')->with('success', '推送成功 ~');
     }
 
 

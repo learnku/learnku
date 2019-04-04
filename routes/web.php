@@ -49,6 +49,7 @@ Route::get('contact', 'ContactController@index')->name('contact.index');
 Route::get('qinius', 'QiniusController@index')->name('qinius.index');
 Route::get('qinius/images', 'QiniusController@images')->name('qinius.images');
 Route::get('qinius/cdns', 'QiniusController@cdns')->name('qinius.cdns');
+Route::get('qinius/urls', 'QiniusController@urls')->name('qinius.urls');
 
 // 改版后博客文章 301
 Route::get('articles/{article}', function (\Illuminate\Http\Request $request){

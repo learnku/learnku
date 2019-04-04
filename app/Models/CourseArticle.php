@@ -12,7 +12,7 @@ class CourseArticle extends Model
      */
     public function section()
     {
-        return $this->belongsTo(CourseSection::class, 'course_section_id', 'id');
+        return $this->belongsTo(CourseSection::class, 'course_section_id', 'id')->with('book');
     }
 
     /**
