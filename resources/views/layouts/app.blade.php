@@ -78,7 +78,7 @@
     {{-- 推送代码 --}}
     @if(!app()->isLocal())
     {{-- 百度推送 --}}
-    <script>
+    <script async>
         (function(){
             var bp = document.createElement('script');
             var curProtocol = window.location.protocol.split(':')[0];
@@ -92,12 +92,19 @@
             s.parentNode.insertBefore(bp, s);
         })();
     </script>
+    {{-- 360推送 --}}
+    <script async>
+        (function(){
+            var src = (document.location.protocol == "http:") ? "http://js.passport.qihucdn.com/11.0.1.js?df7a65a30e107fdfc9ad5b5871106767":"https://jspassport.ssl.qhimg.com/11.0.1.js?df7a65a30e107fdfc9ad5b5871106767";
+            document.write('<script src="' + src + '" id="sozz"><\/script>');
+        })();
+    </script>
     @endif
 
     {{-- 统计代码 --}}
     @if(!app()->isLocal())
     {{-- 百度统计 --}}
-    <script>
+    <script async>
         var _hmt = _hmt || [];
         (function() {
             var hm = document.createElement("script");
@@ -109,8 +116,17 @@
 
     {{-- 友盟 --}}
     <div style="display: none;">
-        <script type="text/javascript" src="https://s23.cnzz.com/z_stat.php?id=1276509064&web_id=1276509064"></script>
+        <script async type="text/javascript" src="https://s23.cnzz.com/z_stat.php?id=1276509064&web_id=1276509064"></script>
     </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-137692440-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-137692440-1');
+    </script>
     @endif
 </body>
 </html>

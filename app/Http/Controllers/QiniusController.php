@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BlogArticle;
 use App\Models\CourseArticle;
 use App\Services\FileSystem\QiniuAdapter;
+use http\Url;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -152,18 +153,20 @@ class QiniusController extends Controller
         }
 
         // 教程文章
-        $ids = CourseArticle::with('section')->select('id','course_section_id')->get();
+        $ids = CourseArticle::with('section')->select('id','course_section_id')->orderBy('id', 'asc')->get();
         foreach ($ids as $item) {
             $book_id = $item->section->book->id;
             $id = $item->id;
             array_push($urls, route('course.articles.show', [$book_id, $id]));
         }
 
-        // 不可推送本地 url
-        if (app()->isLocal()){
-            if ($request->action == 'baidu') {
-                $msg = $this->_baidu($urls);
-            }
+
+        if ($request->action == 'local') {
+            // 写入文件
+            $msg = $this->_writeFile($urls);
+        }elseif ($request->action == 'baidu') {
+            // 推送百度
+            $msg = $this->_baidu($urls);
         }
 
         return redirect('qinius')->with('success', $msg);
@@ -214,6 +217,24 @@ class QiniusController extends Controller
             }
         };
         closedir($dir);
+    }
+
+    /**
+     * 写入文件 uploads/urls.html
+     * @param array $urls
+     * @return string
+     */
+    protected function _writeFile($urls = [])
+    {
+        $file = public_path() . '/uploads/urls.html';
+        $fp = fopen($file, 'w');
+        fwrite($fp, '<textarea style="width: 100%;height: 90vh;">' . PHP_EOL);
+        foreach ($urls as $url) {
+            fwrite($fp, $url . PHP_EOL);
+        }
+        fwrite($fp, '</textarea>' . PHP_EOL);
+        fclose($fp);
+        return config('app.url') . '/uploads/urls.html';
     }
 
     /**

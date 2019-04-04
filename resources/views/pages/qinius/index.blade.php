@@ -66,7 +66,31 @@
                                         <i class="folder icon"></i>
                                         <div class="content">
                                             <div class="header">
+                                                <a href="{{ route('qinius.urls') }}?action=local">生成 url 数组文件</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <i class="folder icon"></i>
+                                        <div class="content">
+                                            <div class="header">
                                                 <a href="{{ route('qinius.urls') }}?action=baidu">提交到百度（www.learnku.net）</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <i class="folder icon"></i>
+                                        <div class="content">
+                                            <div class="header">
+                                                <a href="http://zhanzhang.sogou.com/index.php/sitelink/index">提交到搜狗（www.learnku.net）</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <i class="folder icon"></i>
+                                        <div class="content">
+                                            <div class="header">
+                                                <a href="http://zhanzhang.so.com/sitetool/page_include">提交到360（www.learnku.net）</a>
                                             </div>
                                         </div>
                                     </div>
