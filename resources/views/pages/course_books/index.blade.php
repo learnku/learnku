@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', '实战教程')
 
 @section('content')
     <div class="ui centered grid container stackable" style="margin-bottom: 80px;min-height:380px">

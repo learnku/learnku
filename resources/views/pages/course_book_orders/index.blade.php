@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', '我的订单')
 
 @section('content')
     <div class="ui centered grid container stackable">

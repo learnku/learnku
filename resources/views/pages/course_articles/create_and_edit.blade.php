@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', $article->title ? $article->title : '实战教程')
 
 @section('content')
     @include('shared._error')

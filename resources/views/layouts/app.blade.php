@@ -12,9 +12,10 @@
     <meta name="jwt-token" content="{{ 'Bearer '.JWTAuth::fromUser(Auth::user()) }}">
     @endauth
 
-    <title>@yield('title', 'LearnKu') - LearnKu 编码知识博客</title>
-    <meta name="Description" content="@yield('Description',  'LearnKu 编码知识博客')">
-    <meta name="Keywords" content="@yield('Keywords', 'LearnKu,博客,开发者博客,编码知识博客')">
+    <title>@yield('title', 'LearnKu') - LearnKu 编码学习区</title>
+    <meta name="Description" content="@yield('Description',  '终身学习者的编程学习区')">
+    <meta name="Keywords" content="@yield('Keywords', '学习区,学习去,编码知识区,博客,开发者博客')">
+    <meta name="author" content="GucciLee" />
 
       <!-- Styles -->
     <link href="{{ assert_cdns('css/learnku.css') }}" rel="stylesheet">

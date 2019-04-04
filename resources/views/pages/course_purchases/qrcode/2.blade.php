@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', '支付宝支付')
 
 @section('content')
     <div class="ui centered grid container books-page">

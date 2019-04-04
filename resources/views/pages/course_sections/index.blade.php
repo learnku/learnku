@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', $book->title ? $book->title : '实战教程')
 
 @section('content')
     <div class="ui centered grid container books-page stackable rm-link-color">
