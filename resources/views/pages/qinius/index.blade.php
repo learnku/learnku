@@ -66,7 +66,7 @@
                                         <i class="folder icon"></i>
                                         <div class="content">
                                             <div class="header">
-                                                <a href="{{ route('qinius.urls') }}?action=baidu">提交到百度</a>
+                                                <a href="{{ route('qinius.urls') }}?action=baidu">提交到百度（www.learnku.net）</a>
                                             </div>
                                         </div>
                                     </div>

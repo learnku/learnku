@@ -143,6 +143,7 @@ class QiniusController extends Controller
     {
         // 待推送的 url 数组
         $urls = [];
+        $msg = '推送成功 ~';
 
         // 博客文章
         $ids = BlogArticle::orderBy('id', 'asc')->pluck('id');
@@ -159,25 +160,13 @@ class QiniusController extends Controller
         }
 
         // 不可推送本地 url
-        if (!app()->isLocal()){
-            // 推送百度
+        if (app()->isLocal()){
             if ($request->action == 'baidu') {
-                $api = 'http://data.zz.baidu.com/urls?site=https://www.learnku.net&token=pJNUfWjlnSnO1Ss7';
-                $ch = curl_init();
-                $options =  array(
-                    CURLOPT_URL => $api,
-                    CURLOPT_POST => true,
-                    CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_POSTFIELDS => implode("\n", $urls),
-                    CURLOPT_HTTPHEADER => array('Content-Type: text/plain'),
-                );
-                curl_setopt_array($ch, $options);
-                $result = curl_exec($ch);
-                echo $result;
-            };
+                $msg = $this->_baidu($urls);
+            }
         }
 
-        return redirect('qinius')->with('success', '推送成功 ~');
+        return redirect('qinius')->with('success', $msg);
     }
 
 
@@ -225,6 +214,42 @@ class QiniusController extends Controller
             }
         };
         closedir($dir);
+    }
+
+    /**
+     * 推送到百度
+     * @param array $urls
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    private function _baidu($urls = [])
+    {
+        $msg = '推送成功 ~';
+        $api = 'http://data.zz.baidu.com/urls?site=https://www.learnku.net&token=pJNUfWjlnSnO1Ss7';
+        $ch = curl_init();
+        $options =  array(
+            CURLOPT_URL => $api,
+            CURLOPT_POST => true,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_POSTFIELDS => implode("\n", $urls),
+            CURLOPT_HTTPHEADER => array('Content-Type: text/plain'),
+        );
+        curl_setopt_array($ch, $options);
+        $result = curl_exec($ch);
+        $result = json_decode($result);
+
+        if (isset($result->error)){
+            $msg = $result->message;
+        } elseif ($result->success == '0') {
+            if (!empty($result->not_same_site)) {
+                $msg = '由于不是本站url而未处理的url列表' . json_encode($result->not_same_site);
+            } elseif (!empty($result->not_valid)) {
+                $msg = '不合法的url列表' . json_encode($result->not_valid);
+            }
+        } else {
+            $msg = $msg . $result->success . '条';
+        }
+
+        return $msg;
     }
 
     /**
