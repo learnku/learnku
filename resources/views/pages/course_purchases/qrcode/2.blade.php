@@ -58,50 +58,5 @@
 @endsection
 
 @section('script')
-    <script>
-        var href = "{{ route('course.orders.show', $data['order_id']) }}";
-        var redirect = "{{ route('course.books.show', $book->id) }}";
-        // 检查订单
-        var checkOrder = function () {
-            $.get( href, function( data ) {
-                if (data) {
-                    clearInterval(checkOrderTimmer);
-                    window.onbeforeunload = function(){};
-                    // 重定向
-                    Swal.fire({
-                        title: '支付完成，即将跳转 ...',
-                        timer: 2000,
-                        showCloseButton: true,
-                        onBeforeOpen: () => {
-                            Swal.showLoading();
-                        },
-                        onClose: () => {
-                            if (data.status == '1') {
-                                window.location.href = redirect;
-                            }
-                        }
-                    });
 
-                }
-            });
-        };
-
-        if ('qrcode' == 'qrcode' ) {
-            alert('支付过程中切忌离开页面，以免不必要的损失！');
-
-            window.onbeforeunload = function(){
-                return '支付过程中切忌离开页面，以免不必要的损失！';
-            };
-
-            var checkOrderTimmer = setInterval(function () {
-                checkOrder()
-            }, 1500);
-        }
-
-        // 点击 已完成付款
-        $('#paid-button').click(function () {
-            window.onbeforeunload = function(){};
-            checkOrder()
-        })
-    </script>
 @endsection

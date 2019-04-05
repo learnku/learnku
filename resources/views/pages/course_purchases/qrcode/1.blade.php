@@ -39,7 +39,8 @@
                         </p>
 
                         <div style="margin: 0 auto;">
-                            <img id="payment-qr" class="lazy" data-original="" style="padding: 2px;border: 1px solid #eee;margin-top: 20px;margin-bottom: 20px;">
+                            <div id="payment-qr" style="margin-top: 20px;margin-bottom: 20px;"></div>
+                            {{--<img id="payment-qr" src="{{ $order->wx_code_url }}" style="padding: 2px;border: 1px solid #eee;margin-top: 20px;margin-bottom: 20px;">--}}
                         </div>
 
                         <p>
@@ -58,7 +59,16 @@
 @endsection
 
 @section('script')
+    <script src="{{ assert_cdns('/ext/jquery/jquery-qrcode/jquery.qrcode.min.js') }}"></script>
     <script>
+        // 生成微信支付二维码
+        $('#payment-qr').qrcode({
+            render: "canvas",
+            width: 250,
+            height: 250,
+            text: "{{ $order->wx_code_url }}"
+        });
+
         var href = "{{ route('course.orders.show', $data['order_id']) }}";
         var redirect = "{{ route('course.books.show', $book->id) }}";
         // 检查订单
@@ -95,7 +105,7 @@
 
             var checkOrderTimmer = setInterval(function () {
                 checkOrder()
-            }, 1500);
+            }, 3000);
         }
 
         // 点击 已完成付款

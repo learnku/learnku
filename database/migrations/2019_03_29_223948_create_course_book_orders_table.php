@@ -18,6 +18,9 @@ class CreateCourseBookOrdersTable extends Migration
             $table->integer('flag')->unsigned()->default(0)->index()->comment('0:待支付，1：已支付');
             $table->integer('user_id')->unsigned()->index()->comment('用户 id');
             $table->integer('course_book_id')->unsigned()->index()->comment('教程书籍 id');
+            $table->string('payment_id')->nullable()->comment('支付 ID');
+            $table->string('wx_out_trade_no')->nullable()->comment('微信支付 out_trade_no');
+            $table->string('wx_code_url')->nullable()->comment('微信支付 code_url');
             $table->timestamps();
         });
     }
