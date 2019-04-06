@@ -187,3 +187,14 @@ npm run watch-poll
 > $ $user = App\Models\User::find(1)
 > $ $user->assignRole('Founder');
 > exit
+
+#### 9. 程序优化
+| 功能        | 缓存    |  清除  |  特殊说明  |
+| :--------   | :-----   | :---- | :---- |
+| 1. 配置信息缓存   | php artisan config:cache   | php artisan config:clear | ~ |
+| 2. 路由缓存   | php artisan route:cache   | php artisan route:clear | ~ |
+| 3. 类映射加载优化   | php artisan optimize --force   | php artisan clear-compiled | ~ |
+| 4. 自动加载优化  | composer dumpautoload -o   | ~ | `注意：php artisan optimize --force 命令里已经做了这个操作。` |
+| 5. 使用 Memcached 来存储会话   | 文件：`config/session.php` 修改=》 'driver' => 'memcached',   | ~ | ~ |
+| 6. 使用专业缓存驱动器   | 文件：`config/session.php` 修改=》 'default' => 'redis',   | ~ | ~ |
+
