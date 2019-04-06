@@ -52,9 +52,7 @@ Route::get('qinius/cdns', 'QiniusController@cdns')->name('qinius.cdns');
 Route::get('qinius/urls', 'QiniusController@urls')->name('qinius.urls');
 
 // 改版后博客文章 301
-Route::get('articles/{article}', function (\Illuminate\Http\Request $request){
-    return redirect()->route('blog.articles.show', $request->article);
-});
+Route::get('articles/{article}', 'ArticlesController@show');
 
 // 回复
 Route::resource('replies', 'RepliesController', ['only' => ['store', 'update', 'edit', 'destroy']]);
@@ -63,10 +61,6 @@ Route::resource('replies', 'RepliesController', ['only' => ['store', 'update', '
  * 博客
  */
 Route::group(['prefix'=> 'blog'], function (){
-    Route::get('/', function (){
-        return redirect()->to('/');
-    });
-
     // 标签
     Route::get('tags/{tag}', 'BlogTagsController@show')->name('blog.tags.show');
 
