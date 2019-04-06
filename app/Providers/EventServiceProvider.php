@@ -20,6 +20,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\BlogArticleView' => [
             'App\Listeners\BlogArticleViewListener',
         ],
+        'App\Events\CourseArticleView' => [
+            'App\Listeners\CourseArticleViewListener',
+        ],
     ];
 
     /**

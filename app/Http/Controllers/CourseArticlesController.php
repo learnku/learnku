@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CourseArticleView;
 use App\Models\CourseArticle;
 use App\Models\CourseBook;
 use App\Models\CourseSection;
@@ -32,6 +33,9 @@ class CourseArticlesController extends Controller
         if (empty($this->book_id)) {
             abort(403, '非法访问');
         }
+
+        // 更新 文章浏览数
+        event(new CourseArticleView($article));
 
         // 章节
         $sections = $book->sections;
