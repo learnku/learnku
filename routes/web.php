@@ -56,6 +56,9 @@ Route::get('articles/{article}', function (\Illuminate\Http\Request $request){
     return redirect()->route('blog.articles.show', $request->article);
 });
 
+// 回复
+Route::resource('replies', 'RepliesController', ['only' => ['store', 'update', 'edit', 'destroy']]);
+
 /**
  * 博客
  */
@@ -93,17 +96,6 @@ Route::group(['prefix'=> 'blog'], function (){
             'destroy' => 'blog.articles.destroy',
         ],
         'only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']
-    ]);
-
-    // 回复
-    Route::resource('replies', 'BlogRepliesController', [
-        'names'=> [
-            'store' => 'blog.replies.store',
-            'edit' => 'blog.replies.edit',
-            'update' => 'blog.replies.update',
-            'destroy' => 'blog.replies.destroy',
-        ],
-        'only' => ['store', 'update', 'edit', 'destroy']
     ]);
 });
 

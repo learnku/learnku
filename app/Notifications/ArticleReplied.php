@@ -2,13 +2,13 @@
 
 namespace App\Notifications;
 
-use App\Models\BlogReply;
+use App\Models\Reply;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class BlogArticleReplied extends Notification implements ShouldQueue
+class ArticleReplied extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -19,7 +19,7 @@ class BlogArticleReplied extends Notification implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(BlogReply $reply)
+    public function __construct(Reply $reply)
     {
         // 注入回复实体，方便 toDatabase 方法中的使用
         $this->reply = $reply;
@@ -65,7 +65,7 @@ class BlogArticleReplied extends Notification implements ShouldQueue
     {
         $url = $this->reply->article->link(['#reply' . $this->reply->id]);
         return (new MailMessage)
-                    ->line('你的话题有新回复！')
+                    ->line('你的文章有新回复！')
                     ->action('查看回复', $url);
     }
 

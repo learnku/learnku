@@ -116,8 +116,8 @@
             </div>
 
             {{-- 回复 --}}
-            @include('pages.blog_articles._reply_list')
-            @include('pages.blog_articles._reply_box')
+            @include('pages.replies._reply_list')
+            @include('pages.replies._reply_box', ['input_model'=> \App\Models\BlogArticle::class ])
             {{--@includeWhen(Auth::check(), 'pages.blog_articles._reply_box')--}}
         </div>
 

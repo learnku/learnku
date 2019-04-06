@@ -32,26 +32,24 @@
                     <i class="icon clock"></i> {{ $reply->created_at->diffForHumans() }}
                 </div>
 
+                @if($reply->user_id === \Illuminate\Support\Facades\Auth::id())
                 <div class="footer">
                     <div class="ui menu reactions">
                         {{-- 编辑 --}}
-                        @can('update', $reply)
-                        <a class="item ui " style="color:rgba(0, 0, 0, 0.4);font-size: 0.9em;" href="{{ route('blog.replies.edit', $reply->id) }}">
+                        <a class="item ui " style="color:rgba(0, 0, 0, 0.4);font-size: 0.9em;" href="{{ route('replies.edit', $reply->id) }}">
                             <i class="icon edit" style="margin: 0;width: 1em;"></i>
                         </a>
-                        @endcan
 
                         {{-- 删除 --}}
-                        @can('destroy', $reply)
                         <a class="item ui " style="cursor: pointer;"
                            href="javascript:;"
                            axios-method="delete"
-                           data-url="{{ route('api.blog.replies.destroy', $reply->id) }}">
+                           data-url="{{ route('api.replies.destroy', $reply->id) }}">
                             <i class="icon trash" style="margin: 0;width: 1em;color:rgba(0, 0, 0, 0.4);font-size: 0.9em;"></i>
                         </a>
-                        @endcan
                     </div>
                 </div>
+                @endif
             </div>
         </div>
         @endforeach

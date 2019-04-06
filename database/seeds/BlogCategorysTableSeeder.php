@@ -12,13 +12,14 @@ class BlogCategorysTableSeeder extends Seeder
         $categorys = [
             'html', 'css', 'js', 'php', 'java', 'python', '.net', '.asp', 'myasql', 'centos',
         ];
+        $user_ids = [1];
 
         $blog_categorys = factory(BlogCategory::class)
             ->times(10)
             ->make()
-            ->each(function ($blog_category, $index) use ($categorys, $faker){
+            ->each(function ($blog_category, $index) use ($categorys, $user_ids, $faker){
                 $blog_category->name = $categorys[$index];
-                $blog_category->user_id = $faker->randomElement([1, 2, 3]);
+                $blog_category->user_id = $faker->randomElement($user_ids);
             });
 
         BlogCategory::insert($blog_categorys->toArray());

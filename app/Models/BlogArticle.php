@@ -9,7 +9,8 @@ class BlogArticle extends Model
     // 生成 url
     public function link($params = [])
     {
-        return route('blog.articles.show', array_merge([$this->id, $this->slug], $params));
+        // return route('blog.articles.show', array_merge([$this->id, $this->slug], $params));
+        return route('blog.articles.show', array_merge([$this->id], $params));
     }
 
     // 对应分类
@@ -27,7 +28,7 @@ class BlogArticle extends Model
     // 对应回复
     public function replies()
     {
-        return $this->hasMany(BlogReply::class, 'article_id');
+        return $this->hasMany(Reply::class, 'article_id')->where('model', BlogArticle::class);
     }
 
     // 获取文章标签

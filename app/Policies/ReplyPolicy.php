@@ -2,17 +2,18 @@
 
 namespace App\Policies;
 
+use App\Models\Reply;
 use App\Models\User;
 use App\Models\BlogReply;
 
-class BlogReplyPolicy extends Policy
+class ReplyPolicy extends Policy
 {
-    public function update(User $user, BlogReply $reply)
+    public function update(User $user, Reply $reply)
     {
         return $user->isAuthorOf($reply);
     }
 
-    public function destroy(User $user, BlogReply $reply)
+    public function destroy(User $user, Reply $reply)
     {
         return $user->isAuthorOf($reply);
     }

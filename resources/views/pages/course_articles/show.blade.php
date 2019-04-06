@@ -112,6 +112,10 @@
                 </a>
                 <div class="clearfix"></div>
             </div>
+
+            {{-- 回复 --}}
+            @include('pages.replies._reply_list')
+            @include('pages.replies._reply_box', ['input_model'=> \App\Models\CourseArticle::class ])
         </div>
 
         {{-- 侧边栏 --}}
@@ -149,7 +153,7 @@
                             <div class="label">浏览</div>
                         </div>
                         <a class="ui huge statistic" href="#topics-list">
-                            <div class="value">~</div>
+                            <div class="value">{{ $article->reply_count }}</div>
                             <div class="label">讨论</div>
                         </a>
                     </div>
@@ -213,5 +217,60 @@
             $('.page-next-btn').attr('data-content', next.title);
             $('.page-next-btn').removeClass('disabled');
         }
+    </script>
+
+    <script type="text/javascript">
+        // 发表回复
+        var markdown = new Markdown();
+        markdown.init({
+            'textarea': {
+                'id': 'markdown-editor'
+            },
+            'interval': false,
+            'markdown': {
+                status: false,
+                toolbar: false,
+            },
+            'events': {
+                change: function (html) {
+                    if ($.trim(html) !== '') {
+                        $("#preview-box").html(html).fadeIn();
+                    } else {
+                        $("#preview-box").fadeOut();
+                    }
+                }
+            }
+        });
+    </script>
+    <script type="text/javascript">
+        // 删除评论
+        LearnkuNew.axiosDeleteForm(function (btn) {
+            $(btn).closest('.comment').remove();
+        })
+    </script>
+    <script type="text/javascript">
+        var auth = Boolean("{{ Auth::check() }}");
+        // 发表评论
+        $("#comment-composing-form").submit(function () {
+            if (auth) {
+                axios({
+                    method: $(this).attr('method'),
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                }).then((res)=> {
+                    Swal.fire({
+                        type: 'success',
+                        title: '评论发表成功 . . .',
+                        text: '请耐心等待管理员审核',
+                    });
+                    // 重置 markdown
+                    window['markdown_markdown-editor'].value('');
+                }).catch(function (error) {
+                    window.public.axios_catch(error);
+                });
+            } else {
+                window.location.href = "{{ route('login') }}";
+            }
+        });
     </script>
 @endsection

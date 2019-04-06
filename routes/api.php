@@ -50,8 +50,8 @@ Route::group([
     $router->post('blog/categories', 'BlogCategoriesController@store')->name('api.blog.articles.store');
 
     // 评论
-    $router->post('blog/replies', 'BlogRepliesController@store')->name('api.blog.replies.store');
-    $router->delete('blog/replies/{reply}', 'BlogRepliesController@destroy')->name('api.blog.replies.destroy');
+    $router->post('replies', 'RepliesController@store')->name('api.replies.store');
+    $router->delete('replies/{reply}', 'RepliesController@destroy')->name('api.replies.destroy');
 });
 
 

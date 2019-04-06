@@ -40,8 +40,17 @@ class CourseArticlesController extends Controller
         // 章节
         $sections = $book->sections;
 
+        // 回复数据
+        $replies = $article->replies()->with('user')
+            ->where('verify', '=', 1)
+            ->select('replies.*', 'images.path as avatar_path')
+            ->leftJoin('images', function ($join){
+                $join->on('images.user_id', '=', 'replies.user_id')
+                    ->where('images.image_type', '=', 'avatar');
+            })->get();
+
         $data = $this->data;
-        return view('pages.course_articles.show', compact('sections', 'article', 'data'));
+        return view('pages.course_articles.show', compact('sections', 'article', 'replies', 'data'));
     }
 
 	public function create(CourseBook $book,CourseArticle $article)

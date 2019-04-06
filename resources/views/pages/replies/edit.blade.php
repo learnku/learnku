@@ -17,10 +17,11 @@
                         请保持友善，分享美好的事物。
                     </div>
 
-                    <form method="POST" action="{{ route('blog.replies.update', $reply->id) }}"
+                    <form method="POST" action="{{ route('replies.update', $reply->id) }}"
                           accept-charset="UTF-8" id="topic-edit-form" class="topic-form">
                         <input name="_method" type="hidden" value="PATCH">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="model" value="{{ $reply->model }}">
 
                         <div class="form-group">
                             {{-- 加载 markdown 编辑器 --}}

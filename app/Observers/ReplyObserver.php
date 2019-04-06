@@ -2,23 +2,23 @@
 
 namespace App\Observers;
 
-use App\Models\BlogReply;
-use App\Notifications\BlogArticleReplied;
+use App\Models\Reply;
+use App\Notifications\ArticleReplied;
 
 // creating, created, updating, updated, saving,
 // saved,  deleting, deleted, restoring, restored
 
-class BlogReplyObserver
+class ReplyObserver
 {
-    public function created(BlogReply $reply)
+    public function created(Reply $reply)
     {
         $reply->article->updateReplyCount();
 
         // 通知话题作者有新的评论
-        $reply->article->user->notify(new BlogArticleReplied($reply));
+        $reply->article->user->notify(new ArticleReplied($reply));
     }
 
-    public function deleted(BlogReply $reply)
+    public function deleted(Reply $reply)
     {
         $reply->article->updateReplyCount();
     }

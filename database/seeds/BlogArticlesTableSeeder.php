@@ -10,7 +10,8 @@ class BlogArticlesTableSeeder extends Seeder
     public function run()
     {
         // 所有用户 ID 数组，如：[1,2,3,4]
-        $user_ids = User::all()->pluck('id')->toArray();
+        // $user_ids = User::all()->pluck('id')->toArray();
+        $user_ids = [1];
 
         // 所有分类 ID 数组，如：[1,2,3,4]
         $category_ids = BlogCategory::all()->pluck('id')->toArray();

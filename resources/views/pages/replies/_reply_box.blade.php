@@ -15,11 +15,12 @@
         <form class="ui reply form topic-reply-form"
               onsubmit="return false;"
               method="POST"
-              action="{{ route('api.blog.replies.store') }}"
+              action="{{ route('api.replies.store') }}"
               accept-charset="UTF-8"
               id="comment-composing-form">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <input type="hidden" name="article_id" value="{{ $article->id }}">
+            <input type="hidden" name="model" value="{{ $input_model }}">
 
             <div class="ui message info">
                 <i class="icon info" aria-hidden="true"></i>

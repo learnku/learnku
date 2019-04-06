@@ -43,9 +43,9 @@ class BlogArticlesController extends Controller
         // 回复数据
         $replies = $article->replies()->with('user')
             ->where('verify', '=', 1)
-            ->select('blog_replies.*', 'images.path as avatar_path')
+            ->select('replies.*', 'images.path as avatar_path')
             ->leftJoin('images', function ($join){
-                $join->on('images.user_id', '=', 'blog_replies.user_id')
+                $join->on('images.user_id', '=', 'replies.user_id')
                     ->where('images.image_type', '=', 'avatar');
             })->get();
 

@@ -18,9 +18,9 @@ class AuthServiceProvider extends ServiceProvider
 		 \App\Models\CourseArticle::class => \App\Policies\CourseArticlePolicy::class,
 		 \App\Models\CourseSection::class => \App\Policies\CourseSectionPolicy::class,
 		 \App\Models\CourseBook::class => \App\Policies\CourseBookPolicy::class,
-		 \App\Models\BlogReply::class => \App\Policies\BlogReplyPolicy::class,
 		\App\Models\BlogArticle::class => \App\Policies\BlogArticlePolicy::class,
 		\App\Models\BlogCategory::class => \App\Policies\BlogCategoryPolicy::class,
+        \App\Models\Reply::class => \App\Policies\ReplyPolicy::class,
         \App\Models\User::class => \App\Policies\UserPolicy::class,
         'App\Model' => 'App\Policies\ModelPolicy',
     ];
