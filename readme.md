@@ -3,7 +3,7 @@
 ## 项目概述
 * 产品名称：LearnKu
 * 项目代号：learnku
-* 官方地址：https://learnku.net
+* 官方地址：https://www.learnku.net
 
 ## 功能如下
 * 特别说明 —— 除站长外其他用户仅允许发表评论
@@ -114,7 +114,7 @@ npm run watch-poll
 ```
 
 ### 链接入口
-* 首页地址：http://learnku.test/
+* 首页地址：http://www.learnku.net/
 
 至此, 安装完成 ^_^。
 
