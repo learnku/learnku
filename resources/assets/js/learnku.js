@@ -56,6 +56,7 @@ window.public = {
 
 class Learnku {
     init() {
+        this.initFunc();
         this.initSubmitBtn();
         this.closeMessage();
         this.initSematicUI();
@@ -63,6 +64,16 @@ class Learnku {
         this.initDeleteForm();
         this.initLightBox();
         // this.axiosDeleteForm();
+    }
+
+    initFunc() {
+        // markdown 编辑的页面。非本站地址，以新窗口打开
+        $('.markdown-body').find('a').each(function () {
+            let href = $(this).attr('href');
+            if (href.indexOf('learnku.net') === -1) {
+                $(this).attr('target', '_black')
+            }
+        });
     }
 
     /** 表单提交 */
