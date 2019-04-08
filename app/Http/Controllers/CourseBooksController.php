@@ -23,6 +23,12 @@ class CourseBooksController extends Controller
 
     public function show(CourseBook $book)
     {
+        // 非站长 只可以查看 价格 < 1000 人民币教程
+        if (!empty(Auth::user()) && Auth::id() === 1) {
+        } elseif ($book->prices >= 1000) {
+            abort(404);
+        }
+
         $sections = $book->sections;
 
         return view('pages.course_books.show', compact('book', 'sections'));

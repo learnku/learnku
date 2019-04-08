@@ -33,6 +33,11 @@ class CourseArticlesController extends Controller
         if (empty($this->book_id)) {
             abort(403, '非法访问');
         }
+        // 非站长 只可以查看 价格 < 1000 人民币教程
+        if (!empty(Auth::user()) && Auth::id() === 1) {
+        } elseif ($book->prices >= 1000) {
+            abort(404);
+        }
 
         // 更新 文章浏览数
         event(new CourseArticleView($article));

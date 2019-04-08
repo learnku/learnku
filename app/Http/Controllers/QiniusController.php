@@ -153,11 +153,17 @@ class QiniusController extends Controller
         }
 
         // 教程文章
-        $ids = CourseArticle::with('section')->select('id','course_section_id')->orderBy('id', 'asc')->get();
+        $ids = CourseArticle::with('section')
+            ->select('id','course_section_id')
+            ->orderBy('id', 'asc')
+            ->get();
+        // 只有站长可以查看的文章不进行推送
         foreach ($ids as $item) {
-            $book_id = $item->section->book->id;
-            $id = $item->id;
-            array_push($urls, route('course.articles.show', [$book_id, $id]));
+            if ((int) $item->section->book->prices <= 1000) {
+                $book_id = $item->section->book->id;
+                $id = $item->id;
+                array_push($urls, route('course.articles.show', [$book_id, $id]));
+            }
         }
 
 
