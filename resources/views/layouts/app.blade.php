@@ -75,34 +75,6 @@
     <script type="text/javascript" src="{{ assert_cdns('js/learnku.js') }}"></script>
     @yield('script')
 
-    {{-- 推送代码 --}}
-    @if(!app()->isLocal())
-    {{-- 百度推送 --}}
-    <script>
-        (function(){
-            var bp = document.createElement('script');
-            var curProtocol = window.location.protocol.split(':')[0];
-            if (curProtocol === 'https') {
-                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-                bp.async = true;
-            }
-            else {
-                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-                bp.async = true;
-            }
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(bp, s);
-        })();
-    </script>
-    {{-- 360推送 --}}
-    <script>
-        (function(){
-            var src = (document.location.protocol == "http:") ? "http://js.passport.qihucdn.com/11.0.1.js?df7a65a30e107fdfc9ad5b5871106767":"https://jspassport.ssl.qhimg.com/11.0.1.js?df7a65a30e107fdfc9ad5b5871106767";
-            document.write('<script src="' + src + '" id="sozz" async><\/script>');
-        })();
-    </script>
-    @endif
-
     {{-- 统计代码 --}}
     @if(!app()->isLocal())
     {{-- 百度统计 --}}
