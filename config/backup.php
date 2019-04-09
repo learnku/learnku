@@ -124,7 +124,7 @@ return [
 
         'mail' => [
             // 通知邮箱
-            'to' => 'guccilee_1@163.com',
+            'to' => '869904300@qq.com',
         ],
 
         'slack' => [
