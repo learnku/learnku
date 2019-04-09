@@ -123,7 +123,7 @@ npm run watch-poll
 
 ## 扩展包使用情况
 | 扩展包        | 一句话描述    |  本项目应用场景  |
-| --------   | -----:   | :----: |
+| --------   | -----:   | ----: |
 | [guzzlehttp/guzzle](https://github.com/guzzle/guzzle)	|	HTTP 请求套件 | 	请求百度翻译 API |
 | [barryvdh/laravel-debugbar](https://github.com/barryvdh/laravel-debugbar)	|	页面调试工具栏 (对 phpdebugbar 的封装) | 	开发环境中的 DEBUG |
 | [spatie/laravel-permission](https://github.com/spatie/laravel-permission)	|	角色权限管理 | 	角色和权限控制 |
