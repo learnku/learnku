@@ -14,7 +14,7 @@
             @foreach(\App\Models\CourseBook::all() as $book)
                 @if((int)$book->prices <= 1000)
                 <a class="swiper-slide" href="{{ route('course.books.show', $book->id) }}">
-                    <img src="{{ $book->banner_url }}" alt="">
+                    <img src="{{ $book->banner_url }}" alt="{{ $book->title }}" style="width: 100%;">
                 </a>
                 @endif
             @endforeach
