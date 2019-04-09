@@ -73,6 +73,13 @@
                                      src="{{ assert_images($book->image['path']) }}" width="320">
                             </div>
 
+                            <div class="field">
+                                <label>Banner 图片地址 <a target="_blank" href="https://sm.ms/">图床</a></label>
+                                <input class="form-control" type="text" name="banner_url"
+                                       id="title-field" value="{{ old('banner_url', $book->banner_url ) }}"
+                                       placeholder="http://xxxxx" required="">
+                            </div>
+
                             <div contenteditable="true" id="pastebin"></div>
 
                             <div class="ui message">

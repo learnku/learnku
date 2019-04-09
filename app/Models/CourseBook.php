@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class CourseBook extends Model
 {
-    protected $fillable = ['title', 'excerpt' , 'prices', 'image_id'];
+    protected $fillable = ['title', 'excerpt' , 'prices', 'image_id', 'banner_url'];
 
     /**
      * 获取文章章节

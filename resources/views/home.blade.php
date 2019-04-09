@@ -9,17 +9,15 @@
 
 @section('content')
     <!-- Swiper -->
-    <div class="swiper-container">
+    <div class="swiper-container" style="height: 400px;">
         <div class="swiper-wrapper">
-            <div class="swiper-slide">
-                <img src="{{ assert_cdns('/images/banner/better-world.jpg') }}" alt="">
-            </div>
-            <div class="swiper-slide">
-                <img src="{{ assert_cdns('/images/banner/control-in-programming.jpg') }}" alt="">
-            </div>
-            <div class="swiper-slide">
-                <img src="{{ assert_cdns('/images/banner/create-through-programming.jpg') }}" alt="">
-            </div>
+            @foreach(\App\Models\CourseBook::all() as $book)
+                @if((int)$book->prices <= 1000)
+                <a class="swiper-slide" href="{{ route('course.books.show', $book->id) }}">
+                    <img src="{{ $book->banner_url }}" alt="">
+                </a>
+                @endif
+            @endforeach
         </div>
         <!-- Add Pagination -->
         <div class="swiper-pagination"></div>
