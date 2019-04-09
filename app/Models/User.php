@@ -64,6 +64,12 @@ class User extends Authenticatable implements JWTSubject
         return $model->user_id == $this->id;
     }
 
+    // 判断是否是管理员
+    public function isAdminOf()
+    {
+        return Auth::id() === 1;
+    }
+
     /**
      * 关联
      */

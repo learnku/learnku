@@ -57,6 +57,9 @@ Route::get('articles/{article}', 'ArticlesController@show');
 // 回复
 Route::resource('replies', 'RepliesController', ['only' => ['store', 'update', 'edit', 'destroy']]);
 
+// 首页 Banner
+Route::resource('banners', 'BannersController', ['only' => ['index', 'create', 'store', 'update', 'edit', 'destroy']]);
+
 /**
  * 博客
  */
