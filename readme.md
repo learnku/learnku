@@ -19,6 +19,7 @@
 * 教程 —— 编辑教程，系统分享知识
 * 微信支付 —— 优质教程收费系统 
 * 七牛  —— 静态资源于图片均放在第三方七牛云服务器
+* 自动备份 —— MySql 数据库自动备份
 
 ## 运行环境要求
 * Nginx 1.8+
@@ -139,6 +140,7 @@ npm run watch-poll
 | [Guzzle](https://github.com/guzzle/guzzle)	|  强大的 PHP HTTP 请求套件 |   使用 Guzzle 的 HTTP 客户端来请求 百度翻译 接口。 $ composer require "guzzlehttp/guzzle:~6.3" |
 | [PinYin](https://github.com/overtrue/pinyin)	|  基于 CC-CEDICT 词典的中文转拼音工具 |  使用 PinYin 来作为翻译的后备计划 $ composer require "overtrue/pinyin:~3.0" |
 | [Horizon](https://learnku.com/docs/laravel/5.5/horizon)	|  为 Laravel Redis 队列提供了一个漂亮的仪表板 |   查看和管理 Redis 队列任务执行的情况 |
+| [spatie/laravel-backup](https://github.com/spatie/laravel-backup)	| 自动备份你的 Laravel 程序 | 每天自动备份和清理 MySql 数据库 |
 
 
 ## 自定义 Artisan 命令
