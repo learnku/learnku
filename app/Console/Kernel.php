@@ -26,6 +26,10 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        // 每天 04:00 清理备份数据
+        $schedule->command('backup:clean')->daily()->at('04:00');
+        // 每天备份一次数据库
+        $schedule->command('backup:run --only-db')->daily()->at('03:00');
     }
 
     /**
