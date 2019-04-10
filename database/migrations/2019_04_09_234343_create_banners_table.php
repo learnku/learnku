@@ -17,7 +17,8 @@ class CreateBannersTable extends Migration
             $table->increments('id');
             $table->string('image')->comment('广告图 url 地址');
             $table->string('alt')->comment('图片 Alt信息');
-            $table->string('bg_color')->nullable()->comment('背景色');
+            $table->string('bg_left')->nullable()->comment('背景: 左侧');
+            $table->string('bg_right')->nullable()->comment('背景: 右侧');
             $table->string('url')->comment('要跳转的链接地址');
             $table->string('title')->nullable()->comment('标题');
             $table->boolean('show')->default(true)->comment('是否显示');

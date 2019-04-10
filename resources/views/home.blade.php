@@ -4,17 +4,35 @@
     <link rel="stylesheet" href="{{ assert_cdns('/ext/swiper4/css/swiper.min.css') }}">
     <style type="text/css">
         .ui.top.menu{margin-bottom: 0;}
+
+        .swiper-slide{
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+        }
+        .swiper-slide span{
+            -webkit-box-flex: 1;-ms-flex: 1 1 auto;flex: 1 1 auto;
+        }
+        .swiper-slide img{
+            -webkit-box-flex: 0;-ms-flex: 0 0 auto;flex: 0 0 auto;
+            max-width: 1200px;
+        }
     </style>
 @endsection
 
 @section('content')
     <!-- Swiper -->
-    <div class="swiper-container" style="height: 400px;">
+    <div class="swiper-container" style="height: 300px;">
         <div class="swiper-wrapper">
-            @foreach(\App\Models\CourseBook::all() as $book)
-                @if((int)$book->prices <= 1000)
-                <a class="swiper-slide" href="{{ route('course.books.show', $book->id) }}">
-                    <img src="{{ $book->banner_url }}" alt="{{ $book->title }}" style="width: 100%;">
+            @foreach(\App\Models\Banner::all() as $banner)
+                @if($banner->show)
+                <a class="swiper-slide" href="{{ $banner->url }}">
+                    <span class="before" style="background: {{ $banner->bg_left }}"></span>
+                    <img src="{{ $banner->image }}" alt="{{ $banner->alt }}">
+                    <span class="after" style="background: {{ $banner->bg_right }}"></span>
                 </a>
                 @endif
             @endforeach

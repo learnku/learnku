@@ -25,7 +25,7 @@ class ImageRequest extends FormRequest
     {
         if ($this->request->get('action') != 'delete') {
             $rules = [
-                'image_type' => 'required|string|in:qiniu,avatar,article,course',
+                'image_type' => 'required|string|in:qiniu,avatar,article,course,banner',
                 'image' => 'required|mimes:jpeg,bmp,png,gif',
             ];
 

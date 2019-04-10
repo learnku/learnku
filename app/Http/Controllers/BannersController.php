@@ -54,7 +54,7 @@ class BannersController extends Controller
      */
     protected function _policy()
     {
-        if (!Auth::user()->isAdminOf()) {
+        if (!Auth::user() || !Auth::user()->isAdminOf()) {
             abort(404);
         }
     }

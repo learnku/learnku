@@ -6,7 +6,9 @@
         <div class="twelve wide column pull-right main" style="margin-bottom: 3rem;">
             <div class="ui segment article-content">
                 <div class="extra-padding">
-
+                    <div>
+                        <a href="{{ route('banners.create') }}">新建 Banner</a>
+                    </div>
                     @if(count($banners))
                         <div class="ui feed topic-list rm-link-color mt-0">
                             @foreach($banners as $banner)

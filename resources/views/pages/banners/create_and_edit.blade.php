@@ -36,33 +36,47 @@
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                         <div class="field">
-                            <label>图片 url 地址：1200 * 300</label>
+                            <label>
+                                图片 url 地址：1200 * 300
+                                <a href="https://sm.ms/" target="_blank">图床</a>
+                                <button id="upload-img"
+                                        type="button"
+                                        class="upload-img image-border ui popover"
+                                        data-variation="inverted"
+                                        data-content="【点击我】上传图片吧">上传图片</button>
+                            </label>
                             <input class="form-control" type="text" name="image"
-                                   id="title-field" value="{{ old('image', $banner->image ) }}"
+                                   value="{{ old('image', $banner->image ) }}"
                                    placeholder="请填写 Banner 图片 url 地址" required="">
                         </div>
                         <div class="field">
                             <label>图片 Alt 信息</label>
                             <input class="form-control" type="text" name="alt"
-                                   id="title-field" value="{{ old('alt', $banner->alt ) }}"
+                                   value="{{ old('alt', $banner->alt ) }}"
                                    placeholder="请填写 Banner 图片 Alt 信息" required="">
                         </div>
                         <div class="field">
-                            <label>图片盒子 背景色</label>
-                            <input class="form-control" type="text" name="bg_color"
-                                   id="title-field" value="{{ old('bg_color', $banner->bg_color ) }}"
-                                   placeholder="请填写 图片盒子 背景色" required="">
+                            <label>图片 左侧 背景</label>
+                            <input class="form-control" type="text" name="bg_left"
+                                   value="{{ old('bg_left', $banner->bg_left ) }}"
+                                   placeholder="" required="">
+                        </div>
+                        <div class="field">
+                            <label>图片 右侧 背景</label>
+                            <input class="form-control" type="text" name="bg_right"
+                                   value="{{ old('bg_right', $banner->bg_right ) }}"
+                                   placeholder="" required="">
                         </div>
                         <div class="field">
                             <label>跳转链接 url</label>
                             <input class="form-control" type="text" name="url"
-                                   id="title-field" value="{{ old('url', $banner->url ) }}"
+                                   value="{{ old('url', $banner->url ) }}"
                                    placeholder="请填写 跳转链接 url" required="">
                         </div>
                         <div class="field">
                             <label>标题 title</label>
                             <input class="form-control" type="text" name="title"
-                                   id="title-field" value="{{ old('title', $banner->title ) }}"
+                                   value="{{ old('title', $banner->title ) }}"
                                    placeholder="标题 title">
                         </div>
                         <div class="field">
@@ -94,4 +108,18 @@
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+    <script type="text/javascript">
+        $("#upload-img").click(function () {
+            let self = this;
+            new MyUploadOne({
+                'file_type': 'banner',
+                success: function (res) {
+                    let path = assert_images(res.data.path);
+                    $("input[name='image']").val(path);
+                }
+            });
+        });
+    </script>
 @endsection

@@ -9,7 +9,8 @@ class Banner extends Model
     protected $fillable = [
         'image',
         'alt',
-        'bg_color',
+        'bg_left',
+        'bg_right',
         'url',
         'title',
         'show'
