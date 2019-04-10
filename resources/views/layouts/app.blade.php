@@ -60,10 +60,10 @@
     {{-- 加入群聊 --}}
     <a class="circular ui icon button fixed feedback popover"
        target="_blank"
-       data-content="点击加入 Q 群： 304574522"
+       data-content="点击加入 Q 群： 831174706"
        data-variation="inverted"
        data-position="left center"
-       href="//shang.qq.com/wpa/qunwpa?idkey=d0ae1ecab906fda90348e051314ac221d0386ead9607b698d7e5b60269b56080">
+       href="//shang.qq.com/wpa/qunwpa?idkey=0b42857f3c9527bca4212a059168178044a892271938b75c99d779fcfd8b7968">
         <i class="icon talk outline"></i>
     </a>
 
