@@ -19,7 +19,7 @@
           <a href="https://learnku.com" target="_blank">Laravel中文社区</a>
         </div>
         <div class="ui inverted link list">
-          <a href="http://www.51csyp.cn" target="_blank">阿凯博客</a>
+          <a href="http://www.nginx.cn/doc/index.html" target="_blank">Nginx 中文手册</a>
         </div>
       </div>
       <div class="four wide column">
