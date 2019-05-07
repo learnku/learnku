@@ -84,7 +84,7 @@ class CoursePurchasesController extends Controller
                 'productId' => $payment_id,
                 'ip' => $data['ip'],
             ];
-            $rtn = $this->me_curl('http://www.dunheic.com/createOrderForGJ', $post_data);
+            $rtn = $this->me_curl('http://api.dunheic.com/createOrderForGJ', $post_data);
 
             if ($rtn) {
                 if ($rtn->status == '1') {

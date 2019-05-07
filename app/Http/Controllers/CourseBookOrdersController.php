@@ -27,7 +27,7 @@ class CourseBookOrdersController extends Controller
         ];
 
 
-        $rtn = $this->me_curl('http://www.dunheic.com/gj/notify_url', $data);
+        $rtn = $this->me_curl('http://api.dunheic.com/gj/notify_url', $data);
         if ($rtn && $rtn->status === 1) {
             if (isset($rtn->data->pay) && $rtn->data->pay === 1) {
                 $order->flag = '1';
