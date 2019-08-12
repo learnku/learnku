@@ -36,7 +36,7 @@
 
 1. 克隆 learnku 源代码到本地：
 ```
-git clone git@github.com:GucciLee/learnku.git
+git clone git@github.com:learnku/learnku.git
 ```
 
 2. 配置本地的 Homestead 环境
